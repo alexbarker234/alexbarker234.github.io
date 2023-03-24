@@ -1,0 +1,207 @@
+body {
+    background-color: #121213;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+   /* no selection!*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#guesses {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+}
+nav {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    text-align: center;
+    border-bottom: solid 2px #3a3a3c;
+    overflow: hidden;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    font-size: 30px;
+}
+#nav-title{
+    cursor: pointer;
+}
+.letter-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.box {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 30px;
+}
+.green {
+    background-color: green;
+    color:white;
+}
+.yellow {
+    background-color: #d6a10d;
+    color:white;
+}
+.grey {
+    background-color: #818384;
+    color:white;
+}
+.blank {
+    background-color: #262629;
+    color:white;
+}
+/* keyboard */
+#keyboard {
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#keyboard div {
+    display: flex;
+}
+.keyboard-button {
+    margin: 0.2rem;
+    width: 4rem;
+    height: 5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 900;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.key-wide {
+    width: 8rem;
+}
+
+
+/* ANIMATIONS */
+
+
+[data-animation="pulse"] {
+    animation: pulse 0.1s;
+}
+[data-animation="shake"] {
+    animation: shake 0.5s;
+}
+[data-animation="hop"] {
+    animation: hop 0.2s;
+}
+[data-animation="flip-green"] {
+    animation: flip-green 0.5s;
+}
+[data-animation="flip-yellow"] {
+    animation: flip-yellow 0.5s;
+}
+[data-animation="flip-grey"] {
+    animation: flip-grey 0.5s;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+   }
+    30% {
+        transform: scale(1.2);
+   }
+    100% {
+        transform: scale(1);
+   }
+}
+@keyframes flip-green {
+    0% {
+        transform: scaleY(1);
+   }
+    50% {
+        background: #262629;
+        transform: scaleY(0);
+   }
+    100% {
+        transform: scaleY(1);
+        background: green;
+   }
+}
+@keyframes flip-yellow {
+    0% {
+        transform: scaleY(1);
+   }
+    50% {
+        background: #262629;
+        transform: scaleY(0);
+   }
+    100% {
+        transform: scaleY(1);
+        background: #d6a10d;
+   }
+}
+@keyframes flip-grey {
+    0% {
+        transform: scaleY(1);
+   }
+    50% {
+        background: #262629;
+        transform: scaleY(0);
+   }
+    100% {
+        transform: scaleY(1);
+        background: #818384;
+   }
+}
+@keyframes hop {
+    0% {
+        transform: translate(0%, 0%);
+   }
+    50% {
+        transform: translate(0%, -20%);
+   }
+    100% {
+        transform: translate(0%, 0%);
+   }
+}
+@keyframes shake {
+    0% {
+        transform: translate(1%, 0px);
+   }
+    10% {
+        transform: translate(-1%, 0px);
+   }
+    20% {
+        transform: translate(1%, 0px);
+   }
+    30% {
+        transform: translate(-1%, 0px);
+   }
+    40% {
+        transform: translate(1%, 0px);
+   }
+    50% {
+        transform: translate(-1%, 0px);
+   }
+    60% {
+        transform: translate(0.5%, 0px);
+   }
+    70% {
+        transform: translate(-0.5%, 0px);
+   }
+    80% {
+        transform: translate(0.25%, 0px);
+   }
+    90% {
+        transform: translate(-0.25%, 0px);
+   }
+    100% {
+        transform: translate(0%, 0px);
+   }
+}
