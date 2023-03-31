@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>meta balllls</title>
+    <link rel="stylesheet" href="./metaballs.css">
+
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>      
+    <script src="metaballs.js"></script>
+
+</head>
+<body>
+    <svg height="100%" width="100%">
+        <defs>
+            <filter id="gooify" width="400%" x="-150%" height="400%" y="-150%">
+                <feGaussianBlur id="blurElement" in="SourceGraphic" stdDeviation="20" result="blur" />
+                <feColorMatrix id="colorMatrixElement" in="blur" mode="matrix" values="     1 0 0 0  0
+                                                                                            0 1 0 0  0
+                                                                                            0 0 1 0  0
+                                                                                            0 0 0 25 -15" result="matrix" />
+            </filter>
+        </defs>
+        <g filter="url(#gooify)" id="circle-container"/>
+    </svg>
+    <div class="test">METABALLS.</div>
+</body>
+</html>
