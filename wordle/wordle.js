@@ -110,8 +110,8 @@ window.onload =function() {
     document.getElementById("keyboard").addEventListener("click", (e) => {
         let key = e.target.innerHTML;
 
-        if (key == "ENTER") key = "Enter";
-        else if (key == "DEL") key = "Backspace";
+        if (key == "⏎") key = "Enter";
+        else if (key == "⌫") key = "Backspace";
 
         manageKey(key);
     });
@@ -119,6 +119,12 @@ window.onload =function() {
         var audio = document.getElementById("audio");
         audio.play();
     });
+
+    document.addEventListener('keydown', (e) => {
+        if(e.keyCode === 13){
+            e.preventDefault();
+        }
+    })
 }
 // actual keyboard
 var nextLetter = 0

@@ -63,7 +63,12 @@ nav {
 }
 /* keyboard */
 #keyboard {
-    margin: 1rem 0;
+    width: 95%;
+    max-width: 400px;
+
+    margin: auto;
+    margin-top: 1rem;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,20 +76,30 @@ nav {
 #keyboard div {
     display: flex;
 }
+.keyboard-row {
+    width:100%
+}
 .keyboard-button {
     margin: 0.2rem;
-    width: 4rem;
-    height: 5rem;
+
+    flex-grow: 1;
+    flex: 1 1 0px;
+
+    height: 3rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 900;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.keyboard-space {
+    flex-grow: 0.5;
+}
 .key-wide {
-    width: 8rem;
+    flex-grow: 1.5;
+    font-size: 1.5rem;
 }
 
 
