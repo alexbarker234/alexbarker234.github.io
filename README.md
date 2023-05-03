@@ -1,1 +1,1 @@
-<p>View at <a href="alexbarker234.github.io">alexbarker234.github.io</a></p>
+View at [alexbarker234.github.io](https://alexbarker234.github.io)
