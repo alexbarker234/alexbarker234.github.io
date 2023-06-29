@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
-
 body {
     background-color: #121213;
     color: white;
@@ -28,19 +27,21 @@ body {
 }
 
 #projects {
-    width: 100%;
-    height: 10rem;
     line-height: 10rem;
 
-    border-top:    2px solid  #232325;
-    border-bottom: 2px solid #232325;
-
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     font-size: 1.5rem;
 }
 .project {
-    width: 20%;
+    width: 90%;
+    max-width: 500px;
+    height: 10rem;
+
+    margin: auto;
+    margin-bottom: 1rem;
+    
     background-color: #232325;
     transition: 0.4s;
 }
@@ -53,6 +54,7 @@ body {
     display:inline-block;
     text-decoration: none;
     color: white;
+    transition: 0.4s;
 }
 .project a:hover{
     color:#121213;
