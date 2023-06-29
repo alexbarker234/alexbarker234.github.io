@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CITS3403 Project Handover</title>
+
+        <style>
+            :root {
+                --bg-light: #fbfbff;
+                --bg-medium: #f1f1f5;
+
+                --blue: #4d65bf;
+                --grey: #87888b;
+            }
+
+            body {
+                font-family: sans-serif;
+                background-color: var(--bg-light);
+
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
+            h1,
+            h2 {
+                margin: 0;
+            }
+
+            h2 {
+                color: var(--blue);
+            }
+            .top {
+                background-color: var(--blue);
+                min-height: 10rem;
+                color: white;
+                padding: 2rem 4rem;
+            }
+            /* OVERVIEW */
+            .overview {
+                background-color: var(--bg-medium);
+                padding: 2rem;
+
+                text-align: center;
+                position: relative;
+            }
+            .overview p {
+                color: var(--grey);
+
+                margin: auto;
+                margin-top: 1rem;
+                width: 50%;
+                max-width: 1000px;
+
+                font-size: 1.1rem;
+            }
+
+            .overview .img-container {
+                position: absolute;
+                width: 20%;
+                max-width: 400px;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .overview .img-container.left {
+                left: 2rem;
+                top: 50%;
+                transform: translate(0, -50%);
+            }
+            .overview .img-container.right {
+                right: 2rem;
+                top: 50%;
+                transform: translate(0, -50%);
+            }
+            .overview .img-container img {
+                border-radius: 1rem;
+                box-shadow: rgba(0, 0, 0, 0.5) 0px 14px 14px;
+            }
+            .overview .img-container.left img {
+                width: 100%;
+            }
+
+            h2 svg,
+            li svg {
+                height: 1.3rem;
+                width: 1.3rem;
+                stroke: var(--blue);
+                fill: var(--blue);
+                transform: translate(0, 4px);
+            }
+
+            .section {
+                padding: 3rem;
+            }
+
+            .code-block {
+                background-color: #ccd5ff;
+                border: solid #b698e6 1px;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                font-family: monospace;
+            }
+            .step:not(:last-child) {
+                border-bottom: var(--grey) 1px solid;
+                padding-bottom: 2rem;
+                margin-bottom: 2rem;
+            }
+            .step .text {
+                margin: 1rem 0;
+            }
+            .step .title {
+                font-weight: 100;
+            }
+            .step .title strong {
+                font-weight: 900;
+            }
+            .sub-step-list {
+                padding-left: 2rem;
+            }
+            .sub-step:not(:last-child) {
+                margin-bottom: 2rem;
+            }
+            /* ASIDES */
+            .aside {
+                position: relative;
+            }
+            .aside-button {
+                background-color: var(--blue);
+                padding: 0.5rem 1rem;
+                border-radius: 1rem;
+                color: white;
+                transition: 0.2s;
+
+                /* Remove default button style */
+                border: none;
+                font: inherit;
+                cursor: pointer;
+                outline: inherit;
+            }
+            .aside-button:hover {
+                filter: opacity(0.7);
+            }
+            .aside-content {
+                background-color: var(--bg-light);
+                border: 2px solid var(--grey);
+                border-radius: 1rem;
+                padding: 1rem;
+                position: absolute;
+
+                top: 100%;
+                margin-top: 0.5rem;
+
+                width: fit-content;
+                max-width: 800px;
+                transition: 0.2s;
+                opacity: 0;
+
+                box-shadow: rgba(0, 0, 0, 0.5) 0px 14px 14px;
+
+                pointer-events: none;
+
+                z-index: 5;
+            }
+            .aside-content.shown {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* advice */
+            .advice-section li {
+                font-weight: 600;
+                margin: 1rem 0rem;
+            }
+
+            /* acceptance criteria */
+            .acceptance-criteria {
+                display: grid;
+                justify-content: center;
+                grid-template-columns: repeat(auto-fit, minmax(24rem, 2fr));
+            }
+            .test-case {
+                border: var(--blue) 2px solid;
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .table-of-contents li:not(:last-child) {
+                padding-bottom: 0.5rem;
+            }
+        </style>
+
+        <script>
+            // Sub steps have the same format as steps without the aside or more sub steps
+            const steps = [
+                {
+                    title: "Create Python Virtual Environment",
+                    text: `Open the terminal or command prompt and navigate to the project directory or open the project in your
+                        <a href="https://code.visualstudio.com/">Visual Studio Code</a> workspace and use the VS Code terminal.
+                        <br><br>
+                        Run the following command to create the virtual environment.
+                        <br><br>
+                        <div class="code-block">python -m venv venv</div>`,
+                    images: [
+                        {
+                            src: "./Step1.png",
+                            height: 250,
+                        },
+                    ],
+                    aside: {
+                        label: "Virtual Environments",
+                        note: `Python virtual environments are essential for isolating projects, managing dependencies, ensuring reproducibility, simplifying deployment, and facilitating testing and development.
+                        <br><br><a href="https://docs.python.org/3/library/venv.html">Read more about Python Virtual Environments</a>`,
+                    },
+                },
+                {
+                    title: "Activate Python Virtual Environment",
+                    text: `In your open terminal, activate the virtual environment by running one of the following commands depending on your OS:
+                        <br>                 
+                        <h4>Windows:</h4>
+                        <div class="code-block">./venv/Scripts/activate</div>
+        
+                        <h4>MacOS/Linux</h4>
+                        <div class="code-block">source venv/bin/activate</div>
+                        <br>                 
+                        Your terminal should look something like below, with <strong>(venv)</strong> appearing before your current working directory
+                        `,
+                    images: [
+                        {
+                            src: "./Step2.png",
+                            height: 250,
+                        },
+                    ],
+                    aside: {
+                        label: "Why are the commands different between OS?",
+                        note: "Python virtual environment commands differ between Windows and Mac/Linux due to variations in command line interfaces and the way operating systems handle environment variables.",
+                    },
+                },
+                {
+                    title: "Install package requirements",
+                    text: `In your open terminal, run the following command:
+                        <br />
+                        <div class="code-block">pip install -r requirements.txt</div>
+                        <br />
+
+                        This use pythons package installer, <a href="https://pypi.org/project/pip/">pip</a> to install all requirements from the requirements.txt
+                        folder located in the root of the project.
+                        <br />
+                        If your installation was successfully, you should see a "successfully installed" message like below.
+                        `,
+                    images: [
+                        {
+                            src: "./Step3.png",
+                            height: 250,
+                        },
+                    ],
+                    aside: {
+                        label: "Why are the commands different between OS?",
+                        note: "Python virtual environment commands differ between Windows and Mac/Linux due to variations in command line interfaces and the way operating systems handle environment variables.",
+                    },
+                },
+                {
+                    title: "Set up your Spotify App",
+                    text: `As the project uses the Spotify API, you will have to register the application with Spotify`,
+                    images: [
+                        {
+                            src: "./Step3.png",
+                            height: 250,
+                        },
+                    ],
+                    aside: {
+                        label: "Why are the commands different between OS?",
+                        note: "Python virtual environment commands differ between Windows and Mac/Linux due to variations in command line interfaces and the way operating systems handle environment variables.",
+                    },
+                    subSteps: [
+                        {
+                            title: `Go to <a href="https://developer.spotify.com/">Spotify for Developers</a>`,
+                            text: `Log in with your Spotify Account, or register a new Spotify account`,
+                            images: [
+                                {
+                                    src: "./Step4-1.png",
+                                    height: 250,
+                                },
+                                {
+                                    src: "./Step4-2.png",
+                                    height: 250,
+                                },
+                            ],
+                        },
+                        {
+                            title: `Go to the <a href="https://developer.spotify.com/dashboard">Spotify Developer Dashboard</a>`,
+                            text: `You are also able to access this page by clicking your profile > Dasboard`,
+                            images: [
+                                {
+                                    src: "./Step4-3.png",
+                                    height: 100,
+                                },
+                            ],
+                        },
+                        {
+                            title: `Agree to the terms`,
+                            text: `After agreeing to the terms, your dashboard should look like below if it is empty.`,
+                            images: [
+                                {
+                                    src: "./Step4-4.png",
+                                    height: 250,
+                                },
+                                {
+                                    src: "./Step4-5.png",
+                                    height: 250,
+                                },
+                            ],
+                        },
+                        {
+                            title: `Create the app`,
+                            text: `The "App name" and "App description" can be anything. The important part is the "Redirect URI". Spotify only allows you to add one redirect URI initially`,
+                            images: [
+                                {
+                                    src: "./Step4-6.png",
+                                    height: 500,
+                                },
+                            ],
+                        },
+                        {
+                            title: `Add the Redirect URIs`,
+                            text: `Go back into the app settings to add the other redirect URI. Add both localhost URIs as if you access the app with the wrong URI it will not work.
+                                <br>
+                                <div class="code-block">http://127.0.0.1:5000/authorise<br />http://localhost:5000/authorise</div>`,
+                            images: [
+                                {
+                                    src: "./Step4-7.png",
+                                    height: 170,
+                                },
+                            ],
+                        },
+                        {
+                            title: `Get the app's Client ID and Client Secret`,
+                            text: `Under "Basic Information", click "View Client Secret" and then save both the Client ID and Client Secret as they will be used in the next step. Do not share the client secret with anyone.`,
+                            images: [
+                                {
+                                    src: "./Step4-8.png",
+                                    height: 200,
+                                },
+                            ],
+                        },
+                        {
+                            title: `Optional: Add other users`,
+                            text: `If would like other Spotify users to log in on the same local application, you will have to add their email manually. This is because the basic Spotify App mode is in <a href="https://developer.spotify.com/documentation/web-api/concepts/quota-modes">Development Mode</a> and will need to be upgraded for larger-scale use
+                                <br><br>
+                                Click the User Management tab in your app and add the names and emails of the corresponding Spotify accounts that will access the application`,
+                            images: [
+                                {
+                                    src: "./Step4-9.png",
+                                    height: 400,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    title: "Initialise .env",
+                    text: `In the repository's directory, create a file named .env and open the .env file in a text editor.
+                        <br>
+                        Add the following lines to the .env file and replace &lt;anything&gt;, &lt;YOUR-SPOTIFY-CLIENT-ID&gt;, and &lt;YOUR-SPOTIFY-CLIENT-SECRET&gt; with appropriate values:
+                        <br>
+                        <div class="code-block">
+                            SECRET_KEY=&lt;anything&gt; <br />
+                            SPOTIPY_CLIENT_ID=&lt;YOUR-SPOTIFY-CLIENT-ID&gt; <br />
+                            SPOTIPY_CLIENT_SECRET=&lt;YOUR-SPOTIFY-CLIENT-SECRET&gt; <br />
+                            SPOTIPY_REDIRECT_URI=&lt;anything&gt; <br />
+                        </div>
+                        <br>
+                        Here is what the .env file looks like using the client secret & id from previous steps:
+                        `,
+                    images: [
+                        {
+                            src: "./Step5.png",
+                            height: 250,
+                        },
+                    ],
+                    aside: {
+                        label: "Why must environment variables be kept a secret?",
+                        note: `Environment variables are variables used by operating systems and applications to store configuration settings and sensitive information. They are accessed by software during runtime and provide a way to customize the behavior of programs without modifying the code.
+                            <br><br>
+                            Environment variables must be kept secret because they can contain sensitive information such as API keys, passwords, or database credentials. If exposed, this information can be exploited by malicious actors to gain unauthorized access to systems or misuse the protected resources.`,
+                    },
+                },
+                {
+                    title: "Initialise the database",
+                    text: `Songversation uses Flask-Migrate in order to handle its migrations. There are a number of existing models defined in app/models.py with existing migrations in the migrations folder. To create the local SQLite database with all the latest models, run the command:
+                        <br><br>
+                        <div class="code-block">flask db upgrade</div>
+                        <br>
+                        In future, you will likely need to add more models, change models or delete models. To do this, make any changes to the model and then run the migration command with a message describing the changes:
+                        <br><br>
+                        <div class="code-block">flask db migrate -m "message"</div>
+                        <br>
+                        Then run the upgrade command again to apply your migrations. 
+                        `,
+                    images: [],
+                    aside: {
+                        label: "Object Relational Mapping",
+                        note: `Object-Relational Mapping (ORM) is a technique used in software development to bridge the gap between object-oriented programming and relational databases. It enables developers to work with database tables as if they were Python classes, making it easier to query and manipulate data.
+                        <br><br>
+                        ORM frameworks like SQLAlchemy provide a way to synchronize Python classes with database tables by mapping the attributes and relationships of the classes to the columns and relationships of the tables. 
+                        <br><br>
+                        For example, in Songversation, there is a Python class "User" with attributes "user_id", "display_name" which correspond to columns in the database. This allowed interacting with the database through Python code, performing CRUD operations while abstracting direct SQL queries and protecting against SQL Injection
+                        
+                        I used SQLAlchemy to define a Python class called "User" that represents a table in the database. I defined attributes like "id", "name", and "email" in the class, and SQLAlchemy automatically created corresponding columns in the database table. This synchronization allows me to interact with the "User" table using Python code, performing operations like creating new users, querying existing users, or updating user information, all while abstracting away the complexities of SQL queries and database interactions.`,
+                    },
+                },
+                {
+                    title: "Run the application",
+                    text: `<div class="code-block">flask run</div>`,
+                    images: [
+                        {
+                            src: "./Step7.png",
+                            height: 100,
+                        },
+                    ],
+                    aside: {
+                        label: "Routing",
+                        note: `Flask uses a stateless client-server architecture - each request from the client contains all the necessary information for the server to process it, allowing for scalability, simplicity, and easier load balancing in distributed systems.
+                            <br>
+                            Flask handles this by mapping specific URLs to functions, where that function returns a response including a body and its code. For example:
+                            <ul>
+                                <li>When a client accesses songversation.com/lyricgame/playlist/a7g879sdfg9du, Flask reads that request and executes the function labelled with the route "/lyricgame/playlist/&lt;playlist_id&gt;"</li>
+                            </ul>
+                                `,
+                    },
+                },
+            ];
+
+            function initialize() {
+                // load steps
+                const stepList = document.getElementById("step-list");
+
+                let stepNum = 1;
+                steps.forEach(function (stepContent) {
+                    stepList.append(createStepComponent(stepContent, stepNum, "step"));
+                    stepNum++;
+                });
+
+                // Find all aside buttons
+                const buttons = document.querySelectorAll(".aside-button");
+
+                // Add a click event listener to each button
+                buttons.forEach(function (button) {
+                    button.addEventListener("click", function (e) {
+                        let content = document.getElementById(e.target.dataset.aside);
+                        content.classList.toggle("shown");
+                    });
+                });
+            }
+
+            function createStepComponent(stepContent, stepNum, type) {
+                const step = document.createElement("div");
+                step.className = type;
+
+                // Modifying the innerHTML with template strings is much more readable than a list of DOM manipulation - similar to JSX
+
+                // Title & aside
+                if (type === "step") {
+                    step.innerHTML = `
+                        <h3 class="title"><strong>Step ${stepNum}.</strong> ${stepContent.title}</h3>
+                        <div class="aside">
+                            <button class="aside-button" data-aside="step-${stepNum}-aside">🛈 ${stepContent.aside.label}</button>
+                            <div class="aside-content" id="step-${stepNum}-aside">${stepContent.aside.note}</div>
+                        </div>
+                    `;
+                } else {
+                    step.innerHTML = `<h4>${stepNum}. ${stepContent.title}</h4>`;
+                }
+                // Step text
+                step.innerHTML += `<div class="text">${stepContent.text}</div>`;
+
+                // Images
+                stepContent.images?.forEach((image) => {
+                    step.innerHTML += `<img src="${image.src}" ${image.height ? `height="${image.height}"` : ""} />`;
+                });
+
+                // Sub steps
+                if (type === "step" && stepContent.subSteps) {
+                    const subStepList = document.createElement("div");
+                    subStepList.className = "sub-step-list";
+                    stepNum = "a";
+                    stepContent.subSteps.forEach((subStepContent) => {
+                        subStepList.append(createStepComponent(subStepContent, stepNum, "sub-step"));
+                        stepNum = String.fromCharCode(stepNum.charCodeAt(0) + 1);
+                    });
+                    step.append(subStepList);
+                }
+
+                return step;
+            }
+
+            document.addEventListener("DOMContentLoaded", initialize);
+        </script>
+    </head>
+    <body>
+        <div class="top">
+            <h1>Project Handover</h1>
+            <h1>CITS3403 Agile Web Development</h1>
+            <h1>23152009 - Alex Barker</h1>
+        </div>
+        <div class="overview" id="overview">
+            <h2>
+                Overview - Songversation
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                        d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1.1 28.3 5z"
+                    />
+                </svg>
+            </h2>
+            <p>
+                Songversation is a game that allows users to log in with their Spotify account, choose a playlist or followed artist, and guess the correct song
+                from three presented lyrics. Points are earned for each correct guess, and the game continues until an incorrect guess is made.
+            </p>
+            <p>
+                Our website is designed for music lovers who enjoy exploring various genres, artists, and songs. These individuals likely have an active Spotify
+                account and actively curate playlists or follow their favorite artists.
+            </p>
+            <p>
+                This game offers an entertaining way for users to test their knowledge of songs in their Spotify library. It adds a competitive element as
+                players aim for a high score by correctly guessing as many songs as possible. Unlike Heardle or Lyricle, it provides a personalized experience
+                based on the user's own music collection.
+            </p>
+            <p>
+                Songversation is built using Flask, using the <a href="https://developer.spotify.com/documentation/web-api">Spotify API</a>. By leveraging the
+                user's logged-in Spotify data, Songversation allows users to choose from playlists and artists that they follow. Songversation also makes use of
+                the Spotify API to get all the songs belonging to an artist or playlist and then get their lyrics to send to the client to display on their page
+                in the game, as well as cache the lyrics in our own database to speed up loading time for users.
+            </p>
+            <div class="img-container left">
+                <img src="./Overview1.png" />
+            </div>
+            <div class="img-container right">
+                <img src="./Overview2.png" height="250px" />
+                <img src="./Overview3.png" height="250px" />
+            </div>
+        </div>
+        <div class="section" id="table-of-contents">
+            <h2>Table of Contents</h2>
+            <ol class="table-of-contents">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#table-of-contents">Table of Contents</a></li>
+                <li><a href="#build-and-run">Build and Run Instructions</a></li>
+                <li><a href="#suggested-features">Suggested Features</a></li>
+                <li><a href="#advice">Advice for Groups</a></li>
+            </ol>
+        </div>
+        <div class="section" id="build-and-run">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                        d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4h54.1l109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109V104c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"
+                    />
+                </svg>
+                Build and Run Instructions
+            </h2>
+            <p>After cloning the repository, follow these steps to run Songversation locally</p>
+            <div id="step-list"></div>
+        </div>
+        <div class="section" id="suggested-features">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path
+                        d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+                    />
+                </svg>
+                Suggested Features
+            </h2>
+            <div class="feature">
+                <h3>Vs. Multiplayer</h3>
+                <h4>Overview</h4>
+                <div>
+                    <p>
+                        Currently, Songversation has a friends feature allowing users to add other Songversation users and chat to them. This could be expaneded
+                        upon to allow users to verse their friends in "Guess the Song" mode.
+                    </p>
+                    <p>
+                        Including multiplayer in Songversation will enhance social interaction and will foster friendly competition. Players can connect with
+                        friends, family, or strangers, sharing music tastes and battling to showcase their knowledge of artists. The game becomes a platform for
+                        discussions and conversations about music, while the competitive aspect adds excitement and motivation. Challenging others and comparing
+                        scores creates a thrilling environment where players can test their skills and experience the joy of victory.
+                    </p>
+                    <p>
+                        Overall, multiplayer elevates the game by creating a dynamic and engaging experience that encourages social connection and friendly
+                        rivalry.
+                    </p>
+                </div>
+
+                <h4>User Story</h4>
+                <div>
+                    <p>
+                        As a player, I want to use the multiplayer features in Songversation to connect with friends and engage in friendly competition while
+                        sharing our music tastes.
+                    </p>
+                </div>
+                <h4>Acceptance Criteria</h4>
+                <div class="acceptance-criteria">
+                    <div class="test-case">
+                        <h4>Test Case 1: Connecting with Friends</h4>
+                        <p><strong>Given:</strong> The player is in the multiplayer lobby.</p>
+                        <p><strong>When:</strong> The player selects the option to invite friends.</p>
+                        <p>
+                            <strong>Then:</strong> The player should be able to send invitations to their friends and receive confirmation when they join the
+                            game.
+                        </p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 2: Recieving an Invite</h4>
+                        <p><strong>Given:</strong> The player is on the website.</p>
+                        <p><strong>When:</strong> Their friend sends them an invite.</p>
+                        <p><strong>Then:</strong> A notification should appear asking the player to join their friends game.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 3: Joining a Game</h4>
+                        <p><strong>Given:</strong> The player has a pending invite.</p>
+                        <p><strong>When:</strong> The player clicks Join Game.</p>
+                        <p><strong>Then:</strong> The player is redirected to the game page and the game begins.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 4: Selecting an Artist or Playlist</h4>
+                        <p><strong>Given:</strong> The player is in a multiplayer game.</p>
+                        <p><strong>When:</strong> It's the player's turn to choose an artist or playlist for the round.</p>
+                        <p>
+                            <strong>Then:</strong> The player should be able to select an artist or playlist, and it should be reflected for all players in the
+                            game.
+                        </p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 5: Guessing the Song Title</h4>
+                        <p><strong>Given:</strong> The players are in a multiplayer game.</p>
+                        <p><strong>When:</strong> The game presents a snippet of a song's lyrics.</p>
+                        <p>
+                            <strong>Then:</strong> Each player should be able to enter their guess for the song title, and the game should validate and provide
+                            feedback on their answers.
+                        </p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 6: Post-Guess Screen</h4>
+                        <p><strong>Given:</strong> The players are in a multiplayer game and have submitted their answers.</p>
+                        <p><strong>When:</strong> Everyone has guessed.</p>
+                        <p>
+                            <strong>Then:</strong> A popup appears showing all players guessing and whether they guessed correctly along with a "Next Song"
+                            button
+                        </p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 7: Moving on from Guess Screen</h4>
+                        <p><strong>Given:</strong> The players are in a multiplayer game and are on the post-guess screen.</p>
+                        <p><strong>When:</strong> Everyone has clicked the "Next Song" button.</p>
+                        <p><strong>Then:</strong> The next lyric snippet is displayed and each user can make their guess.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 8: Post-Game Reflection</h4>
+                        <p><strong>Given:</strong> The multiplayer game has ended.</p>
+                        <p><strong>When:</strong> The players finish playing multiple rounds.</p>
+                        <p>
+                            <strong>Then:</strong> A final screen is displayed, showing the score of all players along with a post game chat where they can send
+                            messages to each other.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature">
+                <h3>Lyric Guessing Mode</h3>
+                <h4>Overview</h4>
+                <div>
+                    <p>
+                        In the lyric guessing mode, players can select a playlist or artist just like in the existing song guessing mode. However, instead of
+                        guessing the song, the website presents players with a line of lyrics from a song. Their task is to enter the next line accurately. The
+                        website then assesses their response, providing feedback on correctness. The game progresses with new lines of lyrics until the player
+                        finishes the song or they guess wrong.
+                    </p>
+                    <p>This mode adds depth and challenge by testing players' knowledge of lyrics, going beyond simply guessing the songs.</p>
+                </div>
+                <h4>User Story</h4>
+                <p>As a player, I want to play the Lyric Guesser mode in Songversation to test my knowledge of artists, playlists and song lyrics.</p>
+                <h4>Acceptance Criteria</h4>
+                <div class="acceptance-criteria">
+                    <div class="test-case">
+                        <h4>Test Case 1: Choosing the mode</h4>
+                        <p><strong>Given:</strong> The player is on the Songversation website.</p>
+                        <p><strong>When:</strong> The player clicks the "Lyric Guesser" game mode button.</p>
+                        <p>
+                            <strong>Then:</strong> The player is redirected to a webpage where they can choose an artist or playlist from their Spotify profile.
+                        </p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 2: Choosing the artist or playlist</h4>
+                        <p><strong>Given:</strong> The player is on the Lyric Guesser gamemode choosing an artist or playlist.</p>
+                        <p><strong>When:</strong> The player selects an artist or playlist.</p>
+                        <p>
+                            <strong>Then:</strong> The player is redirected to a webpage that gives them the first lyric of a random song from that artist or
+                            playlist.
+                        </p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 3: Correct Guess</h4>
+                        <p><strong>Given:</strong> A snippet of lyrics from a random song in the artist or playlist library is presented.</p>
+                        <p><strong>When:</strong> The player correctly guesses next lyric.</p>
+                        <p><strong>Then:</strong> The webpage awards a point to the player and displays the lyric that comes after their guess.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 4: Incorrect Guess</h4>
+                        <p><strong>Given:</strong>A snippet of lyrics from a random song in the artist or playlist library is presented.</p>
+                        <p><strong>When:</strong> The player incorrectly guesses next lyric.</p>
+                        <p><strong>Then:</strong> The webpage marks the lyric as red and displays the lyric that comes after their guess.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 5: Almost Correct Guess</h4>
+                        <p><strong>Given:</strong> A snippet of lyrics from a random song in the artist or playlist library is presented.</p>
+                        <p><strong>When:</strong> The player guesses next lyric but with some spelling mistakes.</p>
+                        <p><strong>Then:</strong> The game provides some leniency to the player and awards them the point, marking their guess as yellow.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 6: Skip the song</h4>
+                        <p><strong>Given:</strong> A snippet of lyrics from a random song in the artist or playlist library is presented.</p>
+                        <p><strong>When:</strong> The player clicks the "Skip Song" button</p>
+                        <p><strong>Then:</strong> The game moves onto the next random song, displaying the first lyric of that song.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 7: Game Over and Final Score</h4>
+                        <p><strong>Given:</strong> The player is in a lyric guesser game.</p>
+                        <p><strong>When:</strong> The game reaches the end, or the player gives up.</p>
+                        <p><strong>Then:</strong> The game should display the final score of the player, and provide an option to restart or exit the game.</p>
+                    </div>
+                    <div class="test-case">
+                        <h4>Test Case 8: Responsive Design</h4>
+                        <p><strong>Given:</strong> The website is available on multiple platforms.</p>
+                        <p><strong>When:</strong> The player accesses the website from a different platform.</p>
+                        <p>
+                            <strong>Then:</strong> The game provides a consistent and seamless experience across platforms, with all elements appearing and
+                            functioning with no friction to the user experience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="advice">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                    <path
+                        d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM609.3 512H471.4c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z"
+                    />
+                </svg>
+                Advice for Groups
+            </h2>
+            <div class="advice-section">
+                <h3>Tools</h3>
+                <ol>
+                    <div class="list-item">
+                        <li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+                        <div class="list-description">
+                            <p>
+                                VS Code is a code editor that provides excellent support for Python development. It offers features like syntax highlighting,
+                                code completion, debugging, and integration with version control systems.
+                            </p>
+                            <p>
+                                To incorporate this into the project, download VS Code and then open the cloned directory. VS Code should handle the file
+                                system, running from the terminal and manage Git all in the same application, streamlining the developer experience.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <li><a href="https://git-scm.com/">Git</a> and <a href="https://github.com/">GitHub</a></li>
+                        <div class="list-description">
+                            <p>
+                                Git is a version control system that helps you track changes to your codebase and collaborate with other developers. It allows
+                                you to create branches, merge changes, and revert to previous versions of your code easily.
+                            </p>
+                            <p>
+                                GitHub is a web-based platform that provides a collaborative environment for developers to host, manage, and version control
+                                their Git repositories, facilitating efficient collaboration, code sharing, and project management.
+                            </p>
+                            <p>
+                                Songversation is currently set up on GitHub, so to incorporate Git & GitHub into the project, install git. The existing
+                                repository is already pre-configured. VS Code will also make using Git & GitHub very easy as it has built in functionality.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <li><a href="https://www.postman.com/">Postman</a></li>
+                        <div class="list-description">
+                            <p>
+                                Postman is a tool for testing and documenting APIs. It allows you to send HTTP requests, inspect responses, and create automated
+                                test suites for your web application's API endpoints.
+                            </p>
+                            <p>
+                                Postman will be incredibly useful in testing Songversation's API routes, as well as Spotify's API routes. During development, we
+                                used Postman to create sequences of API calls to ensure that the user can go from logging in, to getting lyrics for a track. We
+                                also tested Songversations API routes to ensure that Spotify Authentication was working and our application was returning the
+                                expected results.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <li><a href="https://www.microsoft.com/en-au/microsoft-teams">Microsoft Teams</a> or <a href="https://discord.com/">Discord</a></li>
+                        <div class="list-description">
+                            <p>
+                                Microsoft Teams is a collaboration platform that combines chat, video meetings, file sharing, and integration with other
+                                Microsoft tools, designed to facilitate communication and teamwork within organizations.
+                            </p>
+                            <p>
+                                Discord is a communication platform, providing features such as voice chat, text messaging, and community building tools,
+                                fostering communication and interaction among its users. It's clean UI and video call capabilities makes it a good alternative
+                                to Microsoft Teams.
+                            </p>
+                            <p>
+                                One of these tools should be used to facilitate communication & online meetings to inform all project members of what they
+                                should be doing and ask any questions.
+                            </p>
+                        </div>
+                    </div>
+                </ol>
+            </div>
+            <div class="advice-section">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+                    <symbol id="youtube" viewBox="0 0 576 512">
+                        <path
+                            d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"
+                        />
+                    </symbol>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+                    <symbol id="page" viewBox="0 0 384 512">
+                        <path
+                            d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"
+                        />
+                    </symbol>
+                </svg>
+                <h3>Tutorials</h3>
+                <ol>
+                    <div class="list-item">
+                        <li>
+                            <a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world"
+                                ><svg><use href="#page" /></svg>Miguel Grinberg's Flask Mega Tutorial
+                            </a>
+                        </li>
+                        <div class="list-description">
+                            Miguel Grinberg's Flask Mega Tutorial is a comprehensive guide that walks you through the process of building a fully functional web
+                            application using the Flask framework. It covers various topics such as database integration, user authentication, deployment, and
+                            more, providing a hands-on approach to learning Flask.
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <li>
+                            <a href="https://www.youtube.com/playlist?list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX">
+                                <svg><use href="#youtube" /></svg>Tech With Tim's YouTube Flask Tutorials
+                            </a>
+                        </li>
+                        <div class="list-description">
+                            Tech With Tim's tutorials offer a series of instructional videos that guide viewers through the process of learning Flask. The
+                            tutorials cover a range of topics, from the basics of setting up a Flask application to more advanced concepts like database
+                            integration, user authentication, and building RESTful APIs.
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=mkXdvs8H7TA">
+                                <svg><use href="#youtube" /></svg>Tech With Tim's Flask SocketIO Tutorial
+                            </a>
+                        </li>
+                        <div class="list-description">
+                            Tech With Tim's Flask SocketIO Tutorial focuses on teaching viewers how to incorporate real-time communication and bidirectional
+                            event-based interactions into their Flask applications using the SocketIO library. The tutorial covers the implementation of a chat
+                            room application between users. This is useful for the friends part of Songversation.
+                        </div>
+                    </div>
+                </ol>
+            </div>
+            <div class="advice-section">
+                <h3>Communication</h3>
+                <h4>Meetings</h4>
+                <p>
+                    Ensure that regular weekly meetings are organised. If not all project members can make the meeting, consider rescheduling or allowing them
+                    to join online. It is important for all members to be updated on progress, what they should be doing and how other members are going
+                </p>
+                <p>
+                    During the development of Songversation, we had weekly in person meetings on Tuesdays where we would check up on how each of the assigned
+                    tasks are progressing, and make sure no team member had any blockers that stopped them from doing work. We also communicated over text
+                    whenever we needed something to ensure that information flow between our group members was quick, easy and efficient and not waiting for a
+                    meeting. This allowed us to progress with the project at rapid speeds.
+                </p>
+            </div>
+            <div class="advice-section">
+                <h3>Task Allocation</h3>
+                <h4 id="allocation-tools">Tools</h4>
+                <ol>
+                    <div class="list-item">
+                        <li><a href="https://azure.microsoft.com/en-au/products/devops/"></a>Azure DevOps</li>
+                        <div class="list-description">
+                            Among many features, Azure DevOps offers an agile task allocation system that enables teams to efficiently manage and track work
+                            items throughout the software development lifecycle, providing features for task creation, assignment, tracking progress, and team
+                            collaboration, facilitating effective Agile project management.
+                        </div>
+                        <img src="./AzureDevOps1.png" height="380px" />
+                        <img src="./AzureDevOps2.png" height="380px" />
+                    </div>
+                    <div class="list-item">
+                        <li>
+                            <a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects"></a>GitHub
+                            Projets
+                        </li>
+                        <div class="list-description">
+                            GitHub Projects is a project management tool that helps users organize and track the progress of their software development
+                            projects. It provides a visual interface for creating tasks, assigning them to team members, and tracking their status, making
+                            project collaboration and management more streamlined and efficient.
+                        </div>
+                        <img src="./GitHubProjects.png" width="600px" />
+                    </div>
+                </ol>
+                <h4>Our Experience</h4>
+                <p>
+                    During the development of Songversation, we initially used a markdown file to manage our task allocation. While it sufficed for our small
+                    3-person project, as the team grows or the project becomes more complex, it would be advisable to use the tools listed above for improved
+                    tracking and management of task allocation and completion.
+                </p>
+            </div>
+            <div class="advice-section">
+                <h3>Prioritisation</h3>
+                <p>
+                    When it comes to prioritising deadlines and deliverables, especially in situations where team members have competing deadlines from other
+                    units, it is essential to establish best practices to ensure efficient workflow and successful project completion. Here are some guidelines
+                    to consider:
+                </p>
+                <ol>
+                    <div class="list-item">
+                        <li>Clearly Define Goals and Identify Minimum Viable Product:</li>
+                        <p>
+                            Begin by establishing a clear understanding of the project's goals and objectives. This will help prioritise tasks based on their
+                            importance.
+                        </p>
+                        <p>
+                            Evaluate what your minimum viable product (MVP) is. Determine the key deliverables that are essential for the project, and work to
+                            accomplish the MVP before working on more features.
+                        </p>
+                        <p>
+                            During the development of Songversation, the main requirement was to have a functional website that took in a users text input, and
+                            returned a response. From this requirement, we identified our MVP as "A webpage where the user can log in with Spotify, choose a
+                            playlist and guess which song the lyrics are from". This allowed us to quickly work towards a working product that met the
+                            requirements of the project before moving on to the more nice to have features.
+                        </p>
+                    </div>
+                    <div class="list-item">
+                        <li>Evaluate Dependencies and Constraints:</li>
+                        <p>
+                            Assess the dependencies and constraints associated with each task or deliverable. Identify any tasks that rely on the completion of
+                            other tasks or require specific resources or expertise. This evaluation will help determine the order in which tasks should be
+                            prioritised.
+                        </p>
+                    </div>
+                    <div class="list-item">
+                        <li>Break Down Tasks and Set Deadlines:</li>
+                        <p>
+                            Divide complex deliverables into smaller, manageable tasks. Assign deadlines to each task, considering factors like complexity,
+                            effort required, and dependencies. This breakdown enables better tracking of progress and allows for a more efficient allocation of
+                            resources.
+                        </p>
+                        <p>
+                            If team members have competing deadlines from other units, it may be necessary to negotiate and adjust deadlines to ensure a fair
+                            distribution of workload. Ensure that any adjustments are communicated clearly and fairly. This came up frequently in the
+                            Songversation Project with one of our members doing 4 assignments at once. Any dependancies they were working on had to be carefully
+                            evaluated and sometimes passed to more available group members so other group members can move on with the tasks.
+                        </p>
+                    </div>
+                    <div class="list-item">
+                        <li>Collaborate and Communicate:</li>
+                        <p>
+                            Encourage open communication within the team to understand each team member's workload and competing deadlines. Ensure frequent
+                            meetings where team members can share their progress, challenges, and potential conflicts to ensure everyone is on the same page.
+                        </p>
+                    </div>
+
+                    <div class="list-item">
+                        <li>Use Tools:</li>
+                        <p>
+                            Utilize project management tools such as the ones listed <a href="#allocation-tools">above</a>. These tools are specially designed
+                            in order to maximise clarity, collaboration and communication.
+                        </p>
+                    </div>
+                </ol>
+            </div>
+        </div>
+    </body>
+</html>
