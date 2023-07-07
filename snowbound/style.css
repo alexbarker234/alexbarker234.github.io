@@ -6,6 +6,7 @@ body {
     padding: 0;
     font-family: 'Fredoka', sans-serif;
     color: white;
+    overflow: hidden;
 }
 
 .clicker-container {
