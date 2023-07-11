@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Document</title>
     <link rel="stylesheet" href="style.css"> 
-    <link rel="stylesheet" href="house.css"> 
+    <link rel="stylesheet" href="scene.css"> 
+    <link rel="stylesheet" href="store.css"> 
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </head>
 <body>
+    <!-- <div class="title-card"><span class="title">Snowbound</span></div> -->
     <div class="clicker-container">
         <div class="snowflake">
             <svg height="800px" width="800px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 298 298" xml:space="preserve">
@@ -58,16 +60,21 @@
             <span>0</span> Frost
         </div>
     </div>
-    <div clas="scene">
+    <div class="store">
+        <div class="upgrades">
+            <div class="upgrade">Snow Cloud</div>
+        </div>
+    </div>
+    <div class="scene">
+        <div class="ground"></div>
+        <div class="stars"></div>
         <div class="snowfall"></div>
-        <div class="house-container">
-            <div class="house">
-                <div class="roof"></div>
-                <div class="window"></div>
-                <div class="door"></div>
-                <div class="side-wall"></div>
-                <div class="side-roof"></div>
-            </div>
+        <div class="house">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                viewBox="0 0 576 512">
+                <path
+                    d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z" />
+            </svg>
         </div>
     </div>
 </body>
