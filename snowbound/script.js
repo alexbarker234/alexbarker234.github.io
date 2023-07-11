@@ -91,7 +91,7 @@ function drawCanvas(){
 
         snow.y += snow.yVel;
         snow.x += snow.xVel;
-        if (snow.y < ctx.canvas.height) remaining.push(snow)
+        if (snow.y < ctx.canvas.height + 20) remaining.push(snow)
     }
     snowList = remaining;
     window.requestAnimationFrame(drawCanvas);
