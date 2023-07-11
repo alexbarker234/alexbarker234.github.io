@@ -49,8 +49,36 @@ $( document ).ready(function() {
         snowflake.find('svg').css('rotate', `${spin}deg`)
     }, 10)
 
-    
+    houseSmoke();
+    loadStars();
 });
+
+function loadStars() {
+    const stars = $(".stars")
+    for (let i = 0; i < 50; i++) {
+        const star =$("<div>").addClass("star");
+        star.css("left", `${Math.random() * 100}%`)
+        star.css("top", `${Math.random() * 80}%`)
+        const size = randBetween(5,10)
+        star.css("width", `${size}px`)
+        star.css("height", `${size}px`)
+        star.css('animation-delay', `${Math.random() * -0.3}s`)
+        stars.append(star);
+    }
+}
+
+function houseSmoke() {
+    const house = $(".house")
+    setInterval(function() {
+        const smoke =$("<div>").addClass("smoke");
+        house.append(smoke);
+
+        setTimeout(function() {
+            smoke.remove()
+        }, 10000)
+    }, 1000)
+}
+
 
 function lerp (start, end, amt) {
     return (1-amt)*start+amt*end

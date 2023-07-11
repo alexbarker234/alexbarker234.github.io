@@ -1,12 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
 
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
-    background-color: #111115;
+    background-color: #21293f;
+    background-image: radial-gradient(ellipse at bottom, #499ad0 0%, #2f759b 50%);
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Fredoka', sans-serif;
     color: white;
     overflow: hidden;
+    user-select: none;
+}
+
+.title-card {
+    background-color: #21293f;
+    font-size: 10vw;
+    width: 100%;
+    height: 100%;
+    z-index: 3000;
+    position: absolute;
+
+    animation: title 2s forwards;
+}
+
+
+.title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes title {
+    0% {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    70% {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
 }
 
 .clicker-container {
@@ -26,10 +74,12 @@ body {
     cursor: pointer;
     position: relative;
     margin-bottom: 1rem;
+
+    transition: 0.2s;
 }
 
 .snowflake svg {
-    fill: black;
+    fill: white;
     position: absolute;
 
     top: 0%;
@@ -37,25 +87,11 @@ body {
     width: 100%;
     height: 100%;
 }
+.snowflake:hover {
+    scale: 1.03;
+}
+
 
 #frost {
     text-align: center;
 }
-
-.house {
-    background-color: rgb(219, 99, 99);
-    width: 50px;
-    height: 50px;
-    position: absolute;
-}
-.snowfall .snow {
-    position: absolute;
-
-    background-color: white;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    pointer-events: none;
-}
-
-  
