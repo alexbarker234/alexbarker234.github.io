@@ -1,12 +1,17 @@
 {
-  "name": "alexbarker234.github.io",
-  "version": "1.0.0",
-  "description": "",
-  "homepage": "https://alexbarker234.github.io",
-  "main": "load.js",
-  "scripts": {
-    "predeploy": "cd snowbound/_source && npm run build"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "alexbarker234.github.io",
+    "version": "1.0.0",
+    "description": "",
+    "homepage": "https://alexbarker234.github.io",
+    "main": "load.js",
+    "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+        "build": "cd snowbound/_source && npm run build"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "gh-pages": "^5.0.0"
+    }
 }
