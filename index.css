@@ -165,10 +165,10 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     width: 95%;
-    height: 400px;
     max-width: 1000px;
     margin: auto;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .projects.fade {
@@ -237,4 +237,17 @@ h1 {
     opacity: 1;
     background-color: rgba(97, 97, 255, 0.75);
     scale: 1.03;
+}
+
+@media only screen and (max-width: 600px) {
+    .project {
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .project-selectors .selector {
+        width: 8rem;
+        margin: 0.5rem;
+    }
 }
