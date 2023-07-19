@@ -1,52 +1,94 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>alexbarker234</title>
-        <link rel="stylesheet" href="./main.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
 
-        <!-- jQuery library -->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"
-        ></script>
-        <script src="load.js"></script>
-    </head>
-    <body>
-        <div id="meteor-shower"></div>
-        <div id="mouse-glow"></div>
-        <div class="main">
-            <a class="circle" href="https://github.com/alexbarker234">
-                <div class="circle-inner">
-                    <img src="./birdgame.png">
-                    <div class="overlay"></div>
-                    <div class="title">GitHub Profile Clicker</div>
+<head>
+    <meta charset="UTF-8">
+    <title>Alex Barker</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+</head>
+
+<body>
+    <script>0 // pesky firefox flash</script>
+    <div class="header">
+        <div class="header-background">
+            <div id="meteor-shower"></div>
+        </div>
+        <div class="title">Alex Barker</div>
+    </div>
+    <h1>My Projects</h1>
+    <div class="project-section">
+        <div class="project-selectors">
+            <div class="selector">All</div>
+            <div class="selector" id="#nextjs">React / NextJS</div>
+            <div class="selector" id="#game">Games</div>
+            <div class="selector" id="#other">Other</div>
+        </div>
+        <div class="projects">
+            <a class="project nextjs game" href="https://songversation.vercel.app/">
+                <img src="./songversation.png">
+                <div class="project-details">
+                    <div class="project-title">Songversation</div>
+                    <div class="project-description">A Spotify lyric guessing game</div>
                 </div>
             </a>
-            <a class="circle" href="./metaballs">
-                <div class="circle-inner">
-                    <img src="./metaballs.png">
-                    <div class="overlay"></div>
-                    <div class="title">Metaballs</div>
+            <a class="project nextjs" href="https://sale-savant.vercel.app">
+                <img src="./salesavant.png">
+                <div class="project-details">
+                    <div class="project-title">Sale Savant</div>
+                    <div class="project-description">View deals from different websites for your steam wishlist</div>
                 </div>
             </a>
-            <a class="circle" href="https://sale-savant.vercel.app">
-                <div class="circle-inner">
-                    <img src="./salesavant.png">
-                    <div class="overlay"></div>
-                    <div class="title">Sale Savant</div>
+            <a class="project game" href="./snowbound">
+                <img src="./snowbound.png">
+                <div class="project-details">
+                    <div class="project-title">Snowbound</div>
+                    <div class="project-description">A basic clicker game using Webpack</div>
                 </div>
             </a>
-            <a class="circle" href="./wordle">
-                <div class="circle-inner">
-                    <img src="./wordle.png">
-                    <div class="overlay"></div>
-                    <div class="title">Wordle Clone</div>
+            <a class="project game" href="https://github.com/alexbarker234">
+                <img src="./birdgame.png">
+                <div class="project-details">
+                    <div class="project-title">GitHub Clicker</div>
+                    <div class="project-description">A communal clicker game displayed on my GitHub profile Read Me
+                    </div>
+                </div>
+            </a>
+            <a class="project game" href="./wordle">
+                <img src="./wordle.png">
+                <div class="project-details">
+                    <div class="project-title">Wordle Clone</div>
+                    <div class="project-description">A wordle clone made for a uni lab</div>
+                </div>
+            </a>
+            <a class="project other" href="./metaballs">
+                <img src="./metaballs.png">
+                <div class="project-details">
+                    <div class="project-title">Metaballs</div>
+                    <div class="project-description">A strange SVG metaballs visual display</div>
                 </div>
             </a>
         </div>
-        <div id="me-title">ALEX BARKER</div>
-    </body>
+        <div class="footer">
+            <div class="footer-links">
+                <a class="footer-link" href="https://github.com/alexbarker234">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a class="footer-link" href="https://au.linkedin.com/in/alex-barker-a37389ba">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+            </div>
+            <div class="footer-base">Alex Barker ©2023</div>
+        </div>
+</body>
+
 </html>
