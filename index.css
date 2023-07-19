@@ -10,9 +10,11 @@
     --bg-dark: #1c1e23
 }
 
+html, body {
+    overflow-x: hidden;
+}
 body {
     background-color: var(--bg1);
-    overflow-x: hidden;
     font-family: 'IBM Plex Sans', sans-serif;
     color: white;
 
