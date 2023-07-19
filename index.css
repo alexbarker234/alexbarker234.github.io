@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;400&display=swap');
+
+:root {
+    --header-bg-width: 3000px;
+    --header-bg-offset: -2550px;
+
+    --blue: #6161ff;
+    --bg1: #252934;
+    --bg-light: #2e2c43;
+    --bg-dark: #1c1e23
+}
+
+body {
+    background-color: var(--bg1);
+    overflow-x: hidden;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: white;
+
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: white;
+    text-decoration: inherit;
+}
+
+h1 {
+    text-align: center;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    height: 30vw;
+}
+
+.header-background {
+    background-color: var(--bg-light);
+    width: var(--header-bg-width);
+    height: var(--header-bg-width);
+    border-radius: var(--header-bg-width);
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+.title {
+    font-weight: 100;
+    font-size: max(10vw, 3rem);
+    text-align: center;
+
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#meteor-shower {
+    width: 100vw;
+    height: 30vw;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.meteor {
+    position: absolute;
+    width: 300px;
+    height: 1px;
+    rotate: -45deg;
+    background-image: linear-gradient(to right, #d1daff, transparent);
+    transition: top 0.8s linear, left 0.8s linear;
+
+}
+
+.meteor::before {
+    content: "";
+    position: absolute;
+    box-shadow: 0 0 15px 8px #ecf0ff;
+}
+
+.footer {
+    width: 100%;
+    background-color: var(--bg-dark);
+}
+.footer-links {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.footer .footer-link {
+    display: block;
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+
+    background-color: var(--blue);
+
+    transition: 0.1s;
+    margin: 1rem;
+}
+.footer .footer-link:hover {
+    scale: 1.03;
+}
+.footer .footer-link i {
+    position: absolute;
+    font-size: 2rem;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    transition: 0.2s;
+}
+.footer .footer-link:hover i {
+    scale: 1.06;
+}
+.footer-base {
+    opacity: 0.5;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+.project-selectors {
+    width: 95%;
+    max-width: 900px;
+    margin: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.project-selectors .selector {
+    --height: 3rem;
+    width: 10rem;
+    height: var(--height);
+    border-radius: var(--height);
+    line-height: var(--height);
+    text-align: center;
+    background-color: white;
+    color: black;
+
+    margin: 1rem;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.project-selectors .selector:hover {
+    opacity: 0.8;
+    scale: 1.03;
+}
+
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 400px;
+    max-width: 1000px;
+    margin: auto;
+    justify-content: center;
+}
+
+.projects.fade {
+    animation: fade-out-in 0.7s;
+}
+
+@keyframes fade-out-in {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.project {
+    --project-width: 15rem;
+    width: var(--project-width);
+    height: 10rem;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+
+    overflow: hidden;
+    position: relative;
+
+    user-select: none;
+
+    transition: 0.1s;
+}
+
+.project.disabled {
+    display: none;
+}
+
+.project-details {
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: 0.5s;
+    padding: 1rem;
+}
+
+.project img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.project-title {
+    font-size: 1.5rem;
+    padding: 0.5rem 0;
+}
+.project:hover {
+    scale: 1.03;
+}
+.project:hover .project-details {
+    opacity: 1;
+    background-color: rgba(97, 97, 255, 0.75);
+    scale: 1.03;
+}
