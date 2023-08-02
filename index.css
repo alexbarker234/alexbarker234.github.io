@@ -13,6 +13,7 @@
 html, body {
     overflow-x: hidden;
 }
+
 body {
     background-color: var(--bg1);
     font-family: 'IBM Plex Sans', sans-serif;
@@ -55,7 +56,7 @@ h1 {
     overflow: hidden;
 }
 
-.title {
+.main-title {
     font-weight: 100;
     font-size: max(10vw, 3rem);
     text-align: center;
@@ -64,6 +65,13 @@ h1 {
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.main-title .subtitle {
+    position: absolute;
+    top: 90%;
+    width: 100%;
+    font-size: 3rem;
 }
 
 #meteor-shower {
@@ -95,11 +103,13 @@ h1 {
     width: 100%;
     background-color: var(--bg-dark);
 }
+
 .footer-links {
     display: flex;
     width: 100%;
     justify-content: center;
 }
+
 .footer .footer-link {
     display: block;
     position: relative;
@@ -112,9 +122,11 @@ h1 {
     transition: 0.1s;
     margin: 1rem;
 }
+
 .footer .footer-link:hover {
     scale: 1.03;
 }
+
 .footer .footer-link i {
     position: absolute;
     font-size: 2rem;
@@ -124,14 +136,21 @@ h1 {
 
     transition: 0.2s;
 }
+
 .footer .footer-link:hover i {
     scale: 1.06;
 }
+
 .footer-base {
     opacity: 0.5;
     text-align: center;
     padding-bottom: 2rem;
 }
+
+.about {
+    text-align: center;
+}
+
 .project-selectors {
     width: 95%;
     max-width: 900px;
@@ -232,18 +251,66 @@ h1 {
     font-size: 1.5rem;
     padding: 0.5rem 0;
 }
+
 .project:hover {
     scale: 1.03;
 }
+
 .project:hover .project-details {
     opacity: 1;
     background-color: rgba(97, 97, 255, 0.75);
     scale: 1.03;
 }
+.skills {
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+.skills-section {
+    width: 100%;
+    margin: 0 1rem;
+}
+.skills-section .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.skill {
+    font-weight: 800;
+    margin-bottom: 1rem;
+    width: 100%
+}
+.skill span {
+    float: right;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #ebe8f5;
+    position: relative;
+}
+
+.progress-bar-inner {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: attr(data-progress);
+    background-color: #45a692;
+}
+.framework .progress-bar-inner {
+    background-color: #9b45a6;
+}
 
 @media only screen and (max-width: 600px) {
     .project {
         width: 95%;
+    }
+    .skills {
+        flex-direction: column;
+    }
+    .skills-section {
+        margin: 0;
     }
 }
 
