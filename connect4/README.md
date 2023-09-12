@@ -1,0 +1,1 @@
+This is a quickly thrown together HTML/JS verison of my Algorithms, Agents & AI Connect4 Lab task, the code is probably a bit of a mess
