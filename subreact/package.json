@@ -1,6 +1,6 @@
 {
     "name": "sub-react",
-    "homepage": ".",
+    "homepage": "/subreact",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
