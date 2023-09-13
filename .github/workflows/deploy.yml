@@ -31,6 +31,7 @@ jobs:
         run: |
           npm install
           npm run build
+          shopt -s extglob
           rm -rf !(build)
           mv build/* ./
           rm -rf build
