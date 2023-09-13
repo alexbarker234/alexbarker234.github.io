@@ -31,7 +31,7 @@ jobs:
         run: |
           npm install
           npm run build
-          rm -rf src public
+          rm -rf !(build)
           mv build/* ./
           rm -rf build
 
