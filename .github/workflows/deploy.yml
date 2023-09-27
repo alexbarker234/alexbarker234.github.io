@@ -39,6 +39,9 @@ jobs:
         # This builds a react app inside a subdirectory of GH Pages app
       - name: Build Connect4
         working-directory: connect4
+        # stop treating warnings as erors
+        env:
+          CI: false
         run: |
           npm install
           npm run build
