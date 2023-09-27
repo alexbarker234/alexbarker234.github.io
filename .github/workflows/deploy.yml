@@ -36,6 +36,17 @@ jobs:
           mv build/* ./
           rm -rf build
 
+        # This builds a react app inside a subdirectory of GH Pages app
+      - name: Build Connect4
+        working-directory: connect4
+        run: |
+          npm install
+          npm run build
+          shopt -s extglob
+          rm -rf !(build)
+          mv build/* ./
+          rm -rf build  
+
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
