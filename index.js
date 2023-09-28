@@ -70,9 +70,15 @@ const handleButtons = () => {
 const handleFadeIn = () => {
     /** Fade in when bottom of screen is half down */
     function isElementInView(elem) {      
-        var bottom_of_element = $(elem).offset().top + $(elem).outerHeight();
-        var bottom_of_window = $(window).scrollTop() + $(window).height();
-        return bottom_of_window > (bottom_of_element - elem.offsetHeight / 2)
+        var elementCentre = $(elem).offset().top + $(elem).outerHeight();
+        var windowBottom = $(window).scrollTop() + $(window).height();
+
+        // MOBILE - fade in appearing at top
+        if ($(window).width() < 600) {
+            return windowBottom > $(elem).offset().top + 200
+        }
+
+        return windowBottom > (elementCentre - elem.offsetHeight / 2)
     }
 
     const sections = $('.section');

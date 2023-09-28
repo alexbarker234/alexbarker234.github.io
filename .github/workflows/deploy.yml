@@ -21,6 +21,9 @@ jobs:
         id: pages
         uses: actions/configure-pages@v3
         
+      - name: Compile index SCSS
+        run: npm install && npm run sass
+
       - name: Build Snowbound
         working-directory: snowbound/_source
         run: npm install && npm run build
