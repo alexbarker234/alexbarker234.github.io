@@ -1,4 +1,6 @@
 bundle
+/index.css
+/index.css.map
 # Logs
 logs
 *.log
