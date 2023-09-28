@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;400&display=swap');
+
+$blue: #6161ff;
+$bg1: #252934;
+$bg-light: #2e2c43;
+$bg-dark: #1c1e23;
+
+:root {
+    --header-bg-width: 3000px;
+    --header-bg-offset: -2550px;
+
+    /* use this color somewhere its cool #040b14 */
+    --blue: #{$blue};
+    --bg1: #{$bg1};
+    --bg-light: #{$bg-light};
+    --bg-dark: #{$bg-dark};
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+body {
+    background-color: $bg1;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: white;
+
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: white;
+    text-decoration: inherit;
+}
+
+h1 {
+    text-align: center;
+    position: relative;
+    width: fit-content;
+    margin: 1rem auto;
+    &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        left: 50%;
+        top: 0%;
+        width: 80%;
+        height: 110%;
+        transform: translateX(-50%);
+        border-bottom: white 3px solid;
+    }
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    height: 30vw;
+}
+
+.header-background {
+    background-color: $bg-light;
+    width: var(--header-bg-width);
+    height: var(--header-bg-width);
+    border-radius: var(--header-bg-width);
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+.main-title {
+    font-weight: 100;
+    font-size: max(10vw, 3rem);
+    text-align: center;
+
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .subtitle {
+        position: absolute;
+        top: 90%;
+        width: 100%;
+        font-size: 3rem;
+    }
+}
+
+#meteor-shower {
+    width: 100vw;
+    height: 30vw;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.meteor {
+    position: absolute;
+    width: 300px;
+    height: 1px;
+    rotate: -45deg;
+    background-image: linear-gradient(to right, #d1daff, transparent);
+    transition: top 0.8s linear, left 0.8s linear;
+
+    &::before {
+        content: "";
+        position: absolute;
+        box-shadow: 0 0 15px 8px #ecf0ff;
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: $bg-dark;
+}
+
+.footer-links {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .footer-link {
+        display: block;
+        position: relative;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.5rem;
+        background-color: $blue;
+        transition: 0.1s;
+        margin: 1rem;
+
+        i {
+            position: absolute;
+            font-size: 2rem;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            transition: 0.2s;
+        }
+
+        &:hover {
+            scale: 1.03;
+
+            i {
+                scale: 1.06;
+            }
+        }
+    }
+
+    .footer-base {
+        opacity: 0.5;
+        text-align: center;
+        padding-bottom: 2rem;
+    }
+}
+
+.about {
+    text-align: center;
+}
+
+.project-selectors {
+    width: 95%;
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .selector {
+        --height: 3rem;
+        width: 10rem;
+        height: var(--height);
+        border-radius: var(--height);
+        line-height: var(--height);
+        text-align: center;
+        background-color: white;
+        color: black;
+        margin: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover {
+            opacity: 0.8;
+            scale: 1.03;
+        }
+    }
+}
+
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.projects.fade {
+    animation: fade-out-in 0.7s;
+
+    @keyframes fade-out-in {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+}
+
+.project {
+    --project-width: 22rem;
+    width: var(--project-width);
+    height: 13rem;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+    transition: 0.1s;
+
+    &.disabled {
+        display: none;
+    }
+
+    .project-details {
+        position: absolute;
+        top: 0%;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: 0.5s;
+        padding: 1rem;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .project-title {
+        font-size: 1.5rem;
+        padding: 0.5rem 0;
+        font-weight: 900;
+    }
+
+    &:hover {
+        scale: 1.03;
+    }
+}
+
+.section {
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+
+    &.shown {
+        opacity: 1;
+        pointer-events: unset;
+    }
+
+    &.resume {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        margin-bottom: 1rem;
+
+        .resume-part {
+            width: 100%;
+
+            &:not(:first-child) {
+                margin-left: 2rem;
+            }
+
+            .title {
+                font-weight: 900;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .experience {
+                position: relative;
+                padding: 0 1rem 1rem 1rem;
+                border-left: $blue 2px solid;
+
+                &:not(:last-child) {
+                    padding-bottom: 2rem;
+                }
+
+                &::before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 6px;
+                    left: -1rem;
+                    transform: translate(50%, 0%);
+                    background-color: $blue;
+                }
+
+                .title {
+                    font-weight: 900;
+                    font-size: 18px;
+                    transform: translateY(-6px);
+                    margin-bottom: 0;
+                }
+
+                .time {
+                    border-bottom: $blue 2px solid;
+                    width: fit-content;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+}
+
+.skills-container {
+    display: flex;
+    width: 90%;
+    margin: auto;
+
+    .subsection {
+        width: 100%;
+        margin: 0 1rem;
+
+        .title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill {
+            font-weight: 800;
+            margin-bottom: 1rem;
+            width: 100%;
+
+            span {
+                float: right;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: white;
+            position: relative;
+
+            .progress-bar-inner {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: attr(data-progress);
+                background-color: $blue;
+            }
+
+            .framework .progress-bar-inner {
+                background-color: #9b45a6;
+            }
+        }
+    }
+}

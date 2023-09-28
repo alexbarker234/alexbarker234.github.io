@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Alex Barker | Full Stack Developer</title>
 
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -28,12 +29,14 @@
             <div class="subtitle">Full Stack Dev</div>
         </div>
     </div>
-    <h1>About</h1>
-    <div class="about">theres no content here</div>
-    <h1>Skills</h1>
     <div class="section about-section">
-        <div class="skills">
-            <div class="skills-section">
+        <h1>About</h1>
+        <div class="about">theres no content here</div>
+    </div>
+    <div class="section skills-section">
+        <h1>Skills</h1>
+        <div class="skills-container">
+            <div class="subsection">
                 <div class="skill">
                     HTML
                     <span>100%</span>
@@ -54,7 +57,7 @@
                     <div class="progress-bar">
                         <div class="progress-bar-inner" style="width:100%"></div>
                     </div>
-                </div>                
+                </div>
                 <div class="skill">
                     GitHub
                     <span>100%</span>
@@ -70,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="skills-section">
+            <div class="subsection">
                 <div class="skill">
                     C#
                     <span>95%</span>
@@ -109,27 +112,34 @@
             </div>
         </div>
     </div>
-    <h1>My Projects</h1>
     <div class="section project-section">
+        <h1>My Projects</h1>
         <div class="project-selectors">
             <div class="selector">All</div>
-            <div class="selector" id="#nextjs">React / NextJS</div>
+            <div class="selector" id="#react">React / NextJS</div>
             <div class="selector" id="#game">Games</div>
             <div class="selector" id="#other">Other</div>
         </div>
         <div class="projects">
-            <a class="project nextjs game" href="https://songversation.vercel.app/">
+            <a class="project react nextjs game" href="https://songversation.vercel.app/">
                 <img src="./songversation.png">
                 <div class="project-details">
                     <div class="project-title">Songversation</div>
                     <div class="project-description">A Spotify lyric guessing game</div>
                 </div>
             </a>
-            <a class="project nextjs" href="https://sale-savant.vercel.app">
+            <a class="project react nextjs" href="https://sale-savant.vercel.app">
                 <img src="./salesavant.png">
                 <div class="project-details">
                     <div class="project-title">Sale Savant</div>
                     <div class="project-description">View deals from different websites for your steam wishlist</div>
+                </div>
+            </a>
+            <a class="project game react" href="./connect4">
+                <img src="./connect4.png">
+                <div class="project-details">
+                    <div class="project-title">Connect 4</div>
+                    <div class="project-description">Connect 4 written in react - play with friends or AI!</div>
                 </div>
             </a>
             <a class="project game" href="./snowbound">
@@ -162,41 +172,45 @@
                 </div>
             </a>
         </div>
+    </div>
+    <div class="section resume">
         <h1>Resume</h1>
-        <div class="section resume">
-            <div class="resume-part">
-                <div class="title">Education</div>
-                <div class="experience">
-                    <div class="title">Computer Science & Cybersecurity</div>
-                    <div class="time">2021 - Present</div>
-                    <div class="description">Bachelor of Science - Double major in Computer Science & Cybersecurity </div>
+        <div class="resume-part">
+            <div class="title">Education</div>
+            <div class="experience">
+                <div class="title">Computer Science & Cybersecurity</div>
+                <div class="time">2021 - Present</div>
+                <div class="description">Bachelor of Science - Double major in Computer Science & Cybersecurity
                 </div>
             </div>
-            <div class="resume-part">
-                <div class="title">Experience</div>
-                <div class="experience">
-                    <div class="title">Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet</div>
-                    <div class="time">Nov 2022 - Present</div>
-                    <div class="description">Developing C# applications using ASP MVC & Razor Markup as well as migrating Jira Server to Jira Cloud</div>
-                </div>
-                <div class="experience">
-                    <div class="title">University Computer Club - Committee Member</div>
-                    <div class="time">Nov 2022 - Present</div>
-                    <div class="description">Organising & running cross-club events and working with various systems</div>
-                </div>
-            </div> 
         </div>
-        <div class="footer">
-            <div class="footer-links">
-                <a class="footer-link" href="https://github.com/alexbarker234">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-                <a class="footer-link" href="https://au.linkedin.com/in/alex-barker-a37389ba">
-                    <i class="fa-brands fa-linkedin"></i>
-                </a>
+        <div class="resume-part">
+            <div class="title">Experience</div>
+            <div class="experience">
+                <div class="title">Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet</div>
+                <div class="time">Nov 2022 - Present</div>
+                <div class="description">Developing C# applications using ASP MVC & Razor Markup, migrating Jira
+                    Server to Jira Cloud</div>
             </div>
-            <div class="footer-base">Alex Barker ©2023</div>
+            <div class="experience">
+                <div class="title">University Computer Club - Committee Member</div>
+                <div class="time">Nov 2022 - Present</div>
+                <div class="description">Organising & running cross-club events and working with various systems
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="footer">
+        <div class="footer-links">
+            <a class="footer-link" href="https://github.com/alexbarker234">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a class="footer-link" href="https://au.linkedin.com/in/alex-barker-a37389ba">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+        </div>
+        <div class="footer-base">Alex Barker ©2023</div>
+    </div>
 </body>
 
 </html>
