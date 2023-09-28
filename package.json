@@ -7,11 +7,15 @@
     "scripts": {
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
-        "build": "cd snowbound/_source && npm run build"
+        "build": "cd snowbound/_source && npm run build",
+        "sass": "sass index.scss index.css"
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "gh-pages": "^5.0.0"
+    },
+    "dependencies": {
+        "sass": "^1.68.0"
     }
 }

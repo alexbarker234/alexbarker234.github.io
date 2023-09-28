@@ -1,5 +1,10 @@
 $(window).on("load", function () {
-    // handle meteors
+    handleMeteors()
+    handleButtons()
+    handleFadeIn()
+});
+
+const handleMeteors = () => {
     const meteorShower = $("#meteor-shower");
     console.log(meteorShower);
     setInterval(function () {
@@ -30,7 +35,8 @@ $(window).on("load", function () {
         }, 600);
         meteorShower.append(meteor);
     }, 200);
-
+} 
+const handleButtons = () => {
     const projectButtons = $(".selector");
     const projectsDiv = $(".projects");
     const projects = $(".project");
@@ -60,4 +66,30 @@ $(window).on("load", function () {
             }, animLength / 2)
         });
     });
-});
+}
+const handleFadeIn = () => {
+    /** Fade in when bottom of screen is half down */
+    function isElementInView(elem) {      
+        var elementCentre = $(elem).offset().top + $(elem).outerHeight();
+        var windowBottom = $(window).scrollTop() + $(window).height();
+
+        // MOBILE - fade in appearing at top
+        if ($(window).width() < 600) {
+            return windowBottom > $(elem).offset().top + 200
+        }
+
+        return windowBottom > (elementCentre - elem.offsetHeight / 2)
+    }
+
+    const sections = $('.section');
+    function handleScroll() {
+        sections.each(function () {
+            if (isElementInView(this)) {
+                $(this).addClass("shown")
+            }
+        });
+    }
+
+    handleScroll();
+    $(window).on('scroll', handleScroll);
+}

@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Alex Barker</title>
+    <title>Alex Barker | Full Stack Developer</title>
 
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -23,40 +24,139 @@
         <div class="header-background">
             <div id="meteor-shower"></div>
         </div>
-        <div class="title">Alex Barker</div>
+        <div class="main-title">
+            Alex Barker
+            <div class="subtitle">Full Stack Dev</div>
+        </div>
     </div>
-    <h1>My Projects</h1>
-    <div class="project-section">
+    <div class="section about-section">
+        <h1>About</h1>
+        <p>
+            As a software developer, I thrive on creative problem-solving and turning abstract ideas into functional code.
+        </p>
+        <p>
+            I'm passionate about using my code to drive positive change in the real world, whether through user-friendly
+            interfaces, efficient algorithms, or impactful applications.
+        </p>
+    </div>
+    <div class="section skills-section">
+        <h1>Skills</h1>
+        <div class="skills-container">
+            <div class="subsection">
+                <div class="skill">
+                    HTML
+                    <span>100%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:100%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    CSS & SCSS
+                    <span>100%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:100%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    JavaScript & Typescript
+                    <span>100%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:100%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    GitHub
+                    <span>100%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:100%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    SQL
+                    <span>95%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:95%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                <div class="skill">
+                    C#
+                    <span>95%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:95%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    Python
+                    <span>95%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:95%"></div>
+                    </div>
+                </div>
+                <div class="skill framework">
+                    React
+                    <span>90%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:90%"></div>
+                    </div>
+                </div>
+                <div class="skill framework">
+                    NextJS
+                    <span>90%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:90%"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    Atlassian - Jira
+                    <span>70%</span>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner" style="width:70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section project-section">
+        <h1>My Projects</h1>
         <div class="project-selectors">
             <div class="selector">All</div>
-            <div class="selector" id="#nextjs">React / NextJS</div>
+            <div class="selector" id="#react">React / NextJS</div>
             <div class="selector" id="#game">Games</div>
             <div class="selector" id="#other">Other</div>
         </div>
         <div class="projects">
-            <a class="project nextjs game" href="https://songversation.vercel.app/">
-                <img src="./songversation.png">
+            <a class="project react nextjs game" href="https://songversation.vercel.app/">
+                <img src="./index-images/songversation.png">
                 <div class="project-details">
                     <div class="project-title">Songversation</div>
                     <div class="project-description">A Spotify lyric guessing game</div>
                 </div>
             </a>
-            <a class="project nextjs" href="https://sale-savant.vercel.app">
-                <img src="./salesavant.png">
+            <a class="project react nextjs" href="https://sale-savant.vercel.app">
+                <img src="./index-images/salesavant.png">
                 <div class="project-details">
                     <div class="project-title">Sale Savant</div>
                     <div class="project-description">View deals from different websites for your steam wishlist</div>
                 </div>
             </a>
+            <a class="project game react" href="./connect4">
+                <img src="./index-images/connect4.png">
+                <div class="project-details">
+                    <div class="project-title">Connect 4</div>
+                    <div class="project-description">Connect 4 written in react - play with friends or AI!</div>
+                </div>
+            </a>
             <a class="project game" href="./snowbound">
-                <img src="./snowbound.png">
+                <img src="./index-images/snowbound.png">
                 <div class="project-details">
                     <div class="project-title">Snowbound</div>
                     <div class="project-description">A basic clicker game using Webpack</div>
                 </div>
             </a>
             <a class="project game" href="https://github.com/alexbarker234">
-                <img src="./birdgame.png">
+                <img src="./index-images/birdgame.png">
                 <div class="project-details">
                     <div class="project-title">GitHub Clicker</div>
                     <div class="project-description">A communal clicker game displayed on my GitHub profile Read Me
@@ -64,31 +164,61 @@
                 </div>
             </a>
             <a class="project game" href="./wordle">
-                <img src="./wordle.png">
+                <img src="./index-images/wordle.png">
                 <div class="project-details">
                     <div class="project-title">Wordle Clone</div>
                     <div class="project-description">A wordle clone made for a uni lab</div>
                 </div>
             </a>
             <a class="project other" href="./metaballs">
-                <img src="./metaballs.png">
+                <img src="./index-images/metaballs.png">
                 <div class="project-details">
                     <div class="project-title">Metaballs</div>
                     <div class="project-description">A strange SVG metaballs visual display</div>
                 </div>
             </a>
         </div>
-        <div class="footer">
-            <div class="footer-links">
-                <a class="footer-link" href="https://github.com/alexbarker234">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-                <a class="footer-link" href="https://au.linkedin.com/in/alex-barker-a37389ba">
-                    <i class="fa-brands fa-linkedin"></i>
-                </a>
+    </div>
+    <div class="section resume">
+        <h1>Resume</h1>
+        <div class="resume-container">
+            <div class="resume-part">
+                <div class="title">Education</div>
+                <div class="experience">
+                    <div class="title">Computer Science & Cybersecurity</div>
+                    <div class="time">2021 - Present</div>
+                    <div class="description">Bachelor of Science - Double major in Computer Science & Cybersecurity
+                    </div>
+                </div>
             </div>
-            <div class="footer-base">Alex Barker ©2023</div>
+            <div class="resume-part">
+                <div class="title">Experience</div>
+                <div class="experience">
+                    <div class="title">Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet</div>
+                    <div class="time">Nov 2022 - Present</div>
+                    <div class="description">Developing C# applications using ASP MVC & Razor Markup, migrating Jira
+                        Server to Jira Cloud</div>
+                </div>
+                <div class="experience">
+                    <div class="title">University Computer Club - Committee Member</div>
+                    <div class="time">Nov 2022 - Present</div>
+                    <div class="description">Organising & running cross-club events and working with various systems
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="footer">
+        <div class="footer-links">
+            <a class="footer-link" href="https://github.com/alexbarker234">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a class="footer-link" href="https://au.linkedin.com/in/alex-barker-a37389ba">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+        </div>
+        <div class="footer-base">Alex Barker ©2023</div>
+    </div>
 </body>
 
 </html>
