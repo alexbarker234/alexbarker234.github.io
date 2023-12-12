@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;400&display=swap');
 
 $blue: #6161ff;
+$gold: #ffae1a;
 $bg1: #252934;
 $bg-light: #2e2c43;
 $bg-dark: #1c1e23;
@@ -11,6 +12,7 @@ $bg-dark: #1c1e23;
 
     /* use this color somewhere its cool #040b14 */
     --blue: #{$blue};
+    --gold: #{$gold};
     --bg1: #{$bg1};
     --bg-light: #{$bg-light};
     --bg-dark: #{$bg-dark};
