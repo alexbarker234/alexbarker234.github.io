@@ -190,40 +190,12 @@ h1 {
             --project-width: 22rem;
             width: var(--project-width);
             height: 13rem;
-            border-radius: 1rem;
             margin: 0.5rem;
             text-align: center;
-            overflow: hidden;
             position: relative;
             user-select: none;
             transition: 0.1s;
-
-            &.disabled {
-                display: none;
-            }
-
-            .project-details {
-                position: absolute;
-                top: 0%;
-                width: 100%;
-                height: 100%;
-                opacity: 0;
-                transition: 0.5s;
-                padding: 1rem;
-            }
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: top;
-            }
-
-            .project-title {
-                font-size: 1.5rem;
-                padding: 0.5rem 0;
-                font-weight: 900;
-            }
+            border-radius: 1rem;
 
             &:hover {
                 scale: 1.03;
@@ -233,6 +205,53 @@ h1 {
                     background-color: rgba(97, 97, 255, 0.75);
                     scale: 1.03;
                 }
+            }
+            .project-details {
+                position: absolute;
+                top: 0%;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: 0.5s;
+                padding: 1rem;
+            }
+            .project-inner {
+                overflow: hidden;
+                position: relative;
+                border-radius: 1rem;
+                width: 100%;
+                height: 100%;
+                transition: 0.1s;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: top;
+                }
+
+                .project-title {
+                    font-size: 1.5rem;
+                    padding: 0.5rem 0;
+                    font-weight: 900;
+                }
+            }
+
+            &.disabled {
+                display: none;
+            }
+
+            i {
+                font-size: 1.5rem;
+                color: var(--gold);
+                position: absolute;
+                left: 100%;
+                top: 100%;
+                translate: -75% -75%;
+                animation: unset;
+            }
+            &:hover i {
+                animation: wiggle 0.75s ease-in-out, pop 0.75s ease-in-out;
             }
         }
     }
@@ -397,8 +416,10 @@ h1 {
     .resume .resume-container {
         display: block;
     }
+
     .resume .resume-container .resume-part {
         margin-bottom: 1rem;
+
         &:not(:first-child) {
             margin-left: 0;
         }
@@ -427,5 +448,36 @@ h1 {
 
     100% {
         opacity: 1;
+    }
+}
+@keyframes wiggle {
+    0% {
+        rotate: 0deg;
+    }
+    20% {
+        rotate: 20deg;
+    }
+    40% {
+        rotate: -20deg;
+    }
+    60% {
+        rotate: 20deg;
+    }
+    80% {
+        rotate: -20deg;
+    }
+    100% {
+        rotate: 0deg;
+    }
+}
+@keyframes pop {
+    0% {
+        scale: 1;
+    }
+    80% {
+        scale: 1.1;
+    }
+    100% {
+        scale: 1;
     }
 }
