@@ -8,7 +8,8 @@
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
         "build": "cd snowbound/_source && npm run build",
-        "sass": "sass index.scss index.css"
+        "sass": "sass index.scss index.css",
+        "sass:watch": "sass --watch index.scss index.css"
     },
     "author": "",
     "license": "ISC",
