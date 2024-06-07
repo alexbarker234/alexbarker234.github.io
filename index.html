@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Devicons -->
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     <!-- jQuery library -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,6 +32,8 @@
             <div class="subtitle">Full Stack Dev</div>
         </div>
     </div>
+    <!-- TODO table of contents type shortcuts (on the side maybe) -->
+    <div style="display: none;"><i class="fa-solid fa-user"></i></div>
     <div class="section about-section">
         <h1>About</h1>
         <p>
@@ -43,81 +47,8 @@
     </div>
     <div class="section skills-section">
         <h1>Skills</h1>
-        <div class="skills-container">
-            <div class="subsection">
-                <div class="skill">
-                    HTML
-                    <span>100%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:100%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    CSS & SCSS
-                    <span>100%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:100%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    JavaScript & Typescript
-                    <span>100%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:100%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    GitHub
-                    <span>100%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:100%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    SQL
-                    <span>95%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:95%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="subsection">
-                <div class="skill">
-                    C#
-                    <span>95%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:95%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    Python
-                    <span>95%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:95%"></div>
-                    </div>
-                </div>
-                <div class="skill framework">
-                    React
-                    <span>90%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:90%"></div>
-                    </div>
-                </div>
-                <div class="skill framework">
-                    NextJS
-                    <span>90%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:90%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    Atlassian - Jira
-                    <span>70%</span>
-                    <div class="progress-bar">
-                        <div class="progress-bar-inner" style="width:70%"></div>
-                    </div>
-                </div>
-            </div>
+        <!-- Loaded via JS -->
+        <div id="skills-container" class="skills-container">
         </div>
     </div>
     <div class="section project-section">
@@ -134,7 +65,9 @@
                     <img src="./index-images/songversation.png">
                     <div class="project-details">
                         <div class="project-title">Songversation</div>
-                        <div class="project-description">A Spotify lyric guessing game</div>
+                        <div class="project-description">
+                            A Spotify lyric guessing game
+                        </div>
                     </div>
                 </div>
                 <i class="fa-solid fa-star"></i>
@@ -144,7 +77,8 @@
                     <img src="./index-images/salesavant.png">
                     <div class="project-details">
                         <div class="project-title">Sale Savant</div>
-                        <div class="project-description">View deals from different websites for your steam wishlist
+                        <div class="project-description">
+                            View deals from different websites for your steam wishlist
                         </div>
                     </div>
                 </div>
@@ -155,9 +89,22 @@
                     <img src="./index-images/melodymapper.png">
                     <div class="project-details">
                         <div class="project-title">Melody Mapper</div>
-                        <div class="project-description">Explore new artists related to your existing favourites in a
-                            node
-                            graph and play snippets of their top songs.</div>
+                        <div class="project-description">
+                            Explore new artists related to your existing favourites in a
+                            node graph and play snippets of their top songs.
+                        </div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-star"></i>
+            </a>
+            <a class="project game react nextjs" href="https://artistmaze.vercel.app">
+                <div class="project-inner">
+                    <img src="./index-images/artistmaze.png">
+                    <div class="project-details">
+                        <div class="project-title">Artist Maze</div>
+                        <div class="project-description">
+                            Try to connect two Spotify artists from their 20 most related artists
+                        </div>
                     </div>
                 </div>
                 <i class="fa-solid fa-star"></i>
@@ -228,7 +175,7 @@
                     <div class="title">Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet</div>
                     <div class="time">Nov 2022 - Present</div>
                     <div class="description">Developing C# applications using ASP MVC & Razor Markup, migrating Jira
-                        Server to Jira Cloud</div>
+                        Server to Jira Cloud and administrating Jira Cloud projects</div>
                 </div>
                 <div class="experience">
                     <div class="title">UWA Coders for Causes Project (Summer 2023/24)</div>
