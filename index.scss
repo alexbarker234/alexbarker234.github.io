@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;400&display=swap');
 
-$blue: #6161ff;
+$blue: #3965a8;
 $gold: #ffae1a;
 $bg1: #252934;
 $bg-light: #2e2c43;
@@ -41,7 +41,8 @@ a {
     text-decoration: inherit;
 }
 
-h1 {
+h1,
+h2 {
     text-align: center;
     position: relative;
     width: fit-content;
@@ -59,6 +60,8 @@ h1 {
         border-bottom: white 3px solid;
     }
 }
+
+
 
 .header {
     position: relative;
@@ -332,43 +335,55 @@ h1 {
 
 .skills-container {
     display: flex;
+    flex-direction: column;
     width: 90%;
     margin: auto;
     flex-wrap: wrap;
     max-width: 960px;
 
-    .skill {
+    h2 {
+        margin-bottom: 0.8rem;
+        margin-top: 0.4rem;
+    }
+
+    .skills {
         display: flex;
-        position: relative;
-        transition: 0.1s;
-        margin: 1rem;
-        flex: 0 0 calc(48% - 1rem); // two columns
-
         align-items: center;
+        justify-content: center;
 
-        .icon {
-            width: 4rem;
-            aspect-ratio: 1/1;
+        .skill {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            transition: 0.1s;
+            margin: 0.5rem;
+
+            align-items: center;
+
+            width: 6.5rem;
+            height: 6.5rem;
             background-color: $blue;
             border-radius: 0.5rem;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            filter: drop-shadow(0 6mm 4mm rgba(38, 37, 38, 0.5));
 
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 0.4rem;
 
-            i {
-                font-size: 3rem;
+                i {
+                    font-size: 3rem;
+                }
             }
-        }
 
-        .title {
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-left: 1rem;
-
-            flex-grow: 1;
-            border-bottom: white 2px solid;
+            .title {
+                text-align: center;
+                font-weight: bold;
+                font-size: 1rem;
+            }
         }
     }
 }
