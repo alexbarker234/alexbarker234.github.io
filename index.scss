@@ -334,27 +334,41 @@ h1 {
     display: flex;
     width: 90%;
     margin: auto;
-    justify-content: center;
     flex-wrap: wrap;
     max-width: 960px;
 
     .skill {
-        width: 5rem;
-        aspect-ratio: 1/1;
-
-        display: block;
+        display: flex;
         position: relative;
-        border-radius: 0.5rem;
-        background-color: #6161ff;
         transition: 0.1s;
         margin: 1rem;
+        flex: 0 0 calc(48% - 1rem); // two columns
 
-        display: flex;
         align-items: center;
-        justify-content: center;
 
-        i {
-            font-size: 4rem;
+        .icon {
+            width: 4rem;
+            aspect-ratio: 1/1;
+            background-color: $blue;
+            border-radius: 0.5rem;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+            i {
+                font-size: 3rem;
+            }
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-left: 1rem;
+
+            flex-grow: 1;
+            border-bottom: white 2px solid;
         }
     }
 }
@@ -363,7 +377,6 @@ h1 {
 .footer {
     width: 100%;
     background-color: $bg-dark;
-
 
     .footer-links {
         display: flex;
