@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;400&display=swap');
 
 $blue: #3965a8;
+$blue-light: #5598d3;
 $gold: #ffae1a;
 $bg1: #252934;
 $bg-light: #2e2c43;
@@ -10,8 +11,8 @@ $bg-dark: #1c1e23;
     --header-bg-width: 3000px;
     --header-bg-offset: -2550px;
 
-    /* use this color somewhere its cool #040b14 */
     --blue: #{$blue};
+    --blue-light: #{$blue-light};
     --gold: #{$gold};
     --bg1: #{$bg1};
     --bg-light: #{$bg-light};
@@ -39,6 +40,17 @@ body {
 a {
     color: white;
     text-decoration: inherit;
+    transition: 0.2s;
+}
+
+.text-link {
+    color: var(--blue-light);
+    font-weight: bold;
+    transition: opacity 0.1s;
+
+    &:hover {
+        opacity: 0.8;
+    }
 }
 
 ul {
@@ -351,10 +363,15 @@ h2 {
         margin-top: 0.4rem;
     }
 
+    .skill-section {
+        width: 100%;
+    }
+
     .skills {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
 
         .skill {
             display: flex;
@@ -451,6 +468,11 @@ h2 {
         &:not(:first-child) {
             margin-left: 0;
         }
+    }
+
+    .skills-container .skills .skill {
+        width: 5.5rem;
+        height: 5.5rem;
     }
 
     .project {

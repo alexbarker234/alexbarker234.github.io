@@ -164,6 +164,18 @@ const skills = [
         types: [types.language],
     },
     {
+        id: "PowerShell",
+        icon: "devicon-powershell-plain",
+        title: "PowerShell",
+        types: [types.language],
+    },
+    {
+        id: "SQL",
+        icon: "devicon-azuresqldatabase-plain",
+        title: "SQL",
+        types: [types.language],
+    },
+    {
         id: "NodeJS",
         icon: "devicon-nodejs-plain",
         title: "NodeJS",
