@@ -1,79 +1,79 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
 
 jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - name: Update & Checkout Submodules
-        run: git submodule update --init --recursive --remote
+    # Build job
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
-        
-      - name: Compile index SCSS
-        run: npm install && npm run sass
+            - name: Update & Checkout Submodules
+              run: git submodule update --init --recursive --remote
 
-      - name: Build Snowbound
-        working-directory: snowbound/_source
-        run: npm install && npm run build
-        
-        # This builds a react app inside a subdirectory of GH Pages app
-      - name: Build React App
-        working-directory: subreact
-        run: |
-          npm install
-          npm run build
-          shopt -s extglob
-          rm -rf !(build)
-          mv build/* ./
-          rm -rf build
+            - name: Setup Pages
+              id: pages
+              uses: actions/configure-pages@v3
 
-        # This builds a react app inside a subdirectory of GH Pages app
-      - name: Build Connect4
-        working-directory: connect4
-        # stop treating warnings as erors
-        env:
-          CI: false
-        run: |
-          npm install
-          npm run build
-          shopt -s extglob
-          rm -rf !(build)
-          mv build/* ./
-          rm -rf build  
+            - name: Compile index
+              run: npm install && npm run build
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-        
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+            - name: Build Snowbound
+              working-directory: snowbound/_source
+              run: npm install && npm run build
 
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: $
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+              # This builds a react app inside a subdirectory of GH Pages app
+            - name: Build React App
+              working-directory: subreact
+              run: |
+                  npm install
+                  npm run build
+                  shopt -s extglob
+                  rm -rf !(build)
+                  mv build/* ./
+                  rm -rf build
+
+              # This builds a react app inside a subdirectory of GH Pages app
+            - name: Build Connect4
+              working-directory: connect4
+              # stop treating warnings as erors
+              env:
+                  CI: false
+              run: |
+                  npm install
+                  npm run build
+                  shopt -s extglob
+                  rm -rf !(build)
+                  mv build/* ./
+                  rm -rf build
+
+            - name: Build with Jekyll
+              uses: actions/jekyll-build-pages@v1
+              with:
+                  source: ./
+                  destination: ./_site
+
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v1
+
+    # Deployment job
+    deploy:
+        environment:
+            name: github-pages
+            url: $
+        permissions:
+            contents: read
+            pages: write
+            id-token: write
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v2

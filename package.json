@@ -7,10 +7,10 @@
     "scripts": {
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
-        "build": "esbuild index.ts --outfile=index.js --bundle && cd snowbound/_source && npm run build",
+        "build": "node ./esbuild.mjs",
+        "watch": "node ./esbuild.mjs watch",
         "sass": "sass index.scss index.css",
-        "sass:watch": "sass --watch index.scss index.css",
-        "watch": "esbuild index.ts --outfile=index.js --bundle --watch"
+        "sass:watch": "sass --watch index.scss index.css"
     },
     "author": "",
     "license": "ISC",
@@ -20,6 +20,7 @@
         "gh-pages": "^5.0.0"
     },
     "dependencies": {
+        "esbuild-sass-plugin": "^3.3.1",
         "sass": "^1.68.0"
     }
 }

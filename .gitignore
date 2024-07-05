@@ -1,5 +1,6 @@
 # Index
 bundle
+/build
 /index.css
 /index.css.map
 /index.js
