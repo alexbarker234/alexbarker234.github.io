@@ -34,8 +34,13 @@
         </div>
     </div>
     <!-- TODO table of contents type shortcuts (on the side maybe) -->
-    <div style="display: none;"><i class="fa-solid fa-user"></i></div>
-    <div class="section about-section">
+    <nav>
+        <a href="#about"><i class="fa-solid fa-user"></i>About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+    </nav>
+    <div class="section about-section" id="about">
         <h1>About</h1>
         <p>
             I am a self-taught developer with a background in creating and implementing innovative features from
@@ -47,13 +52,13 @@
             design, cutting-edge technology, and innovative solutions.
         </p>
     </div>
-    <div class="section skills-section">
+    <div class="section skills-section" id="skills">
         <h1>Skills</h1>
         <!-- Loaded via JS -->
         <div id="skills-container" class="skills-container">
         </div>
     </div>
-    <div class="section project-section">
+    <div class="section project-section" id="projects">
         <h1>My Projects</h1>
         <div class="project-selectors">
             <div class="selector">All</div>
@@ -159,7 +164,7 @@
             </a>
         </div>
     </div>
-    <div class="section resume">
+    <div class="section resume" id="resume">
         <h1>Resume</h1>
         <div class="resume-container">
             <div class="resume-part">
