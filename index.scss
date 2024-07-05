@@ -130,15 +130,19 @@ h2 {
     }
 }
 
-// METEOR SHOWER
-#meteor-shower {
+.header-inner {
     width: 100vw;
     height: 30vw;
+    min-height: 400px;
+
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+}
 
+// METEOR SHOWER
+#meteor-shower {
     .meteor {
         position: absolute;
         width: 300px;
@@ -156,12 +160,6 @@ h2 {
 }
 
 #stars-bg {
-    width: 100vw;
-    height: 30vw;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
     opacity: 0.8;
 
     .star {
@@ -483,6 +481,37 @@ h2 {
         text-align: center;
         padding-bottom: 2rem;
     }
+}
+
+#back-to-top {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 2rem;
+
+    font-size: 1.5rem;
+
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+
+    background-color: var(--blue);
+
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+
+    &.enabled {
+        opacity: 1;
+    }
+}
+
+#back-to-top:hover {
+    opacity: 0.8;
 }
 
 // For smaller screens

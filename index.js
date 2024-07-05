@@ -283,3 +283,21 @@ const loadSkills = () => {
 function randBetween(min, max) {
     return Math.random() * (max - min) + min;
 }
+
+// Back to top
+window.onscroll = function () {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    const backToTopButton = $("#back-to-top");
+    const enabled = document.body.scrollTop > 20 || document.documentElement.scrollTop > 20;
+    backToTopButton.toggleClass("enabled", enabled);
+}
+
+function backToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+}
