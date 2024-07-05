@@ -1,14 +1,28 @@
 $(window).on("load", function () {
+    initStars();
     handleMeteors();
     handleButtons();
     handleFadeIn();
 
     loadSkills();
 });
+const initStars = () => {
+    const stars = $("#stars-bg");
+    const numStars = 50;
 
+    for (let i = 0; i < numStars; i++) {
+        const star = $("<div>").addClass("star");
+        star.css("left", `${Math.random() * 100}%`);
+        star.css("top", `${Math.random() * 100}%`);
+        const size = randBetween(5, 10);
+        star.css("width", `${size}px`);
+        star.css("height", `${size}px`);
+        star.css("animation-delay", `${Math.random() * -0.3}s`);
+        stars.append(star);
+    }
+};
 const handleMeteors = () => {
     const meteorShower = $("#meteor-shower");
-    console.log(meteorShower);
     setInterval(function () {
         if (Math.random() > 0.5) return;
         let meteor = $("<div>").addClass("meteor");
@@ -266,3 +280,6 @@ const loadSkills = () => {
         });
     });
 };
+function randBetween(min, max) {
+    return Math.random() * (max - min) + min;
+}
