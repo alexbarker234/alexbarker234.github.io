@@ -2,13 +2,15 @@
 @media only screen and (min-width: 800px) {
     .nav {
         width: 100%;
-        margin-top: 1rem;
+        padding: 0.75rem 0rem;
         font-size: 1.5rem;
         z-index: 10;
 
         text-align: center;
 
-        top: 10px;
+        background-color: var(--bg1);
+
+        top: 0px;
         position: sticky;
 
         button {
@@ -28,7 +30,7 @@
                 background-color: var(--bg1);
                 max-width: 12rem;
                 flex: 1 1 0px;
-                padding: 1rem;
+                padding: 0.75rem;
                 transition: 0.2s;
                 margin: 0rem 1rem;
 
