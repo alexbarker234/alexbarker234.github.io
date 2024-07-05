@@ -6,6 +6,10 @@ $(window).on("load", function () {
 
     loadSkills();
 });
+$(document).on("click", function (event) {
+    handleNavClick(event);
+});
+
 const initStars = () => {
     const stars = $("#stars-bg");
     const numStars = 50;
@@ -300,4 +304,19 @@ function backToTop() {
         top: 0,
         behavior: "smooth",
     });
+}
+
+// Nav
+function navBurger() {
+    const navList = $("#nav-list");
+    navList.toggleClass("enabled");
+}
+
+function handleNavClick(event) {
+    const navList = $("#nav-list");
+
+    // This also closes the nav dropdown on click
+    if (!$(event.target).closest("button").length && navList.hasClass("enabled")) {
+        navList.removeClass("enabled");
+    }
 }

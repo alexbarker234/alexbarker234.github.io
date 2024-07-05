@@ -33,12 +33,23 @@
             <div class="subtitle">Full Stack Dev</div>
         </div>
     </div>
-    <!-- TODO table of contents type shortcuts (on the side maybe) -->
-    <nav>
+    <!-- TODO combine these  -->
+    <nav class="basic-nav">
         <a href="#about"><i class="fa-solid fa-user"></i>About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#resume">Resume</a>
+    </nav>
+    <nav class="side-nav">
+        <button onclick="navBurger()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul id="nav-list">
+            <a href="#about"><i class="fa-solid fa-user"></i>About</a>
+            <a href="#skills"><i class="fa-solid fa-certificate"></i>Skills</a>
+            <a href="#projects"><i class="fa-solid fa-hammer"></i>Projects</a>
+            <a href="#resume"><i class="fa-solid fa-file"></i>Resume</a>
+        </ul>
     </nav>
     <div class="section about-section" id="about">
         <h1>About</h1>
