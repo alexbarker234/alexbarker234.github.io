@@ -7,13 +7,16 @@
     "scripts": {
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
-        "build": "cd snowbound/_source && npm run build",
+        "build": "esbuild index.ts --outfile=index.js --bundle && cd snowbound/_source && npm run build",
         "sass": "sass index.scss index.css",
-        "sass:watch": "sass --watch index.scss index.css"
+        "sass:watch": "sass --watch index.scss index.css",
+        "watch": "esbuild index.ts --outfile=index.js --bundle --watch"
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@types/jquery": "^3.5.30",
+        "esbuild": "0.23.0",
         "gh-pages": "^5.0.0"
     },
     "dependencies": {

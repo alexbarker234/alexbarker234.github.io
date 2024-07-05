@@ -1,6 +1,9 @@
+# Index
 bundle
 /index.css
 /index.css.map
+/index.js
+
 # Logs
 logs
 *.log
