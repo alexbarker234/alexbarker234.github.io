@@ -13,6 +13,7 @@ runs:
     using: "composite"
     steps:
         - name: Build project
+          shell: bash
           working-directory: ${{ inputs.working-directory }}
           env:
               CI: false # Warnings are not errors
