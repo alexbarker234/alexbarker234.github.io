@@ -4,3 +4,6 @@
 [submodule "connect4"]
 	path = connect4
 	url = https://github.com/alexbarker234/connect4-react.git
+[submodule "surface"]
+	path = surface
+	url = https://github.com/alexbarker234/connect4-react.git
