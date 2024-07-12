@@ -1,0 +1,20 @@
+name: Build Subdirectory Project
+description: Builds a Node JS project in a way that can be easily deployed with Jekyll
+inputs:
+    build-folder:
+        required: false
+        type: string
+        default: "build"
+
+runs:
+    using: "composite"
+    steps:
+        - name: Build project
+          run: |
+              echo "Building project in directory: ${{ inputs.working-directory }}"
+              npm install
+              npm run build
+              shopt -s extglob
+              rm -rf !(build)
+              mv build/* ./
+              rm -rf build
