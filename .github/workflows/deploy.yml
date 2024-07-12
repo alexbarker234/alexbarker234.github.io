@@ -28,30 +28,13 @@ jobs:
               working-directory: snowbound/_source
               run: npm install && npm run build
 
-              # This builds a react app inside a subdirectory of GH Pages app
             - name: Build React App
               working-directory: subreact
-              run: |
-                  npm install
-                  npm run build
-                  shopt -s extglob
-                  rm -rf !(build)
-                  mv build/* ./
-                  rm -rf build
+              uses: ./.github/workflows/build-subproject.yml
 
-              # This builds a react app inside a subdirectory of GH Pages app
             - name: Build Connect4
               working-directory: connect4
-              # stop treating warnings as erors
-              env:
-                  CI: false
-              run: |
-                  npm install
-                  npm run build
-                  shopt -s extglob
-                  rm -rf !(build)
-                  mv build/* ./
-                  rm -rf build
+              uses: ./.github/workflows/build-subproject.yml
 
             - name: Build with Jekyll
               uses: actions/jekyll-build-pages@v1
