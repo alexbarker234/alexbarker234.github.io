@@ -1,6 +1,9 @@
 name: Build Subdirectory Project
 description: Builds a Node JS project in a way that can be easily deployed with Jekyll
 inputs:
+    working-directory:
+        required: true
+        type: string
     build-folder:
         required: false
         type: string
@@ -10,8 +13,11 @@ runs:
     using: "composite"
     steps:
         - name: Build project
+          working-directory: ${{ inputs.working-directory }}
+          env:
+              CI: false # Warnings are not errors
           run: |
-              echo "Building project in directory: ${{ inputs.working-directory }}"
+              echo "Building project in directory: $(pwd)"
               npm install
               npm run build
               shopt -s extglob

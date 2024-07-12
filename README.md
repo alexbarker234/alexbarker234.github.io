@@ -11,3 +11,6 @@ View at [alexbarker234.github.io](https://alexbarker234.github.io)
 
 ## Other
 Check out [/subreact/README.md](https://github.com/alexbarker234/alexbarker234.github.io/blob/main/subreact/README.md) for details on how the React project is deployed as a subpage of the website
+
+## Updating Submodules
+`git submodule update --remote --merge`

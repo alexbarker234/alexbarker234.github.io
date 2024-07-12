@@ -21,16 +21,19 @@ jobs:
               run: npm install && npm run build
 
             - name: Build Snowbound
-              working-directory: snowbound/_source
-              run: npm install && npm run build
+              uses: ./.github/actions/build-subproject
+              with:
+                  working-directory: snowbound
 
             - name: Build React App
-              uses: ./.github/actions/build-subproject.yml
-              working-directory: subreact
+              uses: ./.github/actions/build-subproject
+              with:
+                  working-directory: subreact
 
             - name: Build Connect4
-              uses: ./.github/actions/build-subproject.yml
-              working-directory: subreact
+              uses: ./.github/actions/build-subproject
+              with:
+                  working-directory: connect4
 
             - name: Setup Pages
               id: pages
