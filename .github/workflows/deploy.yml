@@ -27,6 +27,8 @@ jobs:
 
             # Delete non-folder files in root dir
             - name: Move index
+              env:
+                  CI: false
               run: |
                   rm *
                   mv homepage/build/* ./
