@@ -17,10 +17,7 @@ jobs:
             - name: Update & Checkout Submodules
               run: git submodule update --init --recursive --remote
 
-            - name: Compile index
-              run: npm install && npm run build
-
-            - name: Build index
+            - name: Build index react
               uses: ./.github/actions/build-subproject
               with:
                   working-directory: index
