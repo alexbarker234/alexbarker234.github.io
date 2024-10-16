@@ -1,3 +1,4 @@
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import "../header.scss";
 import MeteorShower from "./MeteorShower";
 
@@ -36,10 +37,20 @@ export default function Header() {
         </div>
         <MeteorShower />
       </div>
-      <img src="./me.png" alt="Alex Barker" />
       <div className="main-title">
         Alex Barker
         <div className="subtitle">Full Stack Dev</div>
+      </div>
+      <div className="icon-section">
+        <img src="./me.png" alt="Alex Barker" />
+        <div className="social-links">
+          <a href="https://github.com/alexbarker234">
+            <FaGithub />
+          </a>
+          <a href="https://au.linkedin.com/in/alex-barker-a37389ba">
+            <FaLinkedin />
+          </a>
+        </div>
       </div>
     </header>
   );

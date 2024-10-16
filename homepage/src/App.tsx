@@ -1,6 +1,5 @@
 import "devicon/devicon.min.css";
 import Experience from "./components/Experience";
-import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Projects from "./components/Projects";
@@ -29,9 +28,8 @@ const App = () => {
         </p>
       </RevealingSection>
       <Skills />
-      <Projects />
       <Experience />
-      <Footer />
+      <Projects />
       <TopButton />
     </div>
   );

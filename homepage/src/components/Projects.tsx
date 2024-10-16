@@ -1,19 +1,40 @@
-import { useEffect, useState } from "react";
+import Isotope from "isotope-layout";
+import { useEffect, useRef, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import projects from "../data/projectsData";
 import { ProjectTag } from "../types";
 import RevealingSection from "./RevealingSection";
+import "./projects.scss";
 
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<ProjectTag | null>(null);
-  const [isFading, setIsFading] = useState(false);
+  const isotope = useRef<Isotope | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (isFading) {
-      const timer = setTimeout(() => setIsFading(false), 700);
-      return () => clearTimeout(timer);
+    if (gridRef.current) {
+      isotope.current = new Isotope(gridRef.current, {
+        itemSelector: ".project",
+        layoutMode: "fitRows"
+      });
     }
-  }, [isFading]);
+
+    return () => {
+      isotope.current?.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isotope.current) {
+      if (selectedFilter === null) {
+        isotope.current.arrange({ filter: "*" });
+      } else {
+        isotope.current.arrange({
+          filter: `.${selectedFilter}`
+        });
+      }
+    }
+  }, [selectedFilter]);
 
   const filters: { label: string; value: ProjectTag | null }[] = [
     { label: "All", value: null },
@@ -23,8 +44,7 @@ const Projects: React.FC = () => {
   ];
 
   const handleFilterClick = (filter: ProjectTag | null) => {
-    setIsFading(true);
-    setTimeout(() => setSelectedFilter(filter), 350);
+    setSelectedFilter(filter);
   };
 
   return (
@@ -34,25 +54,29 @@ const Projects: React.FC = () => {
         {filters.map((filter) => (
           <div
             key={filter.label}
-            className="selector"
+            className={`selector ${
+              selectedFilter === filter.value ? "active" : ""
+            }`}
             onClick={() => handleFilterClick(filter.value)}
           >
             {filter.label}
           </div>
         ))}
       </div>
-      <div className={`projects ${isFading ? "fade" : ""}`}>
-        {projects.map(({ tags, href, imgSrc, title, description }, index) => (
-          <Project
-            key={index}
-            // wack double negation boolean cast lol
-            disabled={!!(selectedFilter && !tags.includes(selectedFilter))}
-            href={href}
-            imgSrc={imgSrc}
-            title={title}
-            description={description}
-          />
-        ))}
+      <div ref={gridRef} className="projects">
+        {projects.map(
+          ({ tags, href, imgSrc, title, description, favourite }, index) => (
+            <Project
+              key={index}
+              tags={tags}
+              href={href}
+              imgSrc={imgSrc}
+              title={title}
+              description={description}
+              favourite={favourite}
+            />
+          )
+        )}
       </div>
     </RevealingSection>
   );
@@ -64,18 +88,18 @@ interface ProjectProps {
   imgSrc: string;
   title: string;
   description: string;
+  tags: ProjectTag[];
   favourite?: boolean;
-  disabled?: boolean;
 }
 const Project: React.FC<ProjectProps> = ({
   href,
   imgSrc,
   title,
   description,
-  favourite,
-  disabled
+  tags,
+  favourite
 }) => (
-  <a className={`project ${disabled && "disabled"}`} href={href}>
+  <a className={`project ${tags.join(" ")}`} href={href}>
     <div className="project-inner">
       <img src={imgSrc} alt={title} />
       <div className="project-details">

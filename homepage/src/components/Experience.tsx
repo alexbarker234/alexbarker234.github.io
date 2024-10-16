@@ -8,11 +8,13 @@ export default function ExperienceSection() {
         <div className="resume-part">
           <div className="title">Education</div>
           <div className="experience">
-            <div className="title">Computer Science & Cybersecurity</div>
-            <div className="time">2021 - Present</div>
+            <div className="title">
+              B.S. in Computer Science & Cybersecurity
+            </div>
+            <div className="time">2021 - 2024</div>
             <div className="description">
               Bachelor of Science - Double major in Computer Science &
-              Cybersecurity
+              Cybersecurity at UWA
             </div>
           </div>
         </div>

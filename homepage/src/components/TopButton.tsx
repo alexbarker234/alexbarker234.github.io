@@ -29,7 +29,7 @@ export default function TopButton() {
         });
       }}
     >
-      <FaArrowUp />
+      <FaArrowUp className="icon" />
     </button>
   );
 }
