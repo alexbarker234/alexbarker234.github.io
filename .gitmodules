@@ -4,3 +4,6 @@
 [submodule "connect4"]
 	path = connect4
 	url = https://github.com/alexbarker234/connect4-react.git
+[submodule "csmarks"]
+	path = csmarks
+	url = https://github.com/alexbarker234/csmarks-redesign
