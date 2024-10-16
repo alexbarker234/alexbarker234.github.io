@@ -23,15 +23,15 @@ jobs:
             - name: Build index
               uses: ./.github/actions/build-subproject
               with:
-                  working-directory: homepage
+                  working-directory: index
 
             # Delete non-folder files in root dir
             - name: Move index
               run: |
                   find . -maxdepth 1 -type f -exec rm {} \;
                     shopt -s extglob
-                  mv ./homepage/* ./
-                  rm -rf homepage
+                  mv ./index/* ./
+                  rm -rf index
 
             - name: Build Snowbound
               uses: ./.github/actions/build-subproject
