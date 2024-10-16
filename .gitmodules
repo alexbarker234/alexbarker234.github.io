@@ -1,0 +1,6 @@
+[submodule "snowbound"]
+	path = snowbound
+	url = https://github.com/alexbarker234/snowbound
+[submodule "connect4"]
+	path = connect4
+	url = https://github.com/alexbarker234/connect4-react.git
