@@ -3,12 +3,14 @@
     .nav {
         width: 100%;
         padding: 0.75rem 0rem;
+        padding-bottom: 1rem;
         font-size: 1.5rem;
         z-index: 10;
 
         text-align: center;
 
-        background-color: var(--bg1);
+        background: linear-gradient(to bottom, var(--bg1) 90%, rgba(0, 0, 0, 0) 100%);
+        pointer-events: none;
 
         top: 0px;
         position: sticky;
@@ -27,6 +29,7 @@
             justify-content: center;
 
             a {
+                pointer-events: all;
                 background-color: var(--bg1);
                 max-width: 12rem;
                 flex: 1 1 0px;

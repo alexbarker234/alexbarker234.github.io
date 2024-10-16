@@ -5,6 +5,7 @@
 $blue: #3965a8;
 $blue-light: #5598d3;
 $blue-dark: #384a9b;
+$blue-opacity: #3965a8bf;
 
 $gold: #ffae1a;
 $bg1: #16161a;
@@ -20,6 +21,8 @@ $grey-light: #c8cbce;
     --blue: #{$blue};
     --blue-light: #{$blue-light};
     --blue-dark: #{$blue-dark};
+    --blue-opacity: #{$blue-opacity};
+
     --gold: #{$gold};
     --bg1: #{$bg1};
     --bg-light: #{$bg-light};
@@ -254,8 +257,7 @@ h2 {
 
     font-size: 1.5rem;
 
-    opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, background-color 0.2s;
 
     position: fixed;
     bottom: 20px;
@@ -277,13 +279,14 @@ h2 {
         display: block;
     }
 
-    &.enabled {
-        opacity: 1;
+    &:disabled {
+        opacity: 0;
+        pointer-events: none;
     }
-}
 
-#back-to-top:hover {
-    opacity: 0.8;
+    &:hover {
+        background-color: var(--blue-dark);
+    }
 }
 
 // For smaller screens

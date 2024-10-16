@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
 export default function TopButton() {
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const enabled =
         document.body.scrollTop > 20 || document.documentElement.scrollTop > 20;
-      setIsButtonEnabled(enabled);
+      setIsButtonDisabled(!enabled);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -21,7 +21,7 @@ export default function TopButton() {
     <button
       id="back-to-top"
       title="Back to top"
-      className={isButtonEnabled ? "enabled" : ""}
+      disabled={isButtonDisabled}
       onClick={() => {
         window.scrollTo({
           top: 0,
