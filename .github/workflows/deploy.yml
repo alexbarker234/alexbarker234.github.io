@@ -45,6 +45,11 @@ jobs:
               with:
                   working-directory: connect4
 
+            - name: Build csmarks
+              uses: ./.github/actions/build-subproject
+              with:
+                  working-directory: csmarks
+
             - name: Setup Pages
               id: pages
               uses: actions/configure-pages@v3
