@@ -46,10 +46,10 @@ export default function Nav() {
         <a href="#resume">
           <FaFile /> Resume
         </a>
+        <a href="#projects">
+          <FaHammer /> Projects
+        </a>
       </div>
-      <a href="#projects">
-        <FaHammer /> Projects
-      </a>
     </nav>
   );
 }
