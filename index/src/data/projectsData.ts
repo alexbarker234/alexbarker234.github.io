@@ -3,7 +3,7 @@ import { Project } from "../types";
 const projects: Project[] = [
   {
     tags: ["react", "nextjs", "game"],
-    href: "https://songversation.vercel.app/",
+    href: "https://songversation.lexalot.dev/",
     imgSrc: "./project-images/songversation.png",
     title: "Songversation",
     description: "A Spotify lyric guessing game",
@@ -11,7 +11,7 @@ const projects: Project[] = [
   },
   {
     tags: ["react", "nextjs"],
-    href: "https://salesavant.vercel.app",
+    href: "https://salesavant.lexalot.dev",
     imgSrc: "./project-images/salesavant.png",
     title: "Sale Savant",
     description: "View deals from different websites for your Steam wishlist",
@@ -19,7 +19,7 @@ const projects: Project[] = [
   },
   {
     tags: ["react", "nextjs"],
-    href: "https://melodymapper.vercel.app",
+    href: "https://melodymapper.lexalot.dev",
     imgSrc: "./project-images/melodymapper.png",
     title: "Melody Mapper",
     description:
@@ -28,7 +28,7 @@ const projects: Project[] = [
   },
   {
     tags: ["game", "react", "nextjs"],
-    href: "https://artistmaze.vercel.app",
+    href: "https://artistmaze.lexalot.dev",
     imgSrc: "./project-images/artistmaze.png",
     title: "Artist Maze",
     description:
