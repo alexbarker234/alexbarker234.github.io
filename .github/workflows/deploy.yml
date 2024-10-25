@@ -14,13 +14,14 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
-            - name: Update & Checkout Submodules
-              run: git submodule update --init --recursive --remote
+            - name: Install jq
+              run: sudo apt-get install -y jq
 
-            - name: Build index react
-              uses: ./.github/actions/build-subproject
-              with:
-                  working-directory: index
+            - name: Clone and build projects from JSON
+              env:
+                  CI: false
+              run: |
+                  bash ./.github/scripts/clone_and_build.sh ./projects.json
 
             # Delete non-folder files in root dir
             - name: Move index
@@ -29,21 +30,6 @@ jobs:
                     shopt -s extglob
                   mv ./index/* ./
                   rm -rf index
-
-            - name: Build Snowbound
-              uses: ./.github/actions/build-subproject
-              with:
-                  working-directory: snowbound
-
-            - name: Build React App
-              uses: ./.github/actions/build-subproject
-              with:
-                  working-directory: subreact
-
-            - name: Build Connect4
-              uses: ./.github/actions/build-subproject
-              with:
-                  working-directory: connect4
 
             - name: Setup Pages
               id: pages

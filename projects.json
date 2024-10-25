@@ -1,0 +1,24 @@
+{
+    "projects": [
+        {
+            "gitURL": "https://github.com/alexbarker234/snowbound.git",
+            "directory": "snowbound"
+        },
+        {
+            "gitURL": "https://github.com/alexbarker234/connect4-react.git",
+            "directory": "connect4"
+        },
+        {
+            "gitURL": "https://github.com/alexbarker234/csmarks-redesign.git",
+            "directory": "csmarks"
+        },
+        {
+            "gitURL": null,
+            "directory": "subreact"
+        },
+        {
+            "gitURL": null,
+            "directory": "index"
+        }
+    ]
+}

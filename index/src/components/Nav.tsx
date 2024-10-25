@@ -43,11 +43,11 @@ export default function Nav() {
         <a href="#skills">
           <FaCertificate /> Skills
         </a>
-        <a href="#projects">
-          <FaHammer /> Projects
-        </a>
         <a href="#resume">
           <FaFile /> Resume
+        </a>
+        <a href="#projects">
+          <FaHammer /> Projects
         </a>
       </div>
     </nav>
