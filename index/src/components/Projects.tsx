@@ -5,6 +5,7 @@ import projects from "../data/projectsData";
 import { ProjectTag } from "../types";
 import RevealingSection from "./RevealingSection";
 import "./projects.scss";
+import FadeInImage from "./FadeInImage";
 
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<ProjectTag | null>(null);
@@ -98,15 +99,19 @@ const Project: React.FC<ProjectProps> = ({
   description,
   tags,
   favourite
-}) => (
-  <a className={`project ${tags.join(" ")}`} href={href}>
-    <div className="project-inner">
-      <img src={imgSrc} alt={title} />
-      <div className="project-details">
-        <div className="project-title">{title}</div>
-        <div className="project-description">{description}</div>
+}) => {
+  const [isLoaded, setLoaded] = useState(false);
+
+  return (
+    <a className={`project ${tags.join(" ")}`} href={href}>
+      <div className={`project-inner ${isLoaded ? "loaded" : ""}`}>
+        <FadeInImage src={imgSrc} alt={title} onLoad={() => setLoaded(true)} />
+        <div className="project-details">
+          <div className="project-title">{title}</div>
+          <div className="project-description">{description}</div>
+        </div>
       </div>
-    </div>
-    {favourite && <FaStar />}
-  </a>
-);
+      {favourite && <FaStar />}
+    </a>
+  );
+};

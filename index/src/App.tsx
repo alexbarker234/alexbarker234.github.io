@@ -10,7 +10,7 @@ import "./index.scss";
 
 const App = () => {
   return (
-    <div>
+    <div className="main-content">
       <Header />
       <Nav />
       <RevealingSection id="about">

@@ -107,6 +107,10 @@ h2 {
     }
 }
 
+.main-content {
+    opacity: 0;
+    animation: fade-in 1s ease-out forwards;
+}
 
 // SECTION STYLES
 .section {
@@ -131,7 +135,8 @@ h2 {
 
 // RESUME SECTION
 #resume {
-    width: 70%;
+    width: 80%;
+    max-width: 1300px;
     margin: auto;
     margin-bottom: 1rem;
 
@@ -257,7 +262,7 @@ h2 {
 
     font-size: 1.5rem;
 
-    transition: opacity 0.2s, background-color 0.2s;
+    transition: opacity 0.2s, background-color 0.2s, scale 0.2s;
 
     position: fixed;
     bottom: 20px;
@@ -286,6 +291,10 @@ h2 {
 
     &:hover {
         background-color: var(--blue-dark);
+    }
+
+    &:active {
+        scale: 1.1;
     }
 }
 
@@ -348,6 +357,17 @@ h2 {
         scale: 1;
     }
 }
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 
 @keyframes fade-out-in {
     0% {
