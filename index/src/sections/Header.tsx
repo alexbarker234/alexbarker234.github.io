@@ -1,7 +1,7 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import FadeInImage from "../components/FadeInImage";
+import MeteorShower from "../components/MeteorShower";
 import "../header.scss";
-import MeteorShower from "./MeteorShower";
-import FadeInImage from "./FadeInImage";
 
 const randBetween = (min: number, max: number) =>
   Math.random() * (max - min) + min;

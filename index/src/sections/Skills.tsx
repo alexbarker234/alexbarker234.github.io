@@ -1,5 +1,5 @@
 import skills from "@/data/skillsData";
-import RevealingSection from "./RevealingSection";
+import RevealingSection from "../components/RevealingSection";
 
 const types = {
   language: "Programming Languages",
