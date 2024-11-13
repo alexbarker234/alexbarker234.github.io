@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;400&display=swap");
+
+html {
+  @apply bg-bg1 scroll-pt-8 scroll-smooth md:scroll-pt-24;
+}

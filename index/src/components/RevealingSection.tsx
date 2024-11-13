@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 
 const RevealingSection: React.FC<{
@@ -5,14 +6,13 @@ const RevealingSection: React.FC<{
   id?: string;
   className?: string;
 }> = ({ children, id, className }) => {
-  const [hasObserbed, setHasObserved] = useState(false);
+  const [hasObserved, setHasObserved] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!ref.current || hasObserbed) return;
+    if (!ref.current || hasObserved) return;
 
-    var offset = Math.min(300, window.innerHeight / 2);
-    console.log(offset);
+    const offset = Math.min(300, window.innerHeight / 2);
     const observer = new IntersectionObserver(
       ([entry]) => {
         setHasObserved(entry.isIntersecting);
@@ -21,11 +21,15 @@ const RevealingSection: React.FC<{
     );
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [hasObserbed]);
+  }, [hasObserved]);
 
   return (
     <div
-      className={`section ${hasObserbed ? "shown" : ""} ${className}`}
+      className={cn(
+        "opacity-0 transition-opacity duration-500 pointer-events-none text-[1.125rem]",
+        hasObserved && "opacity-100 pointer-events-auto",
+        className
+      )}
       ref={ref}
       id={id}
     >

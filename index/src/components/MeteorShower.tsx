@@ -34,16 +34,24 @@ const MeteorShower: React.FC = () => {
   }, []);
 
   return (
-    <div className="header-inner" id="meteor-shower">
+    <div className="absolute w-full h-full overflow-hidden">
       {meteors.map((meteor) => (
         <div
           key={meteor.id}
-          className="meteor-root"
+          className="absolute -top-[150px] w-10 h-10 bg-red-500"
           style={{
             left: `${meteor.xPos}px`
           }}
         >
-          <div className="meteor"></div>
+          <div
+            className="absolute w-[300px] h-[1px] -rotate-45 bg-gradient-to-r from-meteor-glow
+              to-transparent animate-meteor"
+          >
+            <div
+              className="absolute w-2 h-2 bg-meteor-body rounded-full -translate-x-1/2 -translate-y-1/2
+                shadow-[0_0_15px_8px_rgba(236,240,255,0.8)]"
+            ></div>
+          </div>
         </div>
       ))}
     </div>

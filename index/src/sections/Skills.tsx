@@ -1,6 +1,6 @@
+import HeaderText from "@/components/HeaderText";
 import skills from "@/data/skillsData";
 import RevealingSection from "../components/RevealingSection";
-import "./skills.scss";
 
 const types = {
   language: "Programming Languages",
@@ -12,19 +12,28 @@ const types = {
 const Skills = () => {
   const skillTypes: { [key: string]: JSX.Element[] } = Object.keys(
     types
-  ).reduce((acc, type) => {
-    acc[type] = [];
-    return acc;
-  }, {} as { [key: string]: JSX.Element[] });
+  ).reduce(
+    (acc, type) => {
+      acc[type] = [];
+      return acc;
+    },
+    {} as { [key: string]: JSX.Element[] }
+  );
 
   skills.forEach((skill) => {
     skill.types.forEach((skillType) => {
       skillTypes[skillType].push(
-        <div className="skill" key={skill.title}>
-          <div className="icon">
-            <i className={skill.icon}></i>
+        <div
+          className="flex flex-col justify-center items-center transition-all duration-100 w-[4.5rem]
+            h-[4.5rem] md:w-28 md:h-28 bg-blue rounded-lg drop-shadow-lg"
+          key={skill.title}
+        >
+          <div className="flex justify-center items-center md:mb-2">
+            <i className={`${skill.icon} text-3xl md:text-5xl`}></i>
           </div>
-          <div className="title">{skill.title}</div>
+          <div className="text-center font-bold md:text-base text-sm">
+            {skill.title}
+          </div>
         </div>
       );
     });
@@ -32,12 +41,21 @@ const Skills = () => {
 
   return (
     <RevealingSection id="skills">
-      <h1>Skills</h1>
-      <div id="skills-container" className="skills-container">
+      <HeaderText level="h1" className="text-4xl">
+        Skills
+      </HeaderText>
+      <div
+        id="skills-container"
+        className="flex flex-col w-11/12 mx-auto flex-wrap max-w-[960px]"
+      >
         {Object.entries(types).map(([typeId, title]) => (
-          <div className="skill-section" id={typeId} key={typeId}>
-            <h2>{title}</h2>
-            <div className="skills">{skillTypes[typeId]}</div>
+          <div className="w-full" id={typeId} key={typeId}>
+            <HeaderText level="h2" className="text-2xl font-semibold my-4">
+              {title}
+            </HeaderText>
+            <div className="flex items-center justify-center flex-wrap gap-2 md:gap-4">
+              {skillTypes[typeId]}
+            </div>
           </div>
         ))}
       </div>

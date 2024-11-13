@@ -1,31 +1,35 @@
+import HeaderText from "@/components/HeaderText";
 import RevealingSection from "../components/RevealingSection";
-import "./experience.scss";
 
 export default function ExperienceSection() {
   return (
-    <RevealingSection id="resume">
-      <h1>Experience</h1>
-      <div className="resume-container">
-        <div className="resume-part">
-          <div className="title">Education</div>
-          <div className="experience">
-            <div className="title">
-              B.S. in Computer Science & Cybersecurity
-            </div>
-            <div className="time">2021 - 2024</div>
-            <div className="description">
+    <RevealingSection
+      id="experience"
+      className="w-11/12 max-w-6xl mx-auto mb-4"
+    >
+      <HeaderText level="h1" className="text-4xl">
+        Experience
+      </HeaderText>
+      <div className="resume-container flex flex-col lg:flex-row mt-8">
+        <div className="resume-part w-full lg:mr-8 mb-4 lg:mb-0">
+          <div className="title font-black text-2xl mb-4">Education</div>
+          <Experience
+            title="B.S. in Computer Science & Cybersecurity"
+            time="2021 - 2024"
+          >
+            <div>
               Bachelor of Science - Double major in Computer Science &
               Cybersecurity at UWA
             </div>
-          </div>
+          </Experience>
         </div>
-        <div className="resume-part">
-          <div className="title">Experience</div>
+        <div className="resume-part w-full">
+          <div className="title font-black text-2xl mb-4">Experience</div>
           <Experience
             title="Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet"
             time="Nov 2022 - Present"
           >
-            <ul>
+            <ul className="list-disc list-inside space-y-2">
               <li>Developing C# applications using ASP MVC & Razor Markup</li>
               <li>Creating & administrating Jira cloud projects</li>
               <li>Migrating our Jira server instance to Jira cloud</li>
@@ -39,7 +43,6 @@ export default function ExperienceSection() {
               </li>
             </ul>
           </Experience>
-
           <Experience
             title="UWA Coders for Causes Project (Summer 2023/24)"
             time="Nov 2023 - Feb 2024"
@@ -48,7 +51,7 @@ export default function ExperienceSection() {
               Volunteer work in a large student-run team developing a
               <a
                 href="https://github.com/codersforcauses/repair-labs"
-                className="text-link"
+                className="text-blue-500 underline"
               >
                 {" "}
                 Next JS web application{" "}
@@ -56,7 +59,6 @@ export default function ExperienceSection() {
               for a non-profit
             </div>
           </Experience>
-
           <Experience
             title="University Computer Club - Committee Member"
             time="Mar 2021 - Mar 2022"
@@ -69,16 +71,20 @@ export default function ExperienceSection() {
     </RevealingSection>
   );
 }
+
 interface ExperienceProps {
   title: string;
   time: string;
   children: React.ReactNode;
 }
 
-const Experience: React.FC<ExperienceProps> = ({ title, time, children }) => (
-  <div className="experience">
-    <div className="title">{title}</div>
-    <div className="time">{time}</div>
-    <div className="description">{children}</div>
+const Experience = ({ title, time, children }: ExperienceProps) => (
+  <div className="experience relative pl-4 border-l-2 border-blue mb-8 last:mb-0">
+    <div className="title font-black text-lg mb-1 -translate-y-1.5">
+      {title}
+    </div>
+    <div className="time border-b-2 border-blue w-fit mb-4">{time}</div>
+    <div className="description space-y-2">{children}</div>
+    <span className="absolute w-4 h-4 rounded-md bg-blue left-0 top-0 -translate-x-1/2"></span>
   </div>
 );

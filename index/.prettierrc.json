@@ -1,9 +1,10 @@
 {
-    "arrowParens": "always",
-    "singleQuote": false,
-    "jsxSingleQuote": false,
-    "tabWidth": 2,
-    "trailingComma": "none",
-    "semi": true,
-    "endOfLine": "auto"
+  "arrowParens": "always",
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "semi": true,
+  "endOfLine": "auto",
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-classnames"]
 }

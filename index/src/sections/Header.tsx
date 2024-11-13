@@ -1,7 +1,6 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import FadeInImage from "../components/FadeInImage";
 import MeteorShower from "../components/MeteorShower";
-import "./header.scss";
 
 const randBetween = (min: number, max: number) =>
   Math.random() * (max - min) + min;
@@ -16,7 +15,7 @@ const generateStars = (numStars: number) => {
     return (
       <div
         key={i}
-        className="star"
+        className="absolute rounded-full bg-meteor-body animate-flicker"
         style={{
           left,
           top,
@@ -24,35 +23,68 @@ const generateStars = (numStars: number) => {
           height: `${size}px`,
           animationDelay
         }}
-      ></div>
+      >
+        <div className="bg-meteor-glow blur-lg w-full h-full"></div>
+      </div>
     );
   });
 };
 
 export default function Header() {
   return (
-    <header className="header">
-      <div className="header-background">
-        <div className="header-inner" id="stars-bg">
+    <header className="overflow-hidden relative w-full min-h-[400px] h-[30vw]">
+      <div
+        className="absolute bg-night-sky w-[3000px] h-[3000px] rounded-full bottom-0 left-1/2
+          transform -translate-x-1/2 z-[-1] overflow-hidden"
+      >
+        <div
+          className="w-screen h-[30vw] min-h-[400px] absolute bottom-0 left-1/2 transform
+            -translate-x-1/2"
+        >
           {generateStars(50)}
+          <MeteorShower />
         </div>
-        <MeteorShower />
       </div>
-      <div className="main-title">
+      <div
+        className="main-title font-thin text-center absolute w-full top-[60%] transform
+          -translate-y-1/2 text-[max(10vw,5rem)] drop-shadow-[0_5px_8px_rgba(20,20,21,1)]"
+      >
         Alex Barker
-        <div className="subtitle">Full Stack Dev</div>
+        <div className="subtitle absolute top-[90%] w-full text-5xl">
+          Full Stack Dev
+        </div>
       </div>
-      <div className="icon-section">
-        <FadeInImage src="./me.png" />
-        <div className="social-links">
-          <a href="https://github.com/alexbarker234">
-            <FaGithub />
-          </a>
-          <a href="https://au.linkedin.com/in/alex-barker-a37389ba">
-            <FaLinkedin />
-          </a>
+      <div className="icon-section absolute left-1/2 top-2 transform -translate-x-1/2 w-48">
+        <FadeInImage
+          src="./me.png"
+          className="w-40 mx-auto aspect-square rounded-full"
+        />
+        <div className="social-links flex justify-between gap-3 -translate-y-[40%]">
+          <SocialLink
+            href="https://twitter.com/alexbarker234"
+            icon={<FaGithub size={30} />}
+          />
+          <SocialLink
+            href="https://www.linkedin.com/in/alex-barker-a37389ba/"
+            icon={<FaLinkedin size={30} />}
+          />
         </div>
       </div>
     </header>
   );
 }
+
+const SocialLink: React.FC<{ href: string; icon: React.ReactNode }> = ({
+  href,
+  icon
+}) => {
+  return (
+    <a
+      href={href}
+      className="relative w-12 h-12 rounded-full bg-bg-light transition-transform duration-100
+        hover:scale-105 hover:bg-blue flex items-center justify-center"
+    >
+      {icon}
+    </a>
+  );
+};
