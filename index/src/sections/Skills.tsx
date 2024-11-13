@@ -1,5 +1,6 @@
 import skills from "@/data/skillsData";
 import RevealingSection from "../components/RevealingSection";
+import "./skills.scss";
 
 const types = {
   language: "Programming Languages",
