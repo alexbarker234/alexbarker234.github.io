@@ -10,9 +10,9 @@ export default function ExperienceSection() {
       <HeaderText level="h1" className="text-4xl">
         Experience
       </HeaderText>
-      <div className="resume-container flex flex-col lg:flex-row mt-8">
-        <div className="resume-part w-full lg:mr-8 mb-4 lg:mb-0">
-          <div className="title font-black text-2xl mb-4">Education</div>
+      <div className="flex flex-col lg:flex-row mt-8">
+        <div className="w-full lg:mr-8 mb-4 lg:mb-0">
+          <div className="font-black text-2xl mb-4">Education</div>
           <Experience
             title="B.S. in Computer Science & Cybersecurity"
             time="2021 - 2024"
@@ -23,8 +23,8 @@ export default function ExperienceSection() {
             </div>
           </Experience>
         </div>
-        <div className="resume-part w-full">
-          <div className="title font-black text-2xl mb-4">Experience</div>
+        <div className="w-full">
+          <div className="font-black text-2xl mb-4">Experience</div>
           <Experience
             title="Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet"
             time="Nov 2022 - Present"
@@ -79,12 +79,10 @@ interface ExperienceProps {
 }
 
 const Experience = ({ title, time, children }: ExperienceProps) => (
-  <div className="experience relative pl-4 border-l-2 border-blue mb-8 last:mb-0">
-    <div className="title font-black text-lg mb-1 -translate-y-1.5">
-      {title}
-    </div>
-    <div className="time border-b-2 border-blue w-fit mb-4">{time}</div>
-    <div className="description space-y-2">{children}</div>
+  <div className="relative pl-4 border-l-2 border-blue mb-8 last:mb-0">
+    <div className="font-black text-lg mb-1 -translate-y-1.5">{title}</div>
+    <div className="border-b-2 border-blue w-fit mb-4">{time}</div>
+    <div className="space-y-2">{children}</div>
     <span className="absolute w-4 h-4 rounded-md bg-blue left-0 top-0 -translate-x-1/2"></span>
   </div>
 );

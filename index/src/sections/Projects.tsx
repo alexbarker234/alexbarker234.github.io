@@ -58,7 +58,7 @@ const Projects: React.FC = () => {
       </HeaderText>
       <div
         className="project-selectors w-[95%] max-w-[900px] mx-auto flex flex-wrap justify-center
-          gap-6"
+          gap-x-6"
       >
         {filters.map((filter) => (
           <div
@@ -123,7 +123,7 @@ const Project: React.FC<ProjectProps> = ({
 
   return (
     <a
-      className={`project ${tagClasses} w-[22rem] h-[13rem] m-2 text-center relative select-none
+      className={`project ${tagClasses} flex-1 w-96 h-52 m-2 text-center relative select-none
         rounded-lg hover:scale-105 group duration-0`}
       href={href}
     >

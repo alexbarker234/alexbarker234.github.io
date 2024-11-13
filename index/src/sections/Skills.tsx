@@ -24,8 +24,8 @@ const Skills = () => {
     skill.types.forEach((skillType) => {
       skillTypes[skillType].push(
         <div
-          className="flex flex-col justify-center items-center transition-all duration-100 w-[4.5rem]
-            h-[4.5rem] md:w-28 md:h-28 bg-blue rounded-lg drop-shadow-lg"
+          className="flex flex-col justify-center items-center transition-all duration-100 w-[4.8rem]
+            h-[4.8rem] md:w-28 md:h-28 bg-blue rounded-lg drop-shadow-lg"
           key={skill.title}
         >
           <div className="flex justify-center items-center md:mb-2">
@@ -53,7 +53,7 @@ const Skills = () => {
             <HeaderText level="h2" className="text-2xl font-semibold my-4">
               {title}
             </HeaderText>
-            <div className="flex items-center justify-center flex-wrap gap-2 md:gap-4">
+            <div className="flex items-center justify-center flex-wrap gap-3 md:gap-4">
               {skillTypes[typeId]}
             </div>
           </div>
