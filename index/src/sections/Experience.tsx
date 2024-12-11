@@ -115,7 +115,7 @@ const Experience = ({ title, time, children }: ExperienceProps) => (
     className="relative hover:bg-bg-light p-4 rounded-lg transition-all hover:!opacity-100
       group-hover:opacity-50"
   >
-    <div className="font-black text-lg mb-1 -translate-y-1.5">{title}</div>
+    <div className="font-black text-xl mb-1 -translate-y-1.5">{title}</div>
     <div className="border-b-2 border-blue w-fit mb-4">{time}</div>
     <div className="space-y-2">{children}</div>
     {/* Stick thing */}
