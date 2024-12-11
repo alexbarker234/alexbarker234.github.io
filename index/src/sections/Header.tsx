@@ -47,7 +47,7 @@ export default function Header() {
       </div>
       <div
         className="main-title font-thin text-center absolute w-full top-[60%] transform
-          -translate-y-1/2 text-[max(10vw,5rem)] drop-shadow-[0_5px_8px_rgba(20,20,21,1)]"
+          -translate-y-1/2 text-[max(10vw,5rem)] drop-shadow-lg"
       >
         Alex Barker
         <div className="subtitle absolute top-[90%] w-full text-5xl">
