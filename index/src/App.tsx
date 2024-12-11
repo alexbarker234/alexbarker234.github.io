@@ -11,7 +11,7 @@ const App = () => {
   return (
     <main
       className="animate-fade-in opacity-0 font-sans text-white scroll-smooth scroll-pt-8 bg-bg1
-        md:scroll-pt-24"
+        md:scroll-pt-24 overflow-x-hidden"
     >
       <Header />
       <Nav />

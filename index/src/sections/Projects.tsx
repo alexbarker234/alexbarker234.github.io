@@ -64,8 +64,8 @@ const Projects: React.FC = () => {
           <div
             key={filter.label}
             className={cn(
-              `selector cursor-pointer w-40 h-12 rounded-full text-center bg-white text-black
-              my-4 transition duration-300 flex items-center`,
+              `selector cursor-pointer w-36 h-12 max-400px:w-40 rounded-full text-center
+              bg-white text-black my-4 transition duration-300 flex items-center`,
               {
                 "bg-blue text-white": selectedFilter === filter.value,
                 "hover:bg-grey-light": selectedFilter !== filter.value
@@ -79,8 +79,7 @@ const Projects: React.FC = () => {
       </div>
       <div
         ref={gridRef}
-        className="projects w-[95%] max-w-[1200px] min-h-[700px] mx-auto flex flex-wrap
-          justify-center mb-4"
+        className="w-[95%] max-w-[1200px] min-h-[700px] mx-auto flex flex-wrap justify-center mb-4"
       >
         {projects.map(
           ({ tags, href, imgSrc, title, description, favourite }, index) => (
@@ -123,36 +122,48 @@ const Project: React.FC<ProjectProps> = ({
 
   return (
     <a
-      className={`project ${tagClasses} flex-1 w-96 h-52 m-2 text-center relative select-none
-        rounded-lg hover:scale-105 group duration-0`}
+      className={[
+        // Isotope classes
+        `project ${tagClasses}`,
+        // Base styles
+        `flex-1 w-full max-w-full h-52 text-center relative select-none rounded-lg
+        duration-0 mb-2`,
+        // Medium screens (500px+)
+        "min-[500px]:w-[calc(50%-1.2rem)] min-[500px]:m-2",
+        // Large screens (900px+)
+        "min-[900px]:w-[calc(33.3%-1.2em)]"
+      ].join("\u0020")}
       href={href}
     >
-      <div
-        className={`overflow-hidden relative w-full h-full transition duration-100 border
-          border-blue rounded-lg ${isLoaded ? "border-none" : ""}`}
-      >
-        <FadeInImage
-          src={imgSrc}
-          alt={title}
-          onLoad={() => setLoaded(true)}
-          className="w-full h-full object-cover object-top"
-        />
+      {/* Seperate element for hover scale to not mess with Isotope */}
+      <div className="hover:scale-105 group transition-all w-full h-full">
         <div
-          className="absolute inset-0 opacity-0 transition-opacity duration-500 p-4 bg-blue/70
-            hover:opacity-100 rounded-lg"
+          className={`overflow-hidden relative w-full h-full transition duration-100 border
+            border-blue rounded-lg ${isLoaded ? "border-none" : ""}`}
         >
-          <div className="text-2xl font-extrabold mb-2">{title}</div>
-          <div>{description}</div>
-        </div>
-      </div>
-      {favourite && (
-        <div className="absolute left-full top-full transform -translate-x-3/4 -translate-y-3/4">
-          <FaStar
-            size={24}
-            className="text-gold group-hover:animate-wiggle-pop"
+          <FadeInImage
+            src={imgSrc}
+            alt={title}
+            onLoad={() => setLoaded(true)}
+            className="w-full h-full object-cover object-top"
           />
+          <div
+            className="absolute inset-0 opacity-0 transition-opacity duration-500 p-4 bg-blue/70
+              hover:opacity-100 rounded-lg"
+          >
+            <div className="text-2xl font-extrabold mb-2">{title}</div>
+            <div>{description}</div>
+          </div>
         </div>
-      )}
+        {favourite && (
+          <div className="absolute left-full top-full transform -translate-x-3/4 -translate-y-3/4">
+            <FaStar
+              size={24}
+              className="text-gold group-hover:animate-wiggle-pop"
+            />
+          </div>
+        )}
+      </div>
     </a>
   );
 };

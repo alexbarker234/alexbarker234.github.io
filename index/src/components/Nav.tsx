@@ -50,9 +50,9 @@ export default function Nav() {
 
   return (
     <nav
-      className="w-full md:sticky md:top-0 md:z-10 md:py-3 md:text-xl md:bg-gradient-to-b
-        md:from-bg1 md:to-transparent md:pointer-events-none md:text-center fixed top-4
-        right-4 z-[99]"
+      className="md:sticky md:top-0 md:z-10 md:py-3 md:text-xl md:bg-gradient-to-b md:from-bg1
+        md:to-transparent md:pointer-events-none md:text-center fixed top-4 right-4
+        z-[99]"
       ref={navRef}
     >
       <button
