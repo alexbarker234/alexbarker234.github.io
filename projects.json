@@ -13,6 +13,10 @@
             "directory": "csmarks"
         },
         {
+            "gitURL": "https://github.com/alexbarker234/isometric-playground.git",
+            "directory": "isometrica"
+        },
+        {
             "gitURL": null,
             "directory": "subreact"
         },
