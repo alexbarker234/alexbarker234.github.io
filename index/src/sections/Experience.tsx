@@ -1,4 +1,5 @@
 import HeaderText from "@/components/HeaderText";
+import { TbCertificate } from "react-icons/tb";
 import RevealingSection from "../components/RevealingSection";
 
 export default function ExperienceSection() {
@@ -63,6 +64,7 @@ export default function ExperienceSection() {
         <Experience
           title="B.S. in Computer Science & Cybersecurity"
           time="2021 - 2024"
+          icon={<TbCertificate />}
         >
           <SkillTags tags={["Java", "Python", "C", "SQL"]} />
           <div>
@@ -112,12 +114,20 @@ interface ExperienceProps {
   children: React.ReactNode;
 }
 
-const Experience = ({ title, time, children }: ExperienceProps) => (
+const Experience = ({
+  title,
+  time,
+  children,
+  icon
+}: ExperienceProps & { icon?: React.ReactNode }) => (
   <div
     className="relative hover:bg-bg-light/50 p-4 rounded-lg transition-all hover:!opacity-100
       group-hover:opacity-50"
   >
-    <div className="font-black text-xl mb-1 -translate-y-1.5">{title}</div>
+    <div className="font-black text-xl mb-1 -translate-y-1.5 flex items-center gap-2">
+      {icon && <>{icon}</>}
+      {title}
+    </div>
     <div className="border-b-2 border-blue w-fit mb-4">{time}</div>
     <div className="space-y-2">{children}</div>
     {/* Stick thing */}
