@@ -20,7 +20,7 @@ const Skills = () => {
     {} as { [key: string]: JSX.Element[] }
   );
 
-  skills.forEach((skill) => {
+  skills.forEach((skill, index) => {
     skill.types.forEach((skillType) => {
       skillTypes[skillType].push(
         <div

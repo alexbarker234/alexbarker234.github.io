@@ -1,4 +1,5 @@
 import "devicon/devicon.min.css";
+import MouseGlow from "./components/MouseGlow";
 import Nav from "./components/Nav";
 import TopButton from "./components/TopButton";
 import About from "./sections/About";
@@ -11,8 +12,9 @@ const App = () => {
   return (
     <main
       className="animate-fade-in opacity-0 font-sans text-white scroll-smooth scroll-pt-8 bg-bg1
-        md:scroll-pt-24 overflow-x-hidden"
+        md:scroll-pt-24"
     >
+      <MouseGlow />
       <Header />
       <Nav />
       <About />

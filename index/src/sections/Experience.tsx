@@ -98,8 +98,10 @@ export default function ExperienceSection() {
 
 const SkillTags = ({ tags }: { tags: string[] }) => (
   <div className="flex gap-2 text-sm font-semibold flex-wrap">
-    {tags.map((tag) => (
-      <div className="bg-blue rounded-full px-2 w-fit text-nowrap">{tag}</div>
+    {tags.map((tag, index) => (
+      <div key={index} className="bg-blue rounded-full px-2 w-fit text-nowrap">
+        {tag}
+      </div>
     ))}
   </div>
 );
@@ -112,7 +114,7 @@ interface ExperienceProps {
 
 const Experience = ({ title, time, children }: ExperienceProps) => (
   <div
-    className="relative hover:bg-bg-light p-4 rounded-lg transition-all hover:!opacity-100
+    className="relative hover:bg-bg-light/50 p-4 rounded-lg transition-all hover:!opacity-100
       group-hover:opacity-50"
   >
     <div className="font-black text-xl mb-1 -translate-y-1.5">{title}</div>
