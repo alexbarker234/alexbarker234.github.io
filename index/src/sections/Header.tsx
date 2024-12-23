@@ -61,11 +61,11 @@ export default function Header() {
         />
         <div className="social-links flex justify-between gap-3 -translate-y-[40%]">
           <SocialLink
-            href="https://twitter.com/alexbarker234"
+            href="https://github.com/alexbarker234"
             icon={<FaGithub size={30} />}
           />
           <SocialLink
-            href="https://www.linkedin.com/in/alex-barker-a37389ba/"
+            href="https://www.linkedin.com/in/alex-barker234/"
             icon={<FaLinkedin size={30} />}
           />
         </div>
