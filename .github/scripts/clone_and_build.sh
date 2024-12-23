@@ -25,7 +25,16 @@ for i in $(seq 0 $(($PROJECT_COUNT - 1))); do
     if [[ "$REPO_URL" != "null" && "$REPO_URL" != "" ]]; then
         echo "Cloning repository $REPO_URL into $TARGET_DIR"
         mkdir -p "$TARGET_DIR"
-        git clone "$REPO_URL" "$TARGET_DIR"
+        
+        # Check if GITHUB_TOKEN is set
+        if [ -n "$GITHUB_TOKEN" ]; then
+            # Modify the URL to include the token for private repos
+            AUTHENTICATED_URL=$(echo "$REPO_URL" | sed "s#https://#https://$GITHUB_TOKEN@#")
+            git clone "$AUTHENTICATED_URL" "$TARGET_DIR"
+        else
+            echo "Warning: GITHUB_TOKEN not set. Attempting to clone without authentication..."
+            git clone "$REPO_URL" "$TARGET_DIR"
+        fi
     else
         echo "No gitURL provided. Skipping clone for $TARGET_DIR."
     fi

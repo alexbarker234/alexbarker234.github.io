@@ -20,6 +20,7 @@ jobs:
             - name: Clone and build projects from JSON
               env:
                   CI: false
+                  GITHUB_TOKEN: ${{ secrets.GH_PAT }}
               run: |
                   bash ./.github/scripts/clone_and_build.sh ./projects.json
 
