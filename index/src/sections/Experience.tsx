@@ -121,7 +121,7 @@ const Experience = ({
   icon
 }: ExperienceProps & { icon?: React.ReactNode }) => (
   <div
-    className="relative hover:bg-bg-light/50 p-4 rounded-lg transition-all hover:!opacity-100
+    className="relative hover:bg-bg-light/50 p-4 rounded-lg transition-all hover:opacity-100!
       group-hover:opacity-50"
   >
     <div className="font-black text-xl mb-1 -translate-y-1.5 flex items-center gap-2">
@@ -132,7 +132,7 @@ const Experience = ({
     <div className="space-y-2">{children}</div>
     {/* Stick thing */}
     <div className="hidden md:block">
-      <span className="absolute left-0 top-0 h-full w-[2px] rounded-sm -translate-x-1/2 bg-blue"></span>
+      <span className="absolute left-0 top-0 h-full w-[2px] rounded-xs -translate-x-1/2 bg-blue"></span>
       <span className="absolute w-4 h-4 rounded-md bg-blue left-0 top-0 -translate-x-1/2"></span>
     </div>
   </div>

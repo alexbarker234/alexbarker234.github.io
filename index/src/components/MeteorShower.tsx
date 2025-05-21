@@ -44,7 +44,7 @@ const MeteorShower: React.FC = () => {
           }}
         >
           <div
-            className="absolute w-[300px] h-[1px] -rotate-45 bg-gradient-to-r from-meteor-glow
+            className="absolute w-[300px] h-px -rotate-45 bg-linear-to-r from-meteor-glow
               to-transparent animate-meteor"
           >
             <div

@@ -52,14 +52,14 @@ export default function Nav() {
       <nav
         className={cn(
           "md:sticky md:top-0 md:z-10 md:py-3 md:text-xl relative",
-          "md:pointer-events-none md:text-center fixed top-4 right-4 z-[99]"
+          "md:pointer-events-none md:text-center fixed top-4 right-4 z-99"
         )}
         ref={navRef}
       >
         <div
           className={cn(
             "absolute inset-0 transition-opacity duration-75 -z-10",
-            "bg-gradient-to-b from-bg1 to-transparent",
+            "bg-linear-to-b from-bg1 to-transparent",
             {
               "opacity-100": isStuck,
               "opacity-0": !isStuck

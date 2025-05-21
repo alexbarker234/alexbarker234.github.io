@@ -1,57 +1,40 @@
 {
-  "name": "homepage",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.101",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "clsx": "^2.1.1",
-    "devicon": "^2.16.0",
-    "isotope-layout": "^3.0.6",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-icons": "^5.2.1",
-    "react-scripts": "5.0.1",
-    "tailwind-merge": "^2.5.4",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@craco/craco": "^7.1.0",
-    "@types/isotope-layout": "^3.0.14",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.39",
-    "prettier-plugin-classnames": "^0.7.4",
-    "prettier-plugin-tailwindcss": "^0.6.8",
-    "tailwindcss": "^3.4.14"
-  }
+    "name": "index",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc -b && vite build",
+        "lint": "eslint .",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@fontsource-variable/ibm-plex-sans": "^5.2.5",
+        "@tailwindcss/vite": "^4.1.7",
+        "clsx": "^2.1.1",
+        "devicon": "^2.16.0",
+        "isotope-layout": "^3.0.6",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "react-icons": "^5.2.1",
+        "tailwind-merge": "^2.5.4"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.25.0",
+        "@types/isotope-layout": "^3.0.14",
+        "@types/react": "^19.1.2",
+        "@types/react-dom": "^19.1.2",
+        "@vitejs/plugin-react": "^4.4.1",
+        "eslint": "^9.25.0",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-refresh": "^0.4.19",
+        "globals": "^16.0.0",
+        "prettier-plugin-classnames": "^0.7.4",
+        "prettier-plugin-tailwindcss": "^0.6.11",
+        "tailwindcss": "^4.1.7",
+        "typescript": "~5.8.3",
+        "typescript-eslint": "^8.30.1",
+        "vite": "^6.3.5"
+    }
 }

@@ -1,5 +1,6 @@
 import { cn } from "@/utils/cn";
-import { ImgHTMLAttributes, useState } from "react";
+import type { ImgHTMLAttributes } from "react";
+import { useState } from "react";
 
 interface FadeInImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   onLoad?: () => void;

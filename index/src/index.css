@@ -1,8 +1,123 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;400&display=swap");
+@theme {
+  --font-sans: "IBM Plex Sans Variable", sans-serif;
+
+  --color-blue: #3965a8;
+  --color-blue-light: #5598d3;
+  --color-blue-dark: #384a9b;
+  --color-blue-opacity: #3965a8bf;
+  --color-gold: #ffae1a;
+  --color-bg1: #16161a;
+  --color-bg-light: #222031;
+  --color-bg-dark: #1c1e23;
+  --color-grey-light: #c8cbce;
+  --color-night-sky: #1d1b28;
+  --color-meteor-glow: #d1daff;
+  --color-meteor-body: #ecf0ff;
+  --color-text-color: #f2f5f7;
+
+  --animate-flicker: flicker 1s infinite;
+  --animate-fade-in: fade-in 0.5s ease-in-out forwards;
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+  --animate-pop: pop 0.3s ease-in-out;
+  --animate-wiggle-pop: wiggle 0.75s ease-in-out, pop 0.75s ease-in-out;
+  --animate-meteor: meteor linear 0.5s;
+
+  @keyframes flicker {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(0.9);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes wiggle {
+    0% {
+      rotate: 0deg;
+    }
+
+    20% {
+      rotate: 20deg;
+    }
+
+    40% {
+      rotate: -20deg;
+    }
+
+    60% {
+      rotate: 20deg;
+    }
+
+    80% {
+      rotate: -20deg;
+    }
+
+    100% {
+      rotate: 0deg;
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      scale: 1;
+    }
+
+    80% {
+      scale: 1.1;
+    }
+
+    100% {
+      scale: 1;
+    }
+  }
+
+  @keyframes meteor {
+    0% {
+      top: 0;
+      left: 0;
+    }
+
+    100% {
+      top: 800px;
+      left: -800px;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 html {
   @apply bg-bg1 scroll-pt-8 scroll-smooth md:scroll-pt-24;

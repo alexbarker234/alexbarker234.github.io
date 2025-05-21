@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import FadeInImage from "../components/FadeInImage";
 import projects from "../data/projectsData";
-import { ProjectTag } from "../types";
+import type { ProjectTag } from "../types";
 
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<ProjectTag | null>(null);

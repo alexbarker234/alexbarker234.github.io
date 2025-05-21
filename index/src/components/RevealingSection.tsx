@@ -1,5 +1,6 @@
 import { cn } from "@/utils/cn";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const RevealingSection: React.FC<{
   children: ReactNode;

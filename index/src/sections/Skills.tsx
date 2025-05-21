@@ -1,5 +1,6 @@
 import HeaderText from "@/components/HeaderText";
 import skills from "@/data/skillsData";
+import type { JSX } from "react";
 import RevealingSection from "../components/RevealingSection";
 
 const types = {

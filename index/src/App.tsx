@@ -1,4 +1,3 @@
-import "devicon/devicon.min.css";
 import MouseGlow from "./components/MouseGlow";
 import Nav from "./components/Nav";
 import TopButton from "./components/TopButton";
