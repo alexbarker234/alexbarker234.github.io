@@ -13,8 +13,18 @@ export default function ExperienceSection() {
       </HeaderText>
       <div className="w-full group">
         <Experience
+          title="Wesfarmers Chemicals Energies & Fertilisers - Application Developer"
+          time="May 2025 - Present  "
+        >
+          <SkillTags tags={["C#", "SQL", "React", "Angular"]} />
+          <ul className="list-disc list-outside ml-5 space-y-2">
+            <li>Developing Angular and React applications using TypeScript</li>
+            <li>Building .NET Rest APIs</li>
+          </ul>
+        </Experience>
+        <Experience
           title="Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet"
-          time="Nov 2022 - Present"
+          time="Nov 2022 - Dec 2024"
         >
           <SkillTags tags={["C#", "SQL", "PowerShell", "Jira", "Azure"]} />
           <ul className="list-disc list-outside ml-5 space-y-2">
