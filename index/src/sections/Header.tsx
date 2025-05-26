@@ -1,7 +1,7 @@
 import AuroraBorealis from "@/components/Aurora";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import FadeInImage from "../components/FadeInImage";
 import MeteorShower from "../components/MeteorShower";
+import ProfilePicture from "../components/ProfilePicture";
 
 const randBetween = (min: number, max: number) =>
   Math.random() * (max - min) + min;
@@ -76,10 +76,7 @@ export default function Header() {
         </div>
       </div>
       <div className="icon-section absolute left-1/2 top-2 transform -translate-x-1/2 w-48">
-        <FadeInImage
-          src="./me.png"
-          className="w-40 mx-auto aspect-square rounded-full"
-        />
+        <ProfilePicture />
         <div className="social-links flex justify-between gap-3 -translate-y-[40%]">
           <SocialLink
             href="https://github.com/alexbarker234"
