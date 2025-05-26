@@ -1,3 +1,4 @@
+import AuroraBorealis from "@/components/Aurora";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import FadeInImage from "../components/FadeInImage";
 import MeteorShower from "../components/MeteorShower";
@@ -33,6 +34,7 @@ const generateStars = (numStars: number) => {
 export default function Header() {
   return (
     <header className="overflow-hidden relative w-full min-h-[400px] h-[30vw]">
+      {/* Stars and Shower Background */}
       <div
         className="absolute bg-night-sky w-[3000px] h-[3000px] rounded-full bottom-0 left-1/2
           transform -translate-x-1/2 z-[-1] overflow-hidden"
@@ -44,7 +46,26 @@ export default function Header() {
           {generateStars(50)}
           <MeteorShower />
         </div>
+
+        {/* Aurora */}
+        <div
+          className="w-screen h-[30vw] min-h-[400px] absolute bottom-30 left-1/2 transform
+            -translate-x-1/2 opacity-80 scale-x-[1.2]"
+        >
+          <div className="absolute left-1/5">
+            <AuroraBorealis />
+          </div>
+          <div className="absolute left-1/2 scale-x-[-1] rotate-12">
+            <AuroraBorealis
+              color1="#5538d6"
+              color2="#41d9c2"
+              startFrames={100}
+              id="aurora-wave-2"
+            />
+          </div>
+        </div>
       </div>
+      {/* Header Info */}
       <div
         className="main-title font-thin text-center absolute w-full top-[60%] transform
           -translate-y-1/2 text-[max(10vw,4rem)] drop-shadow-lg"
