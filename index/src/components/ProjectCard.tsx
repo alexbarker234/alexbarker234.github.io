@@ -5,6 +5,7 @@ import type { Project } from "@/types";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 import { FaGithub, FaStar } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 
 interface ProjectCardProps {
   project: Project;
@@ -68,8 +69,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   height={200}
                   src={project.imgSrc}
                   alt="?"
-                  className="w-full h-52 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-center flex
-                    items-center justify-center"
+                  className="w-full aspect-[5/3] sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top
+                    flex items-center justify-center"
                 />
               </motion.div>
 
@@ -82,6 +83,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     >
                       {project.title}
                     </motion.h3>
+                    {project.techIcon && (
+                      <motion.div
+                        className="flex flex-wrap gap-2 my-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        {project.techIcon.map((icon) => (
+                          <i className={`${icon} text-2xl p-2`} />
+                        ))}
+                      </motion.div>
+                    )}
                     <motion.p
                       layoutId={`description-${project.description}-${id}`}
                       className="text-neutral-600 dark:text-neutral-400 whitespace-pre-wrap"
@@ -92,32 +105,41 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 </div>
                 {/* Buttons */}
                 <motion.div
-                  className="flex gap-2 p-4"
-                  layout
                   initial={{ opacity: 0, y: -40 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -40 }}
+                  className="p-4"
                 >
-                  {project.appURL && (
-                    <a
-                      href={project.appURL}
-                      target="_blank"
-                      className="px-4 py-2 text-sm rounded-full font-bold bg-blue text-white hover:bg-blue-dark
-                        h-9 transition"
-                    >
-                      Check it out
-                    </a>
-                  )}
-                  {project.gitHubURL && (
-                    <a
-                      href={project.gitHubURL}
-                      target="_blank"
-                      className="h-9 w-9 text-sm rounded-full bg-neutral-800 text-white hover:bg-neutral-900 flex
-                        items-center justify-center transition"
-                    >
-                      <FaGithub size={20} />
-                    </a>
-                  )}
+                  <div className="flex gap-2 w-full">
+                    {project.appURL && (
+                      <a
+                        href={project.appURL}
+                        target="_blank"
+                        className="px-4 py-2 text-sm rounded-full font-bold bg-blue text-white hover:bg-blue-dark
+                          h-9 transition"
+                      >
+                        Check it out
+                      </a>
+                    )}
+                    {project.gitHubURL && (
+                      <a
+                        href={project.gitHubURL}
+                        target="_blank"
+                        className="h-9 w-9 text-sm rounded-full bg-neutral-800 text-white hover:opacity-80 flex
+                          items-center justify-center transition"
+                      >
+                        <FaGithub size={20} />
+                      </a>
+                    )}
+                  </div>
+                  <button
+                    className="flex gap-2 items-center py-2 px-4 bg-neutral-800 rounded-full w-full mt-2
+                      hover:opacity-80 transition cursor-pointer justify-center"
+                    onClick={() => setActive(false)}
+                  >
+                    <FaXmark />
+                    Close
+                  </button>
                 </motion.div>
               </div>
             </motion.div>
@@ -133,8 +155,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           // Isotope classes
           `project ${project.tags.join("\x20")}`,
           // Base styles
-          `flex-1 w-full max-w-full h-52 text-center relative select-none rounded-lg
-          duration-0 mb-2 cursor-pointer`,
+          `flex-1 w-full max-w-full aspect-[5/3] text-center relative select-none
+          rounded-lg duration-0 mb-2 cursor-pointer`,
           // Medium screens (500px+)
           "min-[500px]:w-[calc(50%-1.2rem)] min-[500px]:m-2",
           // Large screens (900px+)
@@ -144,11 +166,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {/* Separate element for hover scale to not mess with Isotope */}
         <motion.div className="hover:scale-105 group transition-all w-full h-full">
           <motion.div
-            layoutId={`image-${project.title}-${id}`}
             className={`overflow-hidden relative w-full h-full transition duration-100 border
               border-blue rounded-lg ${isLoaded ? "border-none" : ""}`}
           >
-            <img
+            <motion.img
+              layoutId={`image-${project.title}-${id}`}
               src={project.imgSrc}
               alt="?"
               onLoad={() => setLoaded(true)}

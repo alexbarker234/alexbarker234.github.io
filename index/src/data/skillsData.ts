@@ -1,117 +1,118 @@
 import type { Skill } from "../types";
+import { iconMap } from "../utils/iconMap";
 
 const skills: Skill[] = [
   {
     id: "C#",
-    icon: "devicon-csharp-plain",
+    icon: iconMap.csharp,
     title: "C#",
     types: ["language"]
   },
   {
     id: "ASP.NET",
-    icon: "devicon-dot-net-plain",
+    icon: iconMap.aspnet,
     title: "ASP.NET",
     types: ["back-end"]
   },
   {
     id: "Python",
-    icon: "devicon-python-plain",
+    icon: iconMap.python,
     title: "Python",
     types: ["language"]
   },
   {
     id: "CSS",
-    icon: "devicon-css3-plain",
+    icon: iconMap.css,
     title: "CSS",
     types: ["front-end"]
   },
   {
     id: "Sass",
-    icon: "devicon-sass-original",
+    icon: iconMap.sass,
     title: "Sass",
     types: ["front-end"]
   },
   {
     id: "TailwindCSS",
-    icon: "devicon-tailwindcss-original",
+    icon: iconMap.tailwindcss,
     title: "Tailwind",
     types: ["front-end"]
   },
   {
     id: "HTML",
-    icon: "devicon-html5-plain",
+    icon: iconMap.html,
     title: "HTML",
     types: ["front-end"]
   },
   {
     id: "JavaScript",
-    icon: "devicon-javascript-plain",
+    icon: iconMap.javascript,
     title: "JavaScript",
     types: ["front-end", "language"]
   },
   {
     id: "TypeScript",
-    icon: "devicon-typescript-plain",
+    icon: iconMap.typescript,
     title: "TypeScript",
     types: ["back-end", "language"]
   },
   {
     id: "Bash",
-    icon: "devicon-bash-plain",
+    icon: iconMap.bash,
     title: "Bash",
     types: ["language"]
   },
   {
     id: "PowerShell",
-    icon: "devicon-powershell-plain",
+    icon: iconMap.powershell,
     title: "PowerShell",
     types: ["language"]
   },
   {
     id: "SQL",
-    icon: "devicon-azuresqldatabase-plain",
+    icon: iconMap.sql,
     title: "SQL",
     types: ["language"]
   },
   {
     id: "NodeJS",
-    icon: "devicon-nodejs-plain",
+    icon: iconMap.nodejs,
     title: "NodeJS",
     types: ["back-end"]
   },
   {
     id: "React",
-    icon: "devicon-react-original",
+    icon: iconMap.react,
     title: "React",
     types: ["front-end"]
   },
   {
     id: "Next.js",
-    icon: "devicon-nextjs-original-wordmark",
+    icon: iconMap.nextjs,
     title: "Next.js",
     types: ["back-end"]
   },
   {
     id: "Jira",
-    icon: "devicon-jira-plain",
+    icon: iconMap.jira,
     title: "Jira",
     types: ["misc"]
   },
   {
     id: "DevOps",
-    icon: "devicon-azuredevops-plain",
+    icon: iconMap.devops,
     title: "Azure Devops",
     types: ["misc"]
   },
   {
     id: "GitHub",
-    icon: "devicon-github-original",
+    icon: iconMap.github,
     title: "GitHub",
     types: ["misc"]
   },
   {
     id: "Git",
-    icon: "devicon-git-plain",
+    icon: iconMap.git,
     title: "Git",
     types: ["misc"]
   }

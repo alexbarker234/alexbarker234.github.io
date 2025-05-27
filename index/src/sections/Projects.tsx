@@ -51,7 +51,7 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <RevealingSection id="projects">
+    <RevealingSection id="projects" className="overflow-x-hidden">
       <HeaderText level="h1" className="text-4xl font-bold text-center my-6">
         My Projects
       </HeaderText>

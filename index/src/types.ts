@@ -13,6 +13,8 @@ export interface Project {
   appURL?: string;
   gitHubURL?: string;
 
+  techIcon?: string[];
+
   imgSrc: string;
   title: string;
   description: string;
