@@ -26,7 +26,6 @@ export default function StarsBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { width, height } = useWindowSize();
   const starsRef = useRef<Star[]>([]);
-  const glowImageRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -35,12 +34,6 @@ export default function StarsBackground() {
 
     canvas.width = width;
     canvas.height = height;
-
-    const glowImage = new Image();
-    glowImage.src = "/glow.png";
-    glowImage.onload = () => {
-      glowImageRef.current = glowImage;
-    };
 
     if (starsRef.current.length > 0) return; // Dont recreate stars
 
@@ -55,16 +48,22 @@ export default function StarsBackground() {
 
         ctx.globalAlpha = star.opacity;
         // Glow
-        if (glowImageRef.current) {
-          const glowSize = star.size * 2;
-          ctx.drawImage(
-            glowImageRef.current,
-            xPixel - glowSize / 2,
-            yPixel - glowSize / 2,
-            glowSize,
-            glowSize
-          );
-        }
+        const glowSize = star.size * 4;
+        const gradient = ctx.createRadialGradient(
+          xPixel,
+          yPixel,
+          1,
+          xPixel,
+          yPixel,
+          glowSize
+        );
+        gradient.addColorStop(0, "rgba(209, 218, 255, 0.05)");
+        gradient.addColorStop(1, "rgba(209, 218, 255, 0)");
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(xPixel, yPixel, glowSize, 0, Math.PI * 2);
+        ctx.fill();
         // Main star body
         ctx.beginPath();
         ctx.arc(xPixel, yPixel, star.size / 2, 0, Math.PI * 2);
