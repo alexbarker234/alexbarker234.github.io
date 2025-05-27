@@ -1,28 +1,26 @@
-import AuroraBorealis from "@/components/Aurora";
-import StarsBackground from "@/components/StarsBackground";
+import AuroraBorealis from "@/components/Header/Aurora";
+import StarsBackground from "@/components/Header/StarsBackground";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import MeteorShower from "../components/MeteorShower";
-import ProfilePicture from "../components/ProfilePicture";
+import MeteorShower from "../components/Header/MeteorShower";
+import ParallaxDivider from "../components/Header/ParralaxDivider";
+import ProfilePicture from "../components/Header/ProfilePicture";
 
 export default function Header() {
   return (
-    <header className="overflow-hidden relative w-full min-h-[400px] h-[30vw]">
+    <header className="relative w-full min-h-[500px] h-[40vw] -z-10">
       {/* Stars and Shower Background */}
       <div
-        className="absolute bg-night-sky w-[3000px] h-[3000px] rounded-full bottom-0 left-1/2
-          transform -translate-x-1/2 z-[-1] overflow-hidden"
+        className="absolute bg-night-sky w-full h-full bottom-0 left-1/2 transform -translate-x-1/2
+          z-[-1] overflow-hidden"
       >
-        <div
-          className="w-screen h-[30vw] min-h-[400px] absolute bottom-0 left-1/2 transform
-            -translate-x-1/2"
-        >
+        <div className="w-screen h-full absolute bottom-0 left-1/2 transform -translate-x-1/2">
           <StarsBackground />
           <MeteorShower />
         </div>
 
         {/* Aurora */}
         <div
-          className="w-screen h-[30vw] min-h-[400px] absolute bottom-30 left-1/2 transform
+          className="w-screen h-[30vw] min-h-[400px] absolute -top-20 left-1/2 transform
             -translate-x-1/2 opacity-80 scale-x-[1.2]"
         >
           <div className="absolute left-1/5">
@@ -37,10 +35,11 @@ export default function Header() {
             />
           </div>
         </div>
+        <ParallaxDivider />
       </div>
       {/* Header Info */}
       <div
-        className="main-title font-thin text-center absolute w-full top-[60%] transform
+        className="main-title font-thin text-center absolute w-full top-[50%] transform
           -translate-y-1/2 text-[max(10vw,4rem)] drop-shadow-lg"
       >
         Alex Barker

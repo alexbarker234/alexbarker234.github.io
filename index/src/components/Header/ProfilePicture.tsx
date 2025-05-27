@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import FadeInImage from "./FadeInImage";
+import FadeInImage from "../FadeInImage";
 
 const SPEECH_LINES: readonly string[] = [
   "Hello there!",

@@ -24,27 +24,34 @@ const flickerVariation = 0.4;
 
 export default function StarsBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { width, height } = useWindowSize();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { width } = useWindowSize();
   const starsRef = useRef<Star[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    const container = containerRef.current;
     const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
+    if (!canvas || !ctx || !container) return;
 
-    canvas.width = width;
-    canvas.height = height;
+    const resizeCanvas = () => {
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
+    };
 
-    if (starsRef.current.length > 0) return; // Dont recreate stars
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
-    starsRef.current = generateStars(50);
+    if (starsRef.current.length === 0) {
+      starsRef.current = generateStars(50);
+    }
 
     const animate = () => {
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       starsRef.current.forEach((star) => {
-        const xPixel = (star.x / 100) * width;
-        const yPixel = (star.y / 100) * height;
+        const xPixel = (star.x / 100) * canvas.width;
+        const yPixel = (star.y / 100) * canvas.height;
 
         ctx.globalAlpha = star.opacity;
         // Glow
@@ -81,7 +88,15 @@ export default function StarsBackground() {
     };
 
     animate();
-  }, [width, height]);
 
-  return <canvas ref={canvasRef} className="absolute w-full" />;
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+    };
+  }, [width]);
+
+  return (
+    <div ref={containerRef} className="absolute w-full h-full">
+      <canvas ref={canvasRef} className="absolute w-full h-full" />
+    </div>
+  );
 }
