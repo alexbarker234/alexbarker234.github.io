@@ -26,6 +26,9 @@ export default function AuroraBorealis({
   const height = 700;
 
   useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return; // Don't run animation on mobile
+
     let frames = startFrames;
     const rad = Math.PI / 180;
     let frameCount = 0;
