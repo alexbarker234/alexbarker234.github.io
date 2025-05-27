@@ -1,35 +1,8 @@
 import AuroraBorealis from "@/components/Aurora";
+import StarsBackground from "@/components/StarsBackground";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import MeteorShower from "../components/MeteorShower";
 import ProfilePicture from "../components/ProfilePicture";
-
-const randBetween = (min: number, max: number) =>
-  Math.random() * (max - min) + min;
-
-const generateStars = (numStars: number) => {
-  return Array.from({ length: numStars }, (_, i) => {
-    const size = randBetween(5, 10);
-    const left = `${Math.random() * 100}%`;
-    const top = `${Math.random() * 100}%`;
-    const animationDelay = `${Math.random() * -0.3}s`;
-
-    return (
-      <div
-        key={i}
-        className="absolute rounded-full bg-meteor-body animate-flicker"
-        style={{
-          left,
-          top,
-          width: `${size}px`,
-          height: `${size}px`,
-          animationDelay
-        }}
-      >
-        <div className="bg-meteor-glow blur-lg w-full h-full"></div>
-      </div>
-    );
-  });
-};
 
 export default function Header() {
   return (
@@ -43,7 +16,7 @@ export default function Header() {
           className="w-screen h-[30vw] min-h-[400px] absolute bottom-0 left-1/2 transform
             -translate-x-1/2"
         >
-          {generateStars(50)}
+          <StarsBackground />
           <MeteorShower />
         </div>
 
