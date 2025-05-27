@@ -1,10 +1,9 @@
 import HeaderText from "@/components/HeaderText";
+import { ProjectCard } from "@/components/ProjectCard";
 import RevealingSection from "@/components/RevealingSection";
 import { cn } from "@/utils/cn";
 import Isotope from "isotope-layout";
 import { useEffect, useRef, useState } from "react";
-import { FaStar } from "react-icons/fa";
-import FadeInImage from "../components/FadeInImage";
 import projects from "../data/projectsData";
 import type { ProjectTag } from "../types";
 
@@ -81,89 +80,11 @@ const Projects: React.FC = () => {
         ref={gridRef}
         className="w-[95%] max-w-[1200px] min-h-[700px] mx-auto flex flex-wrap justify-center mb-4"
       >
-        {projects.map(
-          ({ tags, href, imgSrc, title, description, favourite }, index) => (
-            <Project
-              key={index}
-              tags={tags}
-              href={href}
-              imgSrc={imgSrc}
-              title={title}
-              description={description}
-              favourite={favourite}
-            />
-          )
-        )}
+        {projects.map((project, index) => (
+          <ProjectCard key={index} project={project} />
+        ))}
       </div>
     </RevealingSection>
   );
 };
 export default Projects;
-
-interface ProjectProps {
-  href: string;
-  imgSrc: string;
-  title: string;
-  description: string;
-  tags: ProjectTag[];
-  favourite?: boolean;
-}
-const Project: React.FC<ProjectProps> = ({
-  href,
-  imgSrc,
-  title,
-  description,
-  tags,
-  favourite
-}) => {
-  const [isLoaded, setLoaded] = useState(false);
-
-  const tagClasses = tags.join(" ");
-
-  return (
-    <a
-      className={[
-        // Isotope classes
-        `project ${tagClasses}`,
-        // Base styles
-        `flex-1 w-full max-w-full h-52 text-center relative select-none rounded-lg
-        duration-0 mb-2`,
-        // Medium screens (500px+)
-        "min-[500px]:w-[calc(50%-1.2rem)] min-[500px]:m-2",
-        // Large screens (900px+)
-        "min-[900px]:w-[calc(33.3%-1.2em)]"
-      ].join("\u0020")}
-      href={href}
-    >
-      {/* Seperate element for hover scale to not mess with Isotope */}
-      <div className="hover:scale-105 group transition-all w-full h-full">
-        <div
-          className={`overflow-hidden relative w-full h-full transition duration-100 border
-            border-blue rounded-lg ${isLoaded ? "border-none" : ""}`}
-        >
-          <FadeInImage
-            src={imgSrc}
-            alt={title}
-            onLoad={() => setLoaded(true)}
-            className="w-full h-full object-cover object-top"
-          />
-          <div
-            className="absolute inset-0 opacity-0 transition-opacity duration-500 p-4 bg-blue/70
-              hover:opacity-100 rounded-lg"
-          >
-            <div className="text-2xl font-extrabold mb-2">{title}</div>
-            <div>{description}</div>
-          </div>
-        </div>
-        {favourite && (
-          <div className="absolute left-full top-full transform -translate-x-3/4 -translate-y-3/4">
-            <FaStar
-              size={24}
-              className="text-gold group-hover:animate-wiggle-pop"
-            />
-          </div>
-        )}
-      </div>
-    </a>
-  );
-};

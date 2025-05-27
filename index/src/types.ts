@@ -9,9 +9,14 @@ export type ProjectTag = "react" | "nextjs" | "game" | "other";
 
 export interface Project {
   tags: ProjectTag[];
-  href: string;
+
+  appURL?: string;
+  gitHubURL?: string;
+
   imgSrc: string;
   title: string;
   description: string;
+  extendedDescription?: string;
+
   favourite?: boolean;
 }
