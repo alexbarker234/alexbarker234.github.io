@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 // https://segmentfault.com/a/1190000041166007/en
+// This is way too performance heavy. I gotta write a shader or something.
 
 interface AuroraBorealisProps {
   width?: number;
@@ -18,6 +19,8 @@ export default function AuroraBorealis({
   id = "aurora-wave"
 }: AuroraBorealisProps) {
   const filterRef = useRef<SVGFETurbulenceElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number | null>(null);
 
   const width = 500;
   const height = 700;
@@ -25,7 +28,7 @@ export default function AuroraBorealis({
   useEffect(() => {
     let frames = startFrames;
     const rad = Math.PI / 180;
-
+    let frameCount = 0;
     function animate() {
       let bfx = 0.005;
       let bfy = 0.005;
@@ -33,18 +36,44 @@ export default function AuroraBorealis({
       bfx += 0.0025 * Math.cos(frames * rad);
       bfy += 0.0025 * Math.sin(frames * rad);
 
-      const bf = `${bfx} ${bfy}`;
-      if (filterRef.current) {
-        filterRef.current.setAttribute("baseFrequency", bf);
+      frameCount++;
+      if (frameCount % 2 === 0) {
+        const bf = `${bfx} ${bfy}`;
+        if (filterRef.current) {
+          filterRef.current.setAttribute("baseFrequency", bf);
+        }
       }
-      requestAnimationFrame(animate);
+
+      animationRef.current = requestAnimationFrame(animate);
     }
 
-    requestAnimationFrame(animate);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          animationRef.current = requestAnimationFrame(animate);
+        } else {
+          if (animationRef.current !== null) {
+            cancelAnimationFrame(animationRef.current);
+          }
+        }
+      },
+      { threshold: 0 }
+    );
+
+    if (mainRef.current) {
+      observer.observe(mainRef.current);
+    }
+
+    return () => {
+      if (animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <div className="relative blur-lg" style={{ width, height }}>
+    <div className="relative blur-lg" style={{ width, height }} ref={mainRef}>
       {/* Aurora effect */}
       <div
         className="absolute origin-center rotate-[38deg] scale-x-[1.4]"
