@@ -1,3 +1,4 @@
+import { useWindowSize } from "@/hooks/useWindowSize";
 import { useEffect, useRef } from "react";
 
 // https://segmentfault.com/a/1190000041166007/en
@@ -22,12 +23,13 @@ export default function AuroraBorealis({
   const mainRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
 
+  const { width: windowWidth } = useWindowSize();
+
   const width = 500;
   const height = 700;
 
   useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) return; // Don't run animation on mobile
+    if (windowWidth < 700) return; // Don't run animation on mobile
 
     let frames = startFrames;
     const rad = Math.PI / 180;
@@ -73,7 +75,7 @@ export default function AuroraBorealis({
       }
       observer.disconnect();
     };
-  }, []);
+  }, [startFrames, windowWidth]);
 
   return (
     <div className="relative blur-lg" style={{ width, height }} ref={mainRef}>
