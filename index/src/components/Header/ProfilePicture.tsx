@@ -70,17 +70,47 @@ export default function ProfilePicture() {
         className="w-40 mx-auto aspect-square rounded-full"
       />
       {showSpeech && (
-        <div
-          className={`absolute top-1/2 -translate-y-1/2 left-full ml-4 bg-bg-light p-3 rounded-lg
-          before:content-[''] before:absolute before:top-1/2 before:right-full
-          before:-translate-y-1/2 before:border-t-[10px] before:border-t-transparent
-          before:border-b-[10px] before:border-b-transparent before:border-r-[10px]
-          before:border-r-bg-light whitespace-nowrap transition-opacity duration-500
-          ${isFading ? "opacity-0" : "opacity-100"}`}
-        >
-          {SPEECH_LINES[speechLineIndex].slice(0, displayedIndex)}
-        </div>
+        <SpeechBubble
+          text={SPEECH_LINES[speechLineIndex].slice(0, displayedIndex)}
+          isFading={isFading}
+        />
       )}
     </div>
   );
 }
+
+const SpeechBubble = ({
+  text,
+  isFading
+}: {
+  text: string;
+  isFading: boolean;
+}) => {
+  return (
+    // Holy moly these tailwind classes are ridiculously long I will not be combining these
+    <>
+      {/* Mobile - Off to the bottom */}
+      <div
+        className={`absolute top-[110%] left-1/2 -translate-x-1/2 bg-bg-light p-3 rounded-lg w-full
+          max-w-[90vw] before:content-[''] before:absolute before:bottom-full
+          before:left-1/2 before:-translate-x-1/2 before:border-l-[10px]
+          before:border-l-transparent before:border-r-[10px] before:border-r-transparent
+          before:border-b-[10px] before:border-b-bg-light transition-opacity duration-500
+          z-10 ${isFading ? "opacity-0" : "opacity-100"} md:hidden`}
+      >
+        {text}
+      </div>
+      {/* Desktop - Off to the right */}
+      <div
+        className={`hidden md:block absolute top-1/2 -translate-y-1/2 left-full ml-4 bg-bg-light p-3
+          rounded-lg before:content-[''] before:absolute before:top-1/2 before:right-full
+          before:-translate-y-1/2 before:border-t-[10px] before:border-t-transparent
+          before:border-b-[10px] before:border-b-transparent before:border-r-[10px]
+          before:border-r-bg-light whitespace-nowrap transition-opacity duration-500
+          ${isFading ? "opacity-0" : "opacity-100"}`}
+      >
+        {text}
+      </div>
+    </>
+  );
+};
