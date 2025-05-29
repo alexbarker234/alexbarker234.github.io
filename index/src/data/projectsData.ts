@@ -4,7 +4,6 @@ import type { Project } from "../types";
 const projects: Project[] = [
   {
     tags: ["react", "nextjs"],
-    gitHubURL: "https://github.com/alexbarker234/songversation",
     imgSrc: "./project-images/argrage.png",
     title: "Argrage",
     techIcon: [iconMap.react, iconMap.nextjs, iconMap.django],
@@ -37,8 +36,17 @@ const projects: Project[] = [
     favourite: true
   },
   {
+    tags: ["game"],
+    imgSrc: "./project-images/boat-and-bobber.png",
+    title: "Boat and Bobber",
+    techIcon: [iconMap.threejs, iconMap.vite],
+
+    description: "A Three.JS fishing game",
+    extendedDescription:
+      "A Three.JS fishing game where you can catch fish through a rhythm game\n\n(WIP: Coming soon)"
+  },
+  {
     tags: ["react", "nextjs"],
-    appURL: "https://melodymapper.lexalot.dev",
     gitHubURL: "https://github.com/alexbarker234/melody-mapper",
     imgSrc: "./project-images/melodymapper.png",
     title: "Melody Mapper",
@@ -46,21 +54,18 @@ const projects: Project[] = [
 
     description: "A node force graph displaying similar Spotify artists.",
     extendedDescription:
-      "Explore new artists related to your existing favourites in a node graph and play snippets of their top songs.",
-    favourite: true
+      "Explore new artists related to your existing favourites in a node graph and play snippets of their top songs.\n\nUnfortunately, Spotify removed their APIs for finding related artists, so this project is no longer functional."
   },
   {
     tags: ["game", "react", "nextjs"],
-    appURL: "https://artistmaze.lexalot.dev",
     gitHubURL: "https://github.com/alexbarker234/artist-maze",
     imgSrc: "./project-images/artistmaze.png",
     title: "Artist Maze",
     techIcon: [iconMap.react, iconMap.nextjs],
-
     description:
       "Try to connect two Spotify artists from their 20 most related artists",
-
-    favourite: true
+    extendedDescription:
+      "Try to connect two Spotify artists from their 20 most related artists.\n\nUnfortunately, Spotify removed their APIs for finding related artists, so this project is no longer functional."
   },
   {
     tags: ["react", "nextjs"],

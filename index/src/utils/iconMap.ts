@@ -22,5 +22,7 @@ export const iconMap = {
   discordjs: "devicon-discordjs-plain",
   webpack: "devicon-webpack-plain",
   vercel: "devicon-vercel-original",
-  mongodb: "devicon-mongodb-plain"
+  mongodb: "devicon-mongodb-plain",
+  threejs: "devicon-threejs-original",
+  vite: "devicon-vitejs-plain"
 } as const;
