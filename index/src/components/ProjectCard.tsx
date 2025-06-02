@@ -61,9 +61,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
               layoutId={`card-${project.title}-${id}`}
               ref={ref}
               className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white
-                dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+                dark:bg-neutral-900 sm:rounded-3xl overflow-x-hidden overflow-y-auto"
             >
-              <motion.div layoutId={`image-${project.title}-${id}`}>
+              <motion.div
+                layoutId={`image-${project.title}-${id}`}
+                className="relative"
+              >
+                {project.banner && (
+                  <Banner
+                    text={project.banner === "wip" ? "WIP" : "ARCHIVED"}
+                    color={
+                      project.banner === "wip"
+                        ? "bg-purple-600"
+                        : "bg-yellow-500"
+                    }
+                  />
+                )}
                 <img
                   width={200}
                   height={200}
@@ -169,13 +182,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
             className={`overflow-hidden relative w-full h-full transition duration-100 border
               border-blue rounded-lg ${isLoaded ? "border-none" : ""}`}
           >
-            <motion.img
-              layoutId={`image-${project.title}-${id}`}
-              src={project.imgSrc}
-              alt="?"
-              onLoad={() => setLoaded(true)}
-              className="w-full h-full object-cover object-top flex items-center justify-center"
-            />
+            <motion.div layoutId={`image-${project.title}-${id}`}>
+              {project.banner && (
+                <Banner
+                  text={project.banner === "wip" ? "WIP" : "ARCHIVED"}
+                  color={
+                    project.banner === "wip" ? "bg-purple-600" : "bg-yellow-500"
+                  }
+                />
+              )}
+              <img
+                src={project.imgSrc}
+                alt="?"
+                onLoad={() => setLoaded(true)}
+                className="w-full h-full object-cover object-top flex items-center justify-center"
+              />
+            </motion.div>
+
             <motion.div
               className="absolute inset-0 opacity-0 transition-opacity duration-500 p-4 bg-blue/70
                 hover:opacity-100 rounded-lg"
@@ -204,6 +227,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
     </>
   );
 }
+
+const Banner = ({ text, color }: { text: string; color: string }) => {
+  return (
+    <div
+      className={`${color} text-white text-xs font-bold px-12 py-1 transform rotate-45 shadow-lg
+        translate-x-1/2 -translate-y-1/2 absolute top-6 right-6`}
+    >
+      {text}
+    </div>
+  );
+};
 
 export const CloseIcon = () => {
   return (

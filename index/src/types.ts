@@ -21,4 +21,5 @@ export interface Project {
   extendedDescription?: string;
 
   favourite?: boolean;
+  banner?: "archived" | "wip";
 }

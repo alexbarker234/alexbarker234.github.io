@@ -8,6 +8,7 @@ const projects: Project[] = [
     title: "Argrage",
     techIcon: [iconMap.react, iconMap.nextjs, iconMap.django],
     description: "A car part marketplace",
+    banner: "wip",
     extendedDescription:
       "A car part marketplace where you can buy and sell car parts\n\n(New website coming soon)",
     favourite: true
@@ -38,12 +39,14 @@ const projects: Project[] = [
   {
     tags: ["game"],
     imgSrc: "./project-images/boat-and-bobber.png",
+    appURL: "./boat-and-bobber",
+    gitHubURL: "https://github.com/alexbarker234/boat-and-bobber",
     title: "Boat and Bobber",
     techIcon: [iconMap.threejs, iconMap.vite],
-
+    banner: "wip",
     description: "A Three.JS fishing game",
     extendedDescription:
-      "A Three.JS fishing game where you can catch fish through a rhythm game\n\n(WIP: Coming soon)"
+      "A Three.JS fishing game where you can catch fish through a rhythm game.\n\nIncludes a multiplayer mode where you can fish with friends."
   },
   {
     tags: ["react", "nextjs"],
@@ -51,7 +54,7 @@ const projects: Project[] = [
     imgSrc: "./project-images/melodymapper.png",
     title: "Melody Mapper",
     techIcon: [iconMap.react, iconMap.nextjs],
-
+    banner: "archived",
     description: "A node force graph displaying similar Spotify artists.",
     extendedDescription:
       "Explore new artists related to your existing favourites in a node graph and play snippets of their top songs.\n\nUnfortunately, Spotify removed their APIs for finding related artists, so this project is no longer functional."
@@ -62,6 +65,7 @@ const projects: Project[] = [
     imgSrc: "./project-images/artistmaze.png",
     title: "Artist Maze",
     techIcon: [iconMap.react, iconMap.nextjs],
+    banner: "archived",
     description:
       "Try to connect two Spotify artists from their 20 most related artists",
     extendedDescription:
