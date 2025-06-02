@@ -65,7 +65,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             >
               <motion.div
                 layoutId={`image-${project.title}-${id}`}
-                className="relative"
+                className="relative w-full aspect-[5/3]"
               >
                 {project.banner && (
                   <Banner
@@ -82,8 +82,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   height={200}
                   src={project.imgSrc}
                   alt="?"
-                  className="w-full aspect-[5/3] sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top
-                    flex items-center justify-center"
+                  className="w-full h-full sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top flex
+                    items-center justify-center"
                 />
               </motion.div>
 
@@ -182,7 +182,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
             className={`overflow-hidden relative w-full h-full transition duration-100 border
               border-blue rounded-lg ${isLoaded ? "border-none" : ""}`}
           >
-            <motion.div layoutId={`image-${project.title}-${id}`}>
+            <motion.div
+              layoutId={`image-${project.title}-${id}`}
+              className="w-full aspect-[5/3]"
+            >
               {project.banner && (
                 <Banner
                   text={project.banner === "wip" ? "WIP" : "ARCHIVED"}
