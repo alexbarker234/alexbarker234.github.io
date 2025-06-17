@@ -1,10 +1,6 @@
 {
     "projects": [
         {
-            "gitURL": "https://github.com/alexbarker234/snowbound.git",
-            "directory": "snowbound"
-        },
-        {
             "gitURL": "https://github.com/alexbarker234/connect4-react.git",
             "directory": "connect4"
         },
