@@ -17,10 +17,6 @@
             "directory": "isometrica"
         },
         {
-            "gitURL": "https://github.com/alexbarker234/boat-and-bobber.git",
-            "directory": "boat-and-bobber"
-        },
-        {
             "gitURL": null,
             "directory": "subreact"
         },

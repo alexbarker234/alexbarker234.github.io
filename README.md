@@ -3,10 +3,9 @@ View at [alexbarker234.github.io](https://alexbarker234.github.io)
 
 ## Deployment
 - Uses GitHub actions to
-  - Compile the subprojects with `npm run build` and then delete the source to not confuse Jekyll
+  - Compile the subprojects & private GitHub repo projects with `npm run build` 
+  - Delete project source to not confuse Jekyll
   - Deploy with Jekyll
 
-## Why switch away from git submodules?
-Submodules always point to one commit, so updating them requires a commit instead of just redeploying.
-
-Check out the old version using submodules in the [with-submodules](https://github.com/alexbarker234/alexbarker234.github.io/tree/with-submodules) branch
+- Other GitHub repos are also configured to deploy to different pages subdirectories too
+  - [boat-and-bobber](https://github.com/alexbarker234/boat-and-bobber) - [lexalot.dev/boat-and-bobber](https://lexalot.dev/boat-and-bobber)
