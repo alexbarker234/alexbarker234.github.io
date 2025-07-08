@@ -19,7 +19,9 @@ export default function ExperienceSection() {
           <SkillTags tags={["C#", "SQL", "React", "Angular"]} />
           <ul className="list-disc list-outside ml-5 space-y-2">
             <li>Developing Angular and React applications using TypeScript</li>
-            <li>Building .NET Rest APIs</li>
+            <li>Building .NET REST APIs</li>
+            <li>Migrating a Xamarin mobile application to .NET MAUI</li>
+            <li>Implementing Azure services for cloud-based solutions</li>
           </ul>
         </Experience>
         <Experience

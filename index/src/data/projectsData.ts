@@ -50,26 +50,26 @@ const projects: Project[] = [
   },
   {
     tags: ["react", "nextjs"],
+    appURL: "https://melodymapper.lexalot.dev/",
     gitHubURL: "https://github.com/alexbarker234/melody-mapper",
     imgSrc: "./project-images/melodymapper.png",
     title: "Melody Mapper",
     techIcon: [iconMap.react, iconMap.nextjs],
-    banner: "archived",
     description: "A node force graph displaying similar Spotify artists.",
     extendedDescription:
-      "Explore new artists related to your existing favourites in a node graph and play snippets of their top songs.\n\nUnfortunately, Spotify removed their APIs for finding related artists, so this project is no longer functional."
+      "Explore new artists related to your existing favourites in a node graph and play snippets of their top songs."
   },
   {
     tags: ["game", "react", "nextjs"],
+    appURL: "https://artistmaze.lexalot.dev/",
     gitHubURL: "https://github.com/alexbarker234/artist-maze",
     imgSrc: "./project-images/artistmaze.png",
     title: "Artist Maze",
     techIcon: [iconMap.react, iconMap.nextjs],
-    banner: "archived",
     description:
       "Try to connect two Spotify artists from their 20 most related artists",
     extendedDescription:
-      "Try to connect two Spotify artists from their 20 most related artists.\n\nUnfortunately, Spotify removed their APIs for finding related artists, so this project is no longer functional."
+      "Try to connect two Spotify artists from their 20 most related artists."
   },
   {
     tags: ["react", "nextjs"],
