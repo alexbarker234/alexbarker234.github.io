@@ -34,6 +34,8 @@ const projects: Project[] = [
     techIcon: [iconMap.react, iconMap.nextjs],
 
     description: "View deals from different websites for your Steam wishlist",
+    extendedDescription: 
+      "Easily view your Steam wishlist and track game discounts across HumbleBundle and Steam by logging in with Steam's OpenID integration.",
     favourite: true
   },
   {
