@@ -16,11 +16,14 @@ export default function ExperienceSection() {
           title="Wesfarmers Chemicals Energies & Fertilisers - Application Developer"
           time="May 2025 - Present  "
         >
-          <SkillTags tags={["C#", "SQL", "React", "Angular"]} />
+          <SkillTags tags={["C#", "SQL", "React", "Angular", ".NET MAUI"]} />
           <ul className="list-disc list-outside ml-5 space-y-2">
             <li>Developing Angular and React applications using TypeScript</li>
             <li>Building .NET REST APIs</li>
-            <li>Migrating a Xamarin mobile application to .NET MAUI</li>
+            <li>
+              Migrating a Xamarin mobile application to .NET MAUI and developing
+              new features for the app
+            </li>
             <li>Implementing Azure services for cloud-based solutions</li>
           </ul>
         </Experience>

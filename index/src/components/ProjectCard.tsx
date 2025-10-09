@@ -112,7 +112,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                       layoutId={`description-${project.description}-${id}`}
                       className="text-neutral-600 dark:text-neutral-400 whitespace-pre-wrap"
                     >
-                      {project.extendedDescription ?? project.description}
+                      {(project.extendedDescription ?? project.description)
+                        .split("\n")
+                        .map((line, index) => (
+                          <span key={index} className="block mb-2">
+                            {line}
+                            <br />
+                          </span>
+                        ))}
                     </motion.p>
                   </div>
                 </div>

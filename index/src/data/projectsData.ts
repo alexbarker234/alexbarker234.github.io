@@ -21,8 +21,10 @@ const projects: Project[] = [
     title: "Songversation",
     techIcon: [iconMap.react, iconMap.nextjs],
     description: "A Spotify lyric guessing game",
-    extendedDescription:
-      "A Spotify lyric guessing game where players can select from any Spotify artist or public playlist",
+    extendedDescription: [
+      "A Spotify lyric guessing game where players can select from any Spotify artist or public playlist.",
+      "This website is also an offline-compatible Progressive Web App (PWA), so you can install and play it even without an internet connection."
+    ].join("\n"),
     favourite: true
   },
   {
@@ -34,9 +36,22 @@ const projects: Project[] = [
     techIcon: [iconMap.react, iconMap.nextjs],
 
     description: "View deals from different websites for your Steam wishlist",
-    extendedDescription: 
+    extendedDescription:
       "Easily view your Steam wishlist and track game discounts across HumbleBundle and Steam by logging in with Steam's OpenID integration.",
     favourite: true
+  },
+  {
+    tags: ["react", "nextjs"],
+    gitHubURL: "https://github.com/alexbarker234/trackback-spotify-dashboard",
+    imgSrc: "./project-images/trackback.png",
+    title: "Trackback",
+    techIcon: [iconMap.react, iconMap.nextjs],
+    description: "A personal Spotify dashboard to track my listening history",
+    extendedDescription: [
+      "A comprehensive Spotify dashboard that visualises and tracks listening history over time.",
+      "View most played tracks, artists, and albums, explore trends in music preferences, and gain insights into listening habits with interactive charts and statistics.",
+      "This website is a progressive web app (PWA), allowing you to install it and use it on your device."
+    ].join("\n")
   },
   {
     tags: ["game"],
