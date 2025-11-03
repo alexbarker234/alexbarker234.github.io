@@ -160,7 +160,7 @@ const NavItem = ({ href, children }: NavItemProps) => {
       href={href}
       className="flex items-center md:justify-center p-4 md:py-3 md:px-8 md:bg-bg1 md:border-2
         md:border-white md:rounded-xl hover:bg-blue hover:border-blue transition-all
-        duration-200 mx-2 flex-1 max-w-48 font-semibold"
+        rounded-lg duration-200 mx-2 flex-1 max-w-48 font-semibold"
     >
       {children}
     </a>
