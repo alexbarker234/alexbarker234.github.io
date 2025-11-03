@@ -1,5 +1,6 @@
 import HeaderText from "@/components/HeaderText";
-import { TbCertificate } from "react-icons/tb";
+import { faCertificate } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RevealingSection from "../components/RevealingSection";
 
 export default function ExperienceSection() {
@@ -79,7 +80,7 @@ export default function ExperienceSection() {
         <Experience
           title="B.S. in Computer Science & Cybersecurity"
           time="2021 - 2024"
-          icon={<TbCertificate />}
+          icon={<FontAwesomeIcon icon={faCertificate} />}
         >
           <SkillTags tags={["Java", "Python", "C", "SQL"]} />
           <div>
@@ -148,7 +149,7 @@ const Experience = ({
     {/* Stick thing */}
     <div className="hidden md:block">
       <span className="absolute left-0 top-0 h-full w-[2px] rounded-xs -translate-x-1/2 bg-blue"></span>
-      <span className="absolute w-4 h-4 rounded-md bg-blue left-0 top-0 -translate-x-1/2"></span>
+      <span className="absolute w-4 h-4 rounded-full bg-blue left-0 top-0 -translate-x-1/2"></span>
     </div>
   </div>
 );

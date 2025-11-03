@@ -1,16 +1,21 @@
 import { cn } from "@/utils/cn";
-import { useEffect, useRef, useState } from "react";
 import {
-  FaBars,
-  FaCertificate,
-  FaFile,
-  FaHammer,
-  FaUser
-} from "react-icons/fa";
+  faBars,
+  faCertificate,
+  faFile,
+  faHammer,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef, useState } from "react";
+import SlidingIndicatorSelector from "./SlidingIndicatorSelector";
+
+type Section = "about" | "skills" | "experience" | "projects";
 
 export default function Nav() {
   const [navEnabled, setNavEnabled] = useState(false);
   const [isStuck, setIsStuck] = useState(false);
+  const [activeSection, setActiveSection] = useState<Section>("about");
   const navRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -24,6 +29,21 @@ export default function Nav() {
       if (navRef.current) {
         const rect = navRef.current.getBoundingClientRect();
         setIsStuck(rect.top <= 0);
+      }
+
+      // Determine active section based on scroll position
+      const sections: Section[] = ["about", "skills", "experience", "projects"];
+      const sectionElements = sections.map((section) =>
+        document.getElementById(section)
+      );
+      const scrollPosition = window.scrollY + 200;
+
+      for (let i = sectionElements.length - 1; i >= 0; i--) {
+        const element = sectionElements[i];
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
       }
     };
 
@@ -46,6 +66,21 @@ export default function Nav() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [navEnabled]);
+
+  const handleNavChange = (value: Section) => {
+    const element = document.getElementById(value);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    setNavEnabled(false);
+  };
+
+  const navOptions = [
+    { value: "about" as Section, label: "About", icon: faUser },
+    { value: "skills" as Section, label: "Skills", icon: faCertificate },
+    { value: "experience" as Section, label: "Experience", icon: faFile },
+    { value: "projects" as Section, label: "Projects", icon: faHammer }
+  ];
 
   return (
     <>
@@ -70,7 +105,7 @@ export default function Nav() {
           className="text-2xl block md:hidden absolute top-0 right-0"
           onClick={() => setNavEnabled(!navEnabled)}
         >
-          <FaBars />
+          <FontAwesomeIcon icon={faBars} />
         </button>
         <div
           className={cn(
@@ -84,18 +119,30 @@ export default function Nav() {
             }
           )}
         >
-          <NavItem href="#about">
-            <FaUser className="mr-2" /> About
-          </NavItem>
-          <NavItem href="#skills">
-            <FaCertificate className="mr-2" /> Skills
-          </NavItem>
-          <NavItem href="#experience">
-            <FaFile className="mr-2" /> Experience
-          </NavItem>
-          <NavItem href="#projects">
-            <FaHammer className="mr-2" /> Projects
-          </NavItem>
+          {/* Desktop view with sliding indicator */}
+          <div className="hidden md:block">
+            <SlidingIndicatorSelector
+              options={navOptions}
+              value={activeSection}
+              size="lg"
+              onChange={handleNavChange}
+            />
+          </div>
+          {/* Mobile view */}
+          <div className="md:hidden">
+            <NavItem href="#about">
+              <FontAwesomeIcon icon={faUser} className="mr-2" /> About
+            </NavItem>
+            <NavItem href="#skills">
+              <FontAwesomeIcon icon={faCertificate} className="mr-2" /> Skills
+            </NavItem>
+            <NavItem href="#experience">
+              <FontAwesomeIcon icon={faFile} className="mr-2" /> Experience
+            </NavItem>
+            <NavItem href="#projects">
+              <FontAwesomeIcon icon={faHammer} className="mr-2" /> Projects
+            </NavItem>
+          </div>
         </div>
       </nav>
     </>
@@ -113,7 +160,7 @@ const NavItem = ({ href, children }: NavItemProps) => {
       href={href}
       className="flex items-center md:justify-center p-4 md:py-3 md:px-8 md:bg-bg1 md:border-2
         md:border-white md:rounded-xl hover:bg-blue hover:border-blue transition-all
-        duration-200 mx-2 flex-1 max-w-48 font-semibold"
+        rounded-lg duration-200 mx-2 flex-1 max-w-48 font-semibold"
     >
       {children}
     </a>
