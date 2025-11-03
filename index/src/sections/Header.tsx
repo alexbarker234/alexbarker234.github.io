@@ -1,6 +1,7 @@
 import AuroraBorealis from "@/components/Header/Aurora";
 import StarsBackground from "@/components/Header/StarsBackground";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MeteorShower from "../components/Header/MeteorShower";
 import ParallaxDivider from "../components/Header/ParralaxDivider";
 import ProfilePicture from "../components/Header/ProfilePicture";
@@ -52,11 +53,11 @@ export default function Header() {
         <div className="social-links flex justify-between gap-3 -translate-y-[40%]">
           <SocialLink
             href="https://github.com/alexbarker234"
-            icon={<FaGithub size={30} />}
+            icon={<FontAwesomeIcon icon={faGithub} size="2xl" />}
           />
           <SocialLink
             href="https://www.linkedin.com/in/alex-barker234/"
-            icon={<FaLinkedin size={30} />}
+            icon={<FontAwesomeIcon icon={faLinkedin} size="2xl" />}
           />
         </div>
       </div>

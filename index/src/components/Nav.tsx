@@ -1,12 +1,13 @@
 import { cn } from "@/utils/cn";
-import { useEffect, useRef, useState } from "react";
 import {
-  FaBars,
-  FaCertificate,
-  FaFile,
-  FaHammer,
-  FaUser
-} from "react-icons/fa";
+  faBars,
+  faCertificate,
+  faFile,
+  faHammer,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef, useState } from "react";
 import SlidingIndicatorSelector from "./SlidingIndicatorSelector";
 
 type Section = "about" | "skills" | "experience" | "projects";
@@ -75,10 +76,10 @@ export default function Nav() {
   };
 
   const navOptions = [
-    { value: "about" as Section, label: "About", icon: FaUser },
-    { value: "skills" as Section, label: "Skills", icon: FaCertificate },
-    { value: "experience" as Section, label: "Experience", icon: FaFile },
-    { value: "projects" as Section, label: "Projects", icon: FaHammer }
+    { value: "about" as Section, label: "About", icon: faUser },
+    { value: "skills" as Section, label: "Skills", icon: faCertificate },
+    { value: "experience" as Section, label: "Experience", icon: faFile },
+    { value: "projects" as Section, label: "Projects", icon: faHammer }
   ];
 
   return (
@@ -104,7 +105,7 @@ export default function Nav() {
           className="text-2xl block md:hidden absolute top-0 right-0"
           onClick={() => setNavEnabled(!navEnabled)}
         >
-          <FaBars />
+          <FontAwesomeIcon icon={faBars} />
         </button>
         <div
           className={cn(
@@ -130,16 +131,16 @@ export default function Nav() {
           {/* Mobile view */}
           <div className="md:hidden">
             <NavItem href="#about">
-              <FaUser className="mr-2" /> About
+              <FontAwesomeIcon icon={faUser} className="mr-2" /> About
             </NavItem>
             <NavItem href="#skills">
-              <FaCertificate className="mr-2" /> Skills
+              <FontAwesomeIcon icon={faCertificate} className="mr-2" /> Skills
             </NavItem>
             <NavItem href="#experience">
-              <FaFile className="mr-2" /> Experience
+              <FontAwesomeIcon icon={faFile} className="mr-2" /> Experience
             </NavItem>
             <NavItem href="#projects">
-              <FaHammer className="mr-2" /> Projects
+              <FontAwesomeIcon icon={faHammer} className="mr-2" /> Projects
             </NavItem>
           </div>
         </div>

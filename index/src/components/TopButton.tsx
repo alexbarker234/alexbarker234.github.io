@@ -1,5 +1,6 @@
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { FaArrowUp } from "react-icons/fa";
 
 export default function TopButton() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -31,9 +32,9 @@ export default function TopButton() {
       className="bg-blue text-text-color hover:bg-blue-dark fixed bottom-5 right-7 z-50 flex h-12
         w-12 items-center justify-center rounded-full text-2xl transition-opacity
         duration-200 focus:outline-hidden active:scale-110 disabled:pointer-events-none
-        disabled:opacity-0 drop-shadow-lg"
+        disabled:opacity-0 drop-shadow-lg cursor-pointer"
     >
-      <FaArrowUp className="m-auto" />
+      <FontAwesomeIcon icon={faArrowUp} className="m-auto" />
     </button>
   );
 }

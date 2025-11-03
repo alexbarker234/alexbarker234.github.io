@@ -1,5 +1,6 @@
 import HeaderText from "@/components/HeaderText";
-import { TbCertificate } from "react-icons/tb";
+import { faCertificate } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RevealingSection from "../components/RevealingSection";
 
 export default function ExperienceSection() {
@@ -79,7 +80,7 @@ export default function ExperienceSection() {
         <Experience
           title="B.S. in Computer Science & Cybersecurity"
           time="2021 - 2024"
-          icon={<TbCertificate />}
+          icon={<FontAwesomeIcon icon={faCertificate} />}
         >
           <SkillTags tags={["Java", "Python", "C", "SQL"]} />
           <div>

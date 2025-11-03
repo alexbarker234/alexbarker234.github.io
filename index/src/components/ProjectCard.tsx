@@ -2,10 +2,11 @@
 
 import { useClickOutside } from "@/hooks/useClickOutside";
 import type { Project } from "@/types";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faStar, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
-import { FaGithub, FaStar } from "react-icons/fa";
-import { FaXmark } from "react-icons/fa6";
 
 interface ProjectCardProps {
   project: Project;
@@ -148,7 +149,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         className="h-9 w-9 text-sm rounded-full bg-neutral-800 text-white hover:opacity-80 flex
                           items-center justify-center transition"
                       >
-                        <FaGithub size={20} />
+                        <FontAwesomeIcon icon={faGithub} size="sm" />
                       </a>
                     )}
                   </div>
@@ -157,7 +158,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                       hover:opacity-80 transition cursor-pointer justify-center"
                     onClick={() => setActive(false)}
                   >
-                    <FaXmark />
+                    <FontAwesomeIcon icon={faXmark} />
                     Close
                   </button>
                 </motion.div>
@@ -226,8 +227,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </motion.div>
           {project.favourite && (
             <motion.div className="absolute left-full top-full transform -translate-x-3/4 -translate-y-3/4">
-              <FaStar
-                size={24}
+              <FontAwesomeIcon
+                icon={faStar}
+                size="sm"
                 className="text-gold group-hover:animate-wiggle-pop"
               />
             </motion.div>

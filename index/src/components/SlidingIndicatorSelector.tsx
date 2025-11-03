@@ -1,10 +1,11 @@
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import type { IconType } from "react-icons";
 
 type Option<T> = {
   value: T;
   label: string;
-  icon?: IconType;
+  icon?: IconDefinition;
 };
 
 type SlidingIndicatorSelectorProps<T> = {
@@ -108,7 +109,7 @@ export default function SlidingIndicatorSelector<T extends string | null>({
           >
             {option.icon && (
               <span className={`${value === option.value ? "" : "opacity-70"}`}>
-                <option.icon />
+                <FontAwesomeIcon icon={option.icon} />
               </span>
             )}
             {option.label}
