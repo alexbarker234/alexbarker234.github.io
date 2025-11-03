@@ -229,7 +229,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <motion.div className="absolute left-full top-full transform -translate-x-3/4 -translate-y-3/4">
               <FontAwesomeIcon
                 icon={faStar}
-                size="sm"
+                size="lg"
                 className="text-gold group-hover:animate-wiggle-pop"
               />
             </motion.div>

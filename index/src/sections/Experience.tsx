@@ -149,7 +149,7 @@ const Experience = ({
     {/* Stick thing */}
     <div className="hidden md:block">
       <span className="absolute left-0 top-0 h-full w-[2px] rounded-xs -translate-x-1/2 bg-blue"></span>
-      <span className="absolute w-4 h-4 rounded-md bg-blue left-0 top-0 -translate-x-1/2"></span>
+      <span className="absolute w-4 h-4 rounded-full bg-blue left-0 top-0 -translate-x-1/2"></span>
     </div>
   </div>
 );
