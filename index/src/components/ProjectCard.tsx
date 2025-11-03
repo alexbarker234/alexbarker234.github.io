@@ -105,7 +105,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         exit={{ opacity: 0 }}
                       >
                         {project.techIcon.map((icon) => (
-                          <i className={`${icon} text-2xl p-2`} />
+                          <i className={`${icon} text-2xl p-2`} key={icon} />
                         ))}
                       </motion.div>
                     )}

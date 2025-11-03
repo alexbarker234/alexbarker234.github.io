@@ -13,13 +13,15 @@ type SlidingIndicatorSelectorProps<T> = {
   value: T;
   onChange: (value: T) => void;
   size?: "sm" | "md" | "lg";
+  equalButtons?: boolean;
 };
 
 export default function SlidingIndicatorSelector<T extends string | null>({
   options,
   value,
   onChange,
-  size = "md"
+  size = "md",
+  equalButtons = false
 }: SlidingIndicatorSelectorProps<T>) {
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
   const [isInitialised, setIsInitialised] = useState(false);
@@ -76,7 +78,7 @@ export default function SlidingIndicatorSelector<T extends string | null>({
     <div
       ref={containerRef}
       className={`relative flex ${currentSize.gap} rounded-xl bg-bg-dark/50 border border-blue/20
-        ${currentSize.container} backdrop-blur-sm`}
+        w-full ${currentSize.container} backdrop-blur-sm`}
     >
       {/* Sliding indicator */}
       <div
@@ -99,9 +101,9 @@ export default function SlidingIndicatorSelector<T extends string | null>({
               buttonsRef.current[optionKey] = el;
             }}
             onClick={() => onChange(option.value)}
-            className={`relative z-10 flex-grow cursor-pointer rounded-lg ${currentSize.button}
-            font-medium transition-colors disabled:cursor-not-allowed flex items-center
-            justify-center gap-2 ${
+            className={`relative z-10 ${equalButtons ? "flex-1" : "flex-grow"} cursor-pointer rounded-lg
+            ${currentSize.button} font-medium transition-colors disabled:cursor-not-allowed
+            flex items-center justify-center gap-2 ${
             value === option.value
                 ? "text-white font-semibold"
                 : "text-grey-light hover:text-white"

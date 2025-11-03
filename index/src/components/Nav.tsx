@@ -36,7 +36,7 @@ export default function Nav() {
       const sectionElements = sections.map((section) =>
         document.getElementById(section)
       );
-      const scrollPosition = window.scrollY + 400;
+      const scrollPosition = window.scrollY + 200;
 
       for (let i = sectionElements.length - 1; i >= 0; i--) {
         const element = sectionElements[i];
