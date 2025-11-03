@@ -7,10 +7,14 @@ import {
   FaHammer,
   FaUser
 } from "react-icons/fa";
+import SlidingIndicatorSelector from "./SlidingIndicatorSelector";
+
+type Section = "about" | "skills" | "experience" | "projects";
 
 export default function Nav() {
   const [navEnabled, setNavEnabled] = useState(false);
   const [isStuck, setIsStuck] = useState(false);
+  const [activeSection, setActiveSection] = useState<Section>("about");
   const navRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -24,6 +28,21 @@ export default function Nav() {
       if (navRef.current) {
         const rect = navRef.current.getBoundingClientRect();
         setIsStuck(rect.top <= 0);
+      }
+
+      // Determine active section based on scroll position
+      const sections: Section[] = ["about", "skills", "experience", "projects"];
+      const sectionElements = sections.map((section) =>
+        document.getElementById(section)
+      );
+      const scrollPosition = window.scrollY + 400;
+
+      for (let i = sectionElements.length - 1; i >= 0; i--) {
+        const element = sectionElements[i];
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
       }
     };
 
@@ -46,6 +65,21 @@ export default function Nav() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [navEnabled]);
+
+  const handleNavChange = (value: Section) => {
+    const element = document.getElementById(value);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    setNavEnabled(false);
+  };
+
+  const navOptions = [
+    { value: "about" as Section, label: "About", icon: FaUser },
+    { value: "skills" as Section, label: "Skills", icon: FaCertificate },
+    { value: "experience" as Section, label: "Experience", icon: FaFile },
+    { value: "projects" as Section, label: "Projects", icon: FaHammer }
+  ];
 
   return (
     <>
@@ -84,18 +118,30 @@ export default function Nav() {
             }
           )}
         >
-          <NavItem href="#about">
-            <FaUser className="mr-2" /> About
-          </NavItem>
-          <NavItem href="#skills">
-            <FaCertificate className="mr-2" /> Skills
-          </NavItem>
-          <NavItem href="#experience">
-            <FaFile className="mr-2" /> Experience
-          </NavItem>
-          <NavItem href="#projects">
-            <FaHammer className="mr-2" /> Projects
-          </NavItem>
+          {/* Desktop view with sliding indicator */}
+          <div className="hidden md:block">
+            <SlidingIndicatorSelector
+              options={navOptions}
+              value={activeSection}
+              size="lg"
+              onChange={handleNavChange}
+            />
+          </div>
+          {/* Mobile view */}
+          <div className="md:hidden">
+            <NavItem href="#about">
+              <FaUser className="mr-2" /> About
+            </NavItem>
+            <NavItem href="#skills">
+              <FaCertificate className="mr-2" /> Skills
+            </NavItem>
+            <NavItem href="#experience">
+              <FaFile className="mr-2" /> Experience
+            </NavItem>
+            <NavItem href="#projects">
+              <FaHammer className="mr-2" /> Projects
+            </NavItem>
+          </div>
         </div>
       </nav>
     </>

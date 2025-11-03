@@ -1,7 +1,7 @@
 import HeaderText from "@/components/HeaderText";
 import { ProjectCard } from "@/components/ProjectCard";
 import RevealingSection from "@/components/RevealingSection";
-import { cn } from "@/utils/cn";
+import SlidingIndicatorSelector from "@/components/SlidingIndicatorSelector";
 import Isotope from "isotope-layout";
 import { useEffect, useRef, useState } from "react";
 import projects from "../data/projectsData";
@@ -55,26 +55,13 @@ const Projects: React.FC = () => {
       <HeaderText level="h1" className="text-4xl font-bold text-center my-6">
         My Projects
       </HeaderText>
-      <div
-        className="project-selectors w-[95%] max-w-[900px] mx-auto flex flex-wrap justify-center
-          gap-x-6"
-      >
-        {filters.map((filter) => (
-          <div
-            key={filter.label}
-            className={cn(
-              `selector cursor-pointer w-36 h-12 max-400px:w-40 rounded-full text-center
-              bg-white text-black my-4 transition duration-300 flex items-center`,
-              {
-                "bg-blue text-white": selectedFilter === filter.value,
-                "hover:bg-grey-light": selectedFilter !== filter.value
-              }
-            )}
-            onClick={() => handleFilterClick(filter.value)}
-          >
-            <p className="w-full">{filter.label}</p>
-          </div>
-        ))}
+      <div className="w-[95%] max-w-[900px] mx-auto my-6 flex justify-center">
+        <SlidingIndicatorSelector
+          options={filters}
+          value={selectedFilter}
+          onChange={handleFilterClick}
+          size="lg"
+        />
       </div>
       <div
         ref={gridRef}
