@@ -1,6 +1,8 @@
 import HeaderText from "@/components/HeaderText";
 import skills from "@/data/skillsData";
+import type { Skill } from "@/types";
 import type { JSX } from "react";
+import { useRef, useState } from "react";
 import RevealingSection from "../components/RevealingSection";
 
 const types = {
@@ -8,6 +10,59 @@ const types = {
   "front-end": "Front End",
   "back-end": "Back End",
   misc: "Misc Skills"
+};
+
+type SkillCardProps = {
+  skill: Skill;
+};
+
+const SkillCard = ({ skill }: SkillCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+
+    const rect = cardRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const x = e.clientX - centerX;
+    const y = e.clientY - centerY;
+
+    const rotateX = (y / rect.height) * -10;
+    const rotateY = (x / rect.width) * 10;
+
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setRotation({ x: 0, y: 0 });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="flex flex-col justify-center items-center transition-all w-[4.8rem] h-[4.8rem]
+        md:w-28 md:h-28 bg-blue rounded-lg drop-shadow-lg hover:shadow-xl
+        hover:shadow-blue/50"
+      style={{
+        transform: `perspective(100px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale3d(1, 1, 1)`,
+        transformStyle: "preserve-3d",
+        transitionDuration: "100ms, 500ms",
+        transitionProperty: "transform, box-shadow"
+      }}
+    >
+      <div className="flex justify-center items-center md:mb-2">
+        <i className={`${skill.icon} text-3xl md:text-5xl`}></i>
+      </div>
+      <div className="text-center font-bold md:text-base text-sm">
+        {skill.title}
+      </div>
+    </div>
+  );
 };
 
 const Skills = () => {
@@ -23,20 +78,7 @@ const Skills = () => {
 
   skills.forEach((skill) => {
     skill.types.forEach((skillType) => {
-      skillTypes[skillType].push(
-        <div
-          className="flex flex-col justify-center items-center transition-all duration-100 w-[4.8rem]
-            h-[4.8rem] md:w-28 md:h-28 bg-blue rounded-lg drop-shadow-lg"
-          key={skill.title}
-        >
-          <div className="flex justify-center items-center md:mb-2">
-            <i className={`${skill.icon} text-3xl md:text-5xl`}></i>
-          </div>
-          <div className="text-center font-bold md:text-base text-sm">
-            {skill.title}
-          </div>
-        </div>
-      );
+      skillTypes[skillType].push(<SkillCard key={skill.id} skill={skill} />);
     });
   });
 
