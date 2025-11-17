@@ -8,7 +8,7 @@ const zOff = 0.001;
 
 // Aurora band properties
 const pinkAurora = {
-  baseY: 0.35, // Position in canvas (0-1)
+  baseY: 0.65, // Position in canvas (0-1)
   height: 150,
   hueStart: 290, // Purple
   hueEnd: 320, // Pink
@@ -17,7 +17,7 @@ const pinkAurora = {
 };
 
 const blueAurora = {
-  baseY: 0.5, // Position in canvas (0-1) - slightly lower to overlap
+  baseY: 0.8, // Position in canvas (0-1) - slightly lower to overlap
   height: 180,
   hueStart: 220, // Blue
   hueEnd: 150, // Blueish green
@@ -37,53 +37,44 @@ interface AuroraBorealisProps {
 export default function AuroraBorealis({
   startFrames = 0
 }: AuroraBorealisProps) {
-  const canvasARef = useRef<HTMLCanvasElement>(null);
-  const canvasBRef = useRef<HTMLCanvasElement>(null);
-  const ctxRef = useRef<{
-    a: CanvasRenderingContext2D | null;
-    b: CanvasRenderingContext2D | null;
-  } | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const tickRef = useRef<number>(startFrames);
   const animationRef = useRef<number | null>(null);
   const noise3DRef = useRef<ReturnType<typeof createNoise3D> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const canvasA = canvasARef.current;
-    const canvasB = canvasBRef.current;
-    if (!canvasA || !canvasB) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const ctxA = canvasA.getContext("2d");
-    const ctxB = canvasB.getContext("2d");
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    if (!ctxA || !ctxB) return;
-
-    ctxRef.current = { a: ctxA, b: ctxB };
+    ctxRef.current = ctx;
     noise3DRef.current = createNoise3D();
 
     const resize = () => {
-      const { innerWidth, innerHeight } = window;
-      if (canvasA && canvasB) {
-        canvasA.width = innerWidth;
-        canvasA.height = innerHeight;
-        canvasB.width = innerWidth;
-        canvasB.height = innerHeight;
-      }
+      const container = containerRef.current;
+      if (!container || !canvas) return;
+
+      const { width, height } = container.getBoundingClientRect();
+      canvas.width = width;
+      canvas.height = height;
     };
 
     const drawAuroraBand = (auroraConfig: typeof pinkAurora) => {
-      if (!canvasA || !ctxRef.current || !noise3DRef.current) return;
+      if (!canvas || !ctxRef.current || !noise3DRef.current) return;
 
-      const ctxA = ctxRef.current.a;
-      if (!ctxA) return;
-
-      const width = canvasA.width;
-      const height = canvasA.height;
+      const ctx = ctxRef.current;
+      const width = canvas.width;
+      const height = canvas.height;
       const baseY = auroraConfig.baseY * height;
       const bandHeight = auroraConfig.height;
       const tick = tickRef.current;
 
       // Create gradient for vertical fade (more solid at bottom)
-      const gradient = ctxA.createLinearGradient(
+      const gradient = ctx.createLinearGradient(
         0,
         baseY - bandHeight,
         0,
@@ -107,8 +98,8 @@ export default function AuroraBorealis({
         }
       }
 
-      ctxA.save();
-      ctxA.beginPath();
+      ctx.save();
+      ctx.beginPath();
 
       // Create wavy path using noise
       const points: { x: number; y: number }[] = [];
@@ -136,52 +127,26 @@ export default function AuroraBorealis({
       }
 
       // Draw the path
-      ctxA.moveTo(points[0].x, points[0].y);
+      ctx.moveTo(points[0].x, points[0].y);
       for (let i = 1; i < points.length; i++) {
-        ctxA.lineTo(points[i].x, points[i].y);
+        ctx.lineTo(points[i].x, points[i].y);
       }
-      ctxA.closePath();
+      ctx.closePath();
 
       // Fill with gradient
-      ctxA.fillStyle = gradient;
-      ctxA.fill();
+      ctx.fillStyle = gradient;
+      ctx.fill();
 
-      ctxA.restore();
-    };
-
-    const render = () => {
-      if (!canvasA || !ctxRef.current) return;
-
-      const ctxB = ctxRef.current.b;
-      const ctxA = ctxRef.current.a;
-
-      if (!ctxB || !ctxA) return;
-
-      ctxB.save();
-      ctxB.filter = "blur(18px)";
-      ctxA.globalCompositeOperation = "screen";
-      ctxB.drawImage(canvasA, 0, 0);
-      ctxB.restore();
-
-      ctxB.save();
-      ctxB.filter = "blur(30px) brightness(1.2)";
-      ctxB.globalAlpha = 0.4;
-      ctxB.drawImage(canvasA, 0, 0);
-      ctxB.restore();
+      ctx.restore();
     };
 
     const draw = () => {
-      if (!canvasA || !canvasB || !ctxRef.current || !noise3DRef.current)
-        return;
+      if (!canvas || !ctxRef.current || !noise3DRef.current) return;
 
       tickRef.current++;
-      const ctxA = ctxRef.current.a;
-      const ctxB = ctxRef.current.b;
+      const ctx = ctxRef.current;
 
-      if (!ctxA || !ctxB) return;
-
-      ctxA.clearRect(0, 0, canvasA.width, canvasA.height);
-      ctxB.clearRect(0, 0, canvasB.width, canvasB.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw pink aurora first (behind)
       drawAuroraBand(pinkAurora);
@@ -189,31 +154,34 @@ export default function AuroraBorealis({
       // Draw blue aurora second (in front, overlapping)
       drawAuroraBand(blueAurora);
 
-      render();
-
       animationRef.current = requestAnimationFrame(draw);
     };
 
     resize();
     draw();
 
-    window.addEventListener("resize", resize);
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+    });
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
 
     return () => {
       if (animationRef.current !== null) {
         cancelAnimationFrame(animationRef.current);
       }
-      window.removeEventListener("resize", resize);
+      resizeObserver.disconnect();
     };
   }, [startFrames]);
 
   return (
-    <>
-      <canvas ref={canvasARef} className="hidden" />
+    <div className="absolute w-full h-full" ref={containerRef}>
       <canvas
-        ref={canvasBRef}
-        className="absolute top-0 left-0 w-full h-full -z-10"
+        ref={canvasRef}
+        className="absolute w-full h-full -z-10 blur-[18px] brightness-110"
       />
-    </>
+    </div>
   );
 }

@@ -11,8 +11,8 @@ export default function Header() {
     <header className="relative w-full min-h-[500px] h-[40vw] -z-10">
       {/* Stars and Shower Background */}
       <div
-        className="absolute bg-night-sky w-full h-full bottom-0 left-1/2 transform -translate-x-1/2
-          z-[-1] overflow-hidden"
+        className="absolute bg-radial-[at_50%_100%] from-[#321e3f] to-night-sky w-full h-full
+          bottom-0 left-1/2 transform -translate-x-1/2 z-[-1] overflow-hidden"
       >
         <div className="w-screen h-full absolute bottom-0 left-1/2 transform -translate-x-1/2">
           <StarsBackground />
