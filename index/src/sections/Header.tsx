@@ -20,13 +20,8 @@ export default function Header() {
         </div>
 
         {/* Aurora */}
-        <div
-          className="w-screen h-[30vw] min-h-[400px] absolute -top-20 left-1/2 transform
-            -translate-x-1/2 opacity-80 scale-x-[1.2]"
-        >
-          <div className="absolute w-full h-full">
-            <AuroraBorealis />
-          </div>
+        <div className="w-full h-full absolute -top-20 left-1/2 transform -translate-x-1/2">
+          <AuroraBorealis />
         </div>
         <ParallaxDivider />
       </div>

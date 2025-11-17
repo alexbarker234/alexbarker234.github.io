@@ -8,7 +8,7 @@ const zOff = 0.001;
 
 // Aurora band properties
 const pinkAurora = {
-  baseY: 0.65, // Position in canvas (0-1)
+  baseY: 0.45, // Position in canvas (0-1)
   height: 150,
   hueStart: 290, // Purple
   hueEnd: 320, // Pink
@@ -17,7 +17,7 @@ const pinkAurora = {
 };
 
 const blueAurora = {
-  baseY: 0.8, // Position in canvas (0-1) - slightly lower to overlap
+  baseY: 0.55, // Position in canvas (0-1) - slightly lower to overlap
   height: 180,
   hueStart: 220, // Blue
   hueEnd: 150, // Blueish green
@@ -43,6 +43,13 @@ export default function AuroraBorealis({
   const animationRef = useRef<number | null>(null);
   const noise3DRef = useRef<ReturnType<typeof createNoise3D> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const gradientCacheRef = useRef<{
+    pink: CanvasGradient | null;
+    blue: CanvasGradient | null;
+  }>({
+    pink: null,
+    blue: null
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -54,16 +61,60 @@ export default function AuroraBorealis({
     ctxRef.current = ctx;
     noise3DRef.current = createNoise3D();
 
+    const CANVAS_HEIGHT = 500;
+
+    const createGradient = (
+      ctx: CanvasRenderingContext2D,
+      auroraConfig: typeof pinkAurora
+    ): CanvasGradient => {
+      const baseY = auroraConfig.baseY * CANVAS_HEIGHT;
+      const bandHeight = auroraConfig.height;
+      const gradient = ctx.createLinearGradient(
+        0,
+        baseY - bandHeight,
+        0,
+        baseY
+      );
+
+      if (auroraConfig.hueStart !== undefined) {
+        // Reduced from 10 to 5 steps for better performance
+        const steps = 5;
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const hue =
+            auroraConfig.hueStart +
+            (auroraConfig.hueEnd - auroraConfig.hueStart) * t;
+          const alpha = 0.2 + 0.85 * (1 - t);
+          gradient.addColorStop(
+            t,
+            `hsla(${hue},${auroraConfig.saturation}%,${auroraConfig.lightness}%,${Math.min(alpha, 1.0)})`
+          );
+        }
+      }
+
+      return gradient;
+    };
+
+    // Initialise gradients once
+    if (!gradientCacheRef.current.pink || !gradientCacheRef.current.blue) {
+      gradientCacheRef.current.pink = createGradient(ctx, pinkAurora);
+      gradientCacheRef.current.blue = createGradient(ctx, blueAurora);
+    }
+
     const resize = () => {
       const container = containerRef.current;
       if (!container || !canvas) return;
 
-      const { width, height } = container.getBoundingClientRect();
+      const { width } = container.getBoundingClientRect();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       canvas.width = width;
-      canvas.height = height;
+      canvas.height = CANVAS_HEIGHT;
     };
 
-    const drawAuroraBand = (auroraConfig: typeof pinkAurora) => {
+    const drawAuroraBand = (
+      auroraConfig: typeof pinkAurora,
+      gradient: CanvasGradient
+    ) => {
       if (!canvas || !ctxRef.current || !noise3DRef.current) return;
 
       const ctx = ctxRef.current;
@@ -72,31 +123,6 @@ export default function AuroraBorealis({
       const baseY = auroraConfig.baseY * height;
       const bandHeight = auroraConfig.height;
       const tick = tickRef.current;
-
-      // Create gradient for vertical fade (more solid at bottom)
-      const gradient = ctx.createLinearGradient(
-        0,
-        baseY - bandHeight,
-        0,
-        baseY
-      );
-
-      // Both auroras now use hue gradients
-      if (auroraConfig.hueStart !== undefined) {
-        const steps = 10;
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          const hue =
-            auroraConfig.hueStart +
-            (auroraConfig.hueEnd - auroraConfig.hueStart) * t;
-          // Bottom more solid, top more transparent - increased alpha for brightness
-          const alpha = 0.2 + 0.85 * (1 - t); // 1.05 at bottom, 0.2 at top (clamped to 1.0)
-          gradient.addColorStop(
-            t,
-            `hsla(${hue},${auroraConfig.saturation}%,${auroraConfig.lightness}%,${Math.min(alpha, 1.0)})`
-          );
-        }
-      }
 
       ctx.save();
       ctx.beginPath();
@@ -120,7 +146,7 @@ export default function AuroraBorealis({
       for (let i = numSegments; i >= 0; i--) {
         const x = (i / numSegments) * width;
         const noise =
-          noise3DRef.current(x * xOff, (baseY + 20) * yOff, tick * zOff) *
+          noise3DRef.current(x * xOff, (baseY + 77) * yOff, tick * zOff) *
           (noiseStrength * 0.5);
         const y = baseY + noise;
         points.push({ x, y });
@@ -149,10 +175,10 @@ export default function AuroraBorealis({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw pink aurora first (behind)
-      drawAuroraBand(pinkAurora);
+      drawAuroraBand(pinkAurora, gradientCacheRef.current.pink!);
 
       // Draw blue aurora second (in front, overlapping)
-      drawAuroraBand(blueAurora);
+      drawAuroraBand(blueAurora, gradientCacheRef.current.blue!);
 
       animationRef.current = requestAnimationFrame(draw);
     };
@@ -162,12 +188,12 @@ export default function AuroraBorealis({
 
     const resizeObserver = new ResizeObserver(() => {
       resize();
+      console.log("Aurora resized");
     });
 
     if (containerRef.current) {
       resizeObserver.observe(containerRef.current);
     }
-
     return () => {
       if (animationRef.current !== null) {
         cancelAnimationFrame(animationRef.current);
