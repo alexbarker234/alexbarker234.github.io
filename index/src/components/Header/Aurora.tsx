@@ -8,7 +8,7 @@ const zOff = 0.001;
 
 type AuroraConfig = {
   id: string;
-  baseY: number; // Position in canvas (0-1)
+  baseY: number; // Topmost position in canvas (0-1, from top)
   height: number;
   hueStart: number;
   hueEnd: number;
@@ -16,11 +16,12 @@ type AuroraConfig = {
   lightness: number;
 };
 
+const baseY = 0.2;
 const auroraConfigs: AuroraConfig[] = [
   // Pink Aurora
   {
     id: "pink",
-    baseY: 0.45,
+    baseY: baseY,
     height: 130,
     hueStart: 290, // Purple
     hueEnd: 320, // Pink
@@ -30,7 +31,7 @@ const auroraConfigs: AuroraConfig[] = [
   // Green Aurora
   {
     id: "green",
-    baseY: 0.55,
+    baseY: baseY + 0.1,
     height: 110,
     hueStart: 120, // Green
     hueEnd: 150, // Greenish yellow
@@ -40,7 +41,7 @@ const auroraConfigs: AuroraConfig[] = [
   // Blue Aurora
   {
     id: "blue",
-    baseY: 0.5,
+    baseY: baseY + 0.05,
     height: 130,
     hueStart: 220, // Blue
     hueEnd: 190, // Blueish green
@@ -91,9 +92,9 @@ export default function AuroraBorealis({
       const bandHeight = auroraConfig.height;
       const gradient = ctx.createLinearGradient(
         0,
-        baseY - bandHeight,
+        baseY,
         0,
-        baseY
+        baseY + bandHeight
       );
 
       if (auroraConfig.hueStart !== undefined) {
@@ -161,7 +162,7 @@ export default function AuroraBorealis({
         const noise =
           noise3DRef.current(x * xOff, (baseY + offset) * yOff, tick * zOff) *
           noiseStrength;
-        const y = baseY - bandHeight + noise;
+        const y = baseY + noise;
         points.push({ x, y });
       }
 
@@ -171,11 +172,11 @@ export default function AuroraBorealis({
         const noise =
           noise3DRef.current(
             x * xOff,
-            (baseY + 77 + offset) * yOff,
+            (baseY + bandHeight + offset) * yOff,
             tick * zOff
           ) *
           (noiseStrength * 0.5);
-        const y = baseY + noise;
+        const y = baseY + bandHeight + noise;
         points.push({ x, y });
       }
 
