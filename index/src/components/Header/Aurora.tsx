@@ -1,8 +1,54 @@
-import { useWindowSize } from "@/hooks/useWindowSize";
 import { useEffect, useRef } from "react";
+import { createNoise3D } from "simplex-noise";
 
-// https://segmentfault.com/a/1190000041166007/en
-// This is way too performance heavy. I gotta write a shader or something.
+const noiseStrength = 60;
+const xOff = 0.002;
+const yOff = 0.003;
+const zOff = 0.001;
+
+type AuroraConfig = {
+  id: string;
+  baseY: number; // Topmost position in canvas (0-1, from top)
+  height: number;
+  hueStart: number;
+  hueEnd: number;
+  saturation: number;
+  lightness: number;
+};
+
+const baseY = 0.2;
+const auroraConfigs: AuroraConfig[] = [
+  // Pink Aurora
+  {
+    id: "pink",
+    baseY: baseY,
+    height: 130,
+    hueStart: 290, // Purple
+    hueEnd: 320, // Pink
+    saturation: 100,
+    lightness: 70
+  },
+  // Green Aurora
+  {
+    id: "green",
+    baseY: baseY + 0.1,
+    height: 110,
+    hueStart: 120, // Green
+    hueEnd: 150, // Greenish yellow
+    saturation: 100,
+    lightness: 70
+  },
+  // Blue Aurora
+  {
+    id: "blue",
+    baseY: baseY + 0.05,
+    height: 130,
+    hueStart: 220, // Blue
+    hueEnd: 190, // Blueish green
+    saturation: 100,
+    lightness: 65
+  }
+];
 
 interface AuroraBorealisProps {
   width?: number;
@@ -14,97 +60,188 @@ interface AuroraBorealisProps {
 }
 
 export default function AuroraBorealis({
-  color1 = "#bd63c1",
-  color2 = "#53e5a6",
-  startFrames = 0,
-  id = "aurora-wave"
+  startFrames = 0
 }: AuroraBorealisProps) {
-  const filterRef = useRef<SVGFETurbulenceElement>(null);
-  const mainRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const tickRef = useRef<number>(startFrames);
   const animationRef = useRef<number | null>(null);
-
-  const { width: windowWidth } = useWindowSize();
-
-  const width = 500;
-  const height = 700;
+  const noise3DRef = useRef<ReturnType<typeof createNoise3D> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const gradientCacheRef = useRef<{
+    [key: string]: CanvasGradient | null;
+  }>({});
 
   useEffect(() => {
-    if (windowWidth < 700) return; // Don't run animation on mobile
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    let frames = startFrames;
-    const rad = Math.PI / 180;
-    let frameCount = 0;
-    function animate() {
-      let bfx = 0.005;
-      let bfy = 0.005;
-      frames += 0.5;
-      bfx += 0.0025 * Math.cos(frames * rad);
-      bfy += 0.0025 * Math.sin(frames * rad);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-      frameCount++;
-      if (frameCount % 2 === 0) {
-        const bf = `${bfx} ${bfy}`;
-        if (filterRef.current) {
-          filterRef.current.setAttribute("baseFrequency", bf);
+    ctxRef.current = ctx;
+    noise3DRef.current = createNoise3D();
+
+    const CANVAS_HEIGHT = 500;
+
+    const createGradient = (
+      ctx: CanvasRenderingContext2D,
+      auroraConfig: AuroraConfig
+    ): CanvasGradient => {
+      const baseY = auroraConfig.baseY * CANVAS_HEIGHT;
+      const bandHeight = auroraConfig.height;
+      const gradient = ctx.createLinearGradient(
+        0,
+        baseY,
+        0,
+        baseY + bandHeight
+      );
+
+      if (auroraConfig.hueStart !== undefined) {
+        const steps = 5;
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const hue =
+            auroraConfig.hueStart +
+            (auroraConfig.hueEnd - auroraConfig.hueStart) * t;
+          const alpha = 0.2 + 0.85 * (1 - t);
+          gradient.addColorStop(
+            t,
+            `hsla(${hue},${auroraConfig.saturation}%,${auroraConfig.lightness}%,${Math.min(alpha, 1.0)})`
+          );
         }
       }
 
-      animationRef.current = requestAnimationFrame(animate);
+      return gradient;
+    };
+
+    // Initialise gradients once
+    if (!gradientCacheRef.current.pink || !gradientCacheRef.current.blue) {
+      for (const auroraConfig of auroraConfigs) {
+        gradientCacheRef.current[
+          auroraConfig.id as keyof typeof gradientCacheRef.current
+        ] = createGradient(ctx, auroraConfig);
+      }
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          animationRef.current = requestAnimationFrame(animate);
-        } else {
-          if (animationRef.current !== null) {
-            cancelAnimationFrame(animationRef.current);
-          }
-        }
-      },
-      { threshold: 0 }
-    );
+    const resize = () => {
+      const container = containerRef.current;
+      if (!container || !canvas) return;
 
-    if (mainRef.current) {
-      observer.observe(mainRef.current);
+      const { width } = container.getBoundingClientRect();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = width;
+      canvas.height = CANVAS_HEIGHT;
+    };
+
+    const drawAuroraBand = (
+      auroraConfig: AuroraConfig,
+      gradient: CanvasGradient,
+      offset: number
+    ) => {
+      if (!canvas || !ctxRef.current || !noise3DRef.current) return;
+
+      const ctx = ctxRef.current;
+      const width = canvas.width;
+      const height = canvas.height;
+      const baseY = auroraConfig.baseY * height;
+      const bandHeight = auroraConfig.height;
+      const tick = tickRef.current;
+
+      ctx.save();
+      ctx.beginPath();
+
+      // Create wavy path using noise
+      const points: { x: number; y: number }[] = [];
+      const segmentWidth = 2;
+      const numSegments = Math.ceil(width / segmentWidth);
+
+      // Top edge (wavy)
+      for (let i = 0; i <= numSegments; i++) {
+        const x = (i / numSegments) * width;
+        const noise =
+          noise3DRef.current(x * xOff, (baseY + offset) * yOff, tick * zOff) *
+          noiseStrength;
+        const y = baseY + noise;
+        points.push({ x, y });
+      }
+
+      // Bottom edge (wavy, but less variation)
+      for (let i = numSegments; i >= 0; i--) {
+        const x = (i / numSegments) * width;
+        const noise =
+          noise3DRef.current(
+            x * xOff,
+            (baseY + bandHeight + offset) * yOff,
+            tick * zOff
+          ) *
+          (noiseStrength * 0.5);
+        const y = baseY + bandHeight + noise;
+        points.push({ x, y });
+      }
+
+      // Draw the path
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        ctx.lineTo(points[i].x, points[i].y);
+      }
+      ctx.closePath();
+
+      // Fill with gradient
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      ctx.restore();
+    };
+
+    const draw = () => {
+      if (!canvas || !ctxRef.current || !noise3DRef.current) return;
+
+      tickRef.current++;
+      const ctx = ctxRef.current;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw auroras
+      for (let index = 0; index < auroraConfigs.length; index++) {
+        const auroraConfig = auroraConfigs[index];
+        drawAuroraBand(
+          auroraConfig,
+          gradientCacheRef.current[
+            auroraConfig.id as keyof typeof gradientCacheRef.current
+          ]!,
+          index * 100
+        );
+      }
+
+      animationRef.current = requestAnimationFrame(draw);
+    };
+
+    resize();
+    draw();
+
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      console.log("Aurora resized");
+    });
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
     }
-
     return () => {
       if (animationRef.current !== null) {
         cancelAnimationFrame(animationRef.current);
       }
-      observer.disconnect();
+      resizeObserver.disconnect();
     };
-  }, [startFrames, windowWidth]);
+  }, [startFrames]);
 
   return (
-    <div className="relative blur-lg" style={{ width, height }} ref={mainRef}>
-      {/* Aurora effect */}
-      <div
-        className="absolute origin-center rotate-[38deg] scale-x-[1.4]"
-        style={{
-          width: width * 1.14,
-          height: height * 0.6,
-          background: `radial-gradient(circle at 100% 100%, transparent 45%, ${color1} 55%, ${color2} 65%, transparent 85%)`,
-          filter: `url(#${id}) blur(8px)`
-        }}
+    <div className="absolute w-full h-full" ref={containerRef}>
+      <canvas
+        ref={canvasRef}
+        className="absolute w-full h-full blur-[18px] brightness-110"
       />
-
-      {/* SVG Filter */}
-      <svg>
-        <defs>
-          <filter id={id}>
-            <feTurbulence
-              ref={filterRef}
-              id="turbulence"
-              baseFrequency="0.003 0.003"
-              numOctaves="3"
-              seed="10"
-            />
-            <feDisplacementMap in="SourceGraphic" scale="72" />
-          </filter>
-        </defs>
-      </svg>
     </div>
   );
 }

@@ -11,8 +11,8 @@ export default function Header() {
     <header className="relative w-full min-h-[500px] h-[40vw] -z-10">
       {/* Stars and Shower Background */}
       <div
-        className="absolute bg-night-sky w-full h-full bottom-0 left-1/2 transform -translate-x-1/2
-          z-[-1] overflow-hidden"
+        className="absolute bg-radial-[at_50%_100%] from-[#321e3f] to-night-sky w-full h-full
+          bottom-0 left-1/2 transform -translate-x-1/2 z-[-1] overflow-hidden"
       >
         <div className="w-screen h-full absolute bottom-0 left-1/2 transform -translate-x-1/2">
           <StarsBackground />
@@ -20,21 +20,8 @@ export default function Header() {
         </div>
 
         {/* Aurora */}
-        <div
-          className="w-screen h-[30vw] min-h-[400px] absolute -top-20 left-1/2 transform
-            -translate-x-1/2 opacity-80 scale-x-[1.2]"
-        >
-          <div className="absolute left-1/5">
-            <AuroraBorealis />
-          </div>
-          <div className="absolute left-1/2 scale-x-[-1] rotate-12">
-            <AuroraBorealis
-              color1="#5538d6"
-              color2="#41d9c2"
-              startFrames={100}
-              id="aurora-wave-2"
-            />
-          </div>
+        <div className="w-full h-full absolute -top-20 left-1/2 transform -translate-x-1/2">
+          <AuroraBorealis />
         </div>
         <ParallaxDivider />
       </div>

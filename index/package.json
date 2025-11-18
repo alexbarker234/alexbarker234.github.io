@@ -12,11 +12,11 @@
     "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
+    "@fontsource-variable/ibm-plex-sans": "^5.2.5",
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
     "@fortawesome/free-brands-svg-icons": "^7.0.1",
     "@fortawesome/free-solid-svg-icons": "^7.0.1",
     "@fortawesome/react-fontawesome": "^3.0.2",
-    "@fontsource-variable/ibm-plex-sans": "^5.2.5",
     "@tailwindcss/vite": "^4.1.7",
     "clsx": "^2.1.1",
     "devicon": "^2.16.0",
@@ -24,6 +24,7 @@
     "motion": "^12.14.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "simplex-noise": "^4.0.3",
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
