@@ -2,7 +2,7 @@ import HeaderText from "@/components/HeaderText";
 import skills from "@/data/skillsData";
 import type { Skill } from "@/types";
 import type { JSX } from "react";
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import RevealingSection from "../components/RevealingSection";
 
 const types = {
@@ -17,55 +17,67 @@ type SkillCardProps = {
 };
 
 const SkillCard = ({ skill }: SkillCardProps) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const x = e.clientX - centerX;
-    const y = e.clientY - centerY;
-
-    const rotateX = (y / rect.height) * -10;
-    const rotateY = (x / rect.width) * 10;
-
-    setRotation({ x: rotateX, y: rotateY });
-  };
-
-  const handleMouseLeave = () => {
-    setRotation({ x: 0, y: 0 });
-  };
-
   return (
     <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="flex flex-col justify-center items-center transition-all w-[4.8rem] h-[4.8rem]
-        md:w-28 md:h-28 bg-blue rounded-lg drop-shadow-lg hover:shadow-xl
-        hover:shadow-blue/50"
-      style={{
-        transform: `perspective(100px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale3d(1, 1, 1)`,
-        transformStyle: "preserve-3d",
-        transitionDuration: "100ms, 500ms",
-        transitionProperty: "transform, box-shadow"
-      }}
+      className="skills-glow-card flex h-[4.8rem] w-[4.8rem] shrink-0 flex-col items-center justify-center gap-1
+        rounded-lg border border-white/10 bg-bg-dark/50 p-2 md:h-28 md:w-28 md:gap-2"
     >
-      <div className="flex justify-center items-center md:mb-2">
-        <i className={`${skill.icon} text-3xl md:text-5xl`}></i>
+      <div className="relative z-[2] flex justify-center items-center md:mb-0.5">
+        <i className={`${skill.icon} text-3xl md:text-5xl`} aria-hidden />
       </div>
-      <div className="text-center font-bold md:text-base text-sm">
-        {skill.title}
-      </div>
+      <div className="relative z-[2] text-center text-sm font-bold md:text-base">{skill.title}</div>
     </div>
   );
 };
 
 const Skills = () => {
+  const glowRootRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    let rafId = 0;
+    let pointerX = -9999;
+    let pointerY = -9999;
+
+    const applyPointerPosition = () => {
+      rafId = 0;
+      const root = glowRootRef.current;
+      if (!root) return;
+      root.style.setProperty("--skills-mx", `${pointerX}`);
+      root.style.setProperty("--skills-my", `${pointerY}`);
+    };
+
+    const queuePointerPositionUpdate = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(applyPointerPosition);
+      }
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      queuePointerPositionUpdate();
+    };
+
+    const handlePointerLeaveWindow = () => {
+      pointerX = -9999;
+      pointerY = -9999;
+      queuePointerPositionUpdate();
+    };
+
+    document.addEventListener("pointermove", handlePointerMove, { passive: true });
+    document.addEventListener("pointerdown", handlePointerMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", handlePointerLeaveWindow, {
+      passive: true
+    });
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerdown", handlePointerMove);
+      document.documentElement.removeEventListener("pointerleave", handlePointerLeaveWindow);
+    };
+  }, []);
+
   const skillTypes: { [key: string]: JSX.Element[] } = Object.keys(
     types
   ).reduce(
@@ -88,8 +100,9 @@ const Skills = () => {
         Skills
       </HeaderText>
       <div
+        ref={glowRootRef}
         id="skills-container"
-        className="flex flex-col w-11/12 mx-auto flex-wrap max-w-[960px]"
+        className="skills-glow mx-auto flex w-11/12 max-w-[960px] flex-col flex-wrap"
       >
         {Object.entries(types).map(([typeId, title]) => (
           <div className="w-full" id={typeId} key={typeId}>
