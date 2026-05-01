@@ -3,17 +3,6 @@ import type { Project } from "../types";
 
 const projects: Project[] = [
   {
-    tags: ["react", "nextjs"],
-    imgSrc: "./project-images/argrage.png",
-    title: "Argrage",
-    techIcon: [iconMap.react, iconMap.nextjs, iconMap.django],
-    description: "A car part marketplace",
-    banner: "wip",
-    extendedDescription:
-      "A car part marketplace where you can buy and sell car parts\n\n(New website coming soon)",
-    favourite: true
-  },
-  {
     tags: ["react", "nextjs", "game"],
     appURL: "https://songversation.lexalot.dev/",
     gitHubURL: "https://github.com/alexbarker234/songversation",

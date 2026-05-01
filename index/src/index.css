@@ -122,3 +122,41 @@
 html {
   @apply bg-bg1 scroll-pt-8 scroll-smooth md:scroll-pt-24;
 }
+
+.skills-glow {
+  --skills-mx: -9999;
+  --skills-my: -9999;
+  --skills-spot-hsl: 217 49% 44%;
+  --skills-spot-alpha: 0.85;
+  --skills-spot-fade: 10rem;
+  --skills-border-width: 2px;
+}
+
+.skills-glow-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.skills-glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.3rem;
+  pointer-events: none;
+  z-index: 1;
+  padding: var(--skills-border-width);
+  background: radial-gradient(
+    circle at calc(var(--skills-mx) * 1px) calc(var(--skills-my) * 1px),
+    hsl(var(--skills-spot-hsl) / var(--skills-spot-alpha)) 0%,
+    transparent var(--skills-spot-fade)
+  );
+  background-attachment: fixed;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
