@@ -82,8 +82,8 @@ export default function SlidingIndicatorSelector<T extends string | null>({
     >
       {/* Sliding indicator */}
       <div
-        className={`absolute top-1 h-[calc(100%-8px)] rounded-lg bg-gradient-to-r from-blue
-          to-blue-light ${isInitialised ? "transition-all duration-300 ease-out" : ""}`}
+        className={`absolute top-1 h-[calc(100%-8px)] rounded-lg bg-blue
+          ${isInitialised ? "transition-all duration-300 ease-out" : ""}`}
         style={{
           left: `${indicatorStyle.left}px`,
           width: `${indicatorStyle.width}px`
