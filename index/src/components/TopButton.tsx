@@ -29,10 +29,10 @@ export default function TopButton() {
           behavior: "smooth"
         });
       }}
-      className="bg-blue text-text-color hover:bg-blue-dark fixed bottom-5 right-7 z-50 flex h-12
-        w-12 items-center justify-center rounded-full text-2xl transition-opacity
-        duration-200 focus:outline-hidden active:scale-110 disabled:pointer-events-none
-        disabled:opacity-0 drop-shadow-lg cursor-pointer"
+      className="bg-blue text-text-color hover:bg-blue-dark hidden fixed bottom-5 right-7 z-50
+        md:flex h-12 w-12 items-center justify-center rounded-full text-2xl
+        transition-opacity duration-200 focus:outline-hidden active:scale-110
+        disabled:pointer-events-none disabled:opacity-0 drop-shadow-lg cursor-pointer"
     >
       <FontAwesomeIcon icon={faArrowUp} className="m-auto" />
     </button>

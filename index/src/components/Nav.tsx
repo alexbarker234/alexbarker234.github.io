@@ -74,17 +74,12 @@ export default function Nav() {
     <>
       <nav
         className={cn(
-          `sticky top-0 z-10 py-3 text-xl pointer-events-none text-center md:mx-auto mx-4
-          max-w-2xl`
+          "pointer-events-none text-center text-xl z-10 max-w-2xl",
+          "fixed bottom-0 left-0 right-0 mx-auto w-full px-4 pb-4 pt-3",
+          "md:sticky md:top-0 md:bottom-auto md:py-3 md:pb-3 md:px-0"
         )}
         ref={navRef}
       >
-        <div
-          className={cn(
-            "absolute inset-0 transition-opacity duration-75 -z-10",
-            "bg-linear-to-b from-bg1 to-transparent"
-          )}
-        />
         <div
           className={cn(
             "flex justify-center p-0 opacity-100 pointer-events-auto overflow-hidden"
