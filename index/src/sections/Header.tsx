@@ -1,5 +1,6 @@
 import AuroraBorealis from "@/components/Header/Aurora";
 import StarsBackground from "@/components/Header/StarsBackground";
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MeteorShower from "../components/Header/MeteorShower";
@@ -38,13 +39,10 @@ export default function Header() {
       <div className="icon-section absolute left-1/2 top-2 transform -translate-x-1/2 w-48">
         <ProfilePicture />
         <div className="social-links flex justify-between gap-3 -translate-y-[40%]">
-          <SocialLink
-            href="https://github.com/alexbarker234"
-            icon={<FontAwesomeIcon icon={faGithub} size="2xl" />}
-          />
+          <SocialLink href="https://github.com/alexbarker234" icon={faGithub} />
           <SocialLink
             href="https://www.linkedin.com/in/alex-barker234/"
-            icon={<FontAwesomeIcon icon={faLinkedin} size="2xl" />}
+            icon={faLinkedin}
           />
         </div>
       </div>
@@ -52,17 +50,18 @@ export default function Header() {
   );
 }
 
-const SocialLink: React.FC<{ href: string; icon: React.ReactNode }> = ({
+const SocialLink: React.FC<{ href: string; icon: IconProp }> = ({
   href,
   icon
 }) => {
   return (
     <a
       href={href}
-      className="relative w-12 h-12 rounded-full bg-bg-light transition-transform duration-100
-        hover:scale-105 hover:bg-blue flex items-center justify-center"
+      className="relative size-12 rounded-full transition-transform duration-100 hover:scale-105
+        active:scale-95 hover:bg-blue flex items-center justify-center border-white/10
+        bg-bg-dark/60 backdrop-blur-sm border-1"
     >
-      {icon}
+      <FontAwesomeIcon icon={icon} size="2xl" />
     </a>
   );
 };

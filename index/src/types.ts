@@ -7,6 +7,20 @@ export interface Skill {
 
 export type ProjectTag = "react" | "nextjs" | "game" | "other";
 
+export interface TopArtist {
+  artistName: string;
+  artistId: string;
+  artistImageUrl: string;
+  listenCount: string;
+  totalDuration: string;
+}
+
+export interface TopArtistsResponse {
+  period: string;
+  limit: number;
+  artists: TopArtist[];
+}
+
 export interface Project {
   tags: ProjectTag[];
 

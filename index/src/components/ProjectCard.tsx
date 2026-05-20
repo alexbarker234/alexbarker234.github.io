@@ -61,8 +61,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <motion.div
               layoutId={`card-${project.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white
-                dark:bg-neutral-900 sm:rounded-3xl overflow-x-hidden overflow-y-auto"
+              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col
+                backdrop-blur-md bg-bg-dark/50 border border-white/10 sm:rounded-3xl
+                overflow-x-hidden overflow-y-auto p-3"
             >
               <motion.div
                 layoutId={`image-${project.title}-${id}`}
@@ -83,17 +84,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   height={200}
                   src={project.imgSrc}
                   alt="?"
-                  className="w-full h-full sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top flex
-                    items-center justify-center"
+                  className="w-full h-full object-cover object-top flex items-center justify-center
+                    rounded-2xl"
                 />
               </motion.div>
 
-              <div>
-                <div className="flex justify-between items-start p-4">
+              <div className="px-2">
+                <div className="flex justify-between items-start py-4">
                   <div className="">
                     <motion.h3
                       layoutId={`title-${project.title}-${id}`}
-                      className="font-bold text-neutral-700 dark:text-neutral-200"
+                      className="font-bold text-neutral-200"
                     >
                       {project.title}
                     </motion.h3>
@@ -111,7 +112,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     )}
                     <motion.p
                       layoutId={`description-${project.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400 whitespace-pre-wrap"
+                      className="text-neutral-400 whitespace-pre-wrap"
                     >
                       {(project.extendedDescription ?? project.description)
                         .split("\n")
@@ -129,7 +130,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   initial={{ opacity: 0, y: -40 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -40 }}
-                  className="p-4"
                 >
                   <div className="flex gap-2 w-full">
                     {project.appURL && (
@@ -146,16 +146,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                       <a
                         href={project.gitHubURL}
                         target="_blank"
-                        className="h-9 w-9 text-sm rounded-full bg-neutral-800 text-white hover:opacity-80 flex
-                          items-center justify-center transition"
+                        className="my-button flex items-center justify-center h-9 w-9"
                       >
-                        <FontAwesomeIcon icon={faGithub} size="sm" />
+                        <FontAwesomeIcon icon={faGithub} size="lg" />
                       </a>
                     )}
                   </div>
                   <button
-                    className="flex gap-2 items-center py-2 px-4 bg-neutral-800 rounded-full w-full mt-2
-                      hover:opacity-80 transition cursor-pointer justify-center"
+                    className="my-button flex gap-2 items-center py-2 px-4 w-full mt-2 justify-center"
                     onClick={() => setActive(false)}
                   >
                     <FontAwesomeIcon icon={faXmark} />
@@ -176,65 +174,56 @@ export function ProjectCard({ project }: ProjectCardProps) {
           // Isotope classes
           `project ${project.tags.join("\x20")}`,
           // Base styles
-          `flex-1 w-full max-w-full aspect-[5/3] text-center relative select-none
-          rounded-lg duration-0 mb-2 cursor-pointer`,
+          `flex flex-col flex-1 w-full max-w-full text-left relative select-none
+          aspect-[6/5] rounded-3xl duration-0 mb-2 cursor-pointer`,
           // Medium screens (500px+)
           "min-[500px]:w-[calc(50%-1.2rem)] min-[500px]:m-2",
           // Large screens (900px+)
           "min-[900px]:w-[calc(33.3%-1.2em)]"
         ].join("\u0020")}
       >
-        {/* Separate element for hover scale to not mess with Isotope */}
-        <motion.div className="hover:scale-105 group transition-all w-full h-full">
+        <div
+          className="flex flex-col gap-4 w-full h-full p-4 bg-bg-dark/50 border border-white/10
+            rounded-3xl transition-colors hover:border-white/20"
+        >
           <motion.div
-            className={`overflow-hidden relative w-full h-full transition duration-100 border
-              border-blue rounded-lg ${isLoaded ? "border-none" : ""}`}
+            layoutId={`image-${project.title}-${id}`}
+            className={`relative w-full aspect-[5/3] overflow-hidden rounded-2xl transition duration-100
+              ${isLoaded ? "" : "border border-blue"}`}
           >
-            <motion.div
-              layoutId={`image-${project.title}-${id}`}
-              className="w-full aspect-[5/3]"
-            >
-              {project.banner && (
-                <Banner
-                  text={project.banner === "wip" ? "WIP" : "ARCHIVED"}
-                  color={
-                    project.banner === "wip" ? "bg-purple-600" : "bg-yellow-500"
-                  }
-                />
-              )}
-              <img
-                src={project.imgSrc}
-                alt="?"
-                onLoad={() => setLoaded(true)}
-                className="w-full h-full object-cover object-top flex items-center justify-center"
+            {project.banner && (
+              <Banner
+                text={project.banner === "wip" ? "WIP" : "ARCHIVED"}
+                color={
+                  project.banner === "wip" ? "bg-purple-600" : "bg-yellow-500"
+                }
               />
-            </motion.div>
+            )}
+            <img
+              src={project.imgSrc}
+              alt={project.title}
+              onLoad={() => setLoaded(true)}
+              className="w-full h-full object-cover object-top"
+            />
+          </motion.div>
 
-            <motion.div
-              className="absolute inset-0 opacity-0 transition-opacity duration-500 p-4 bg-blue/70
-                hover:opacity-100 rounded-lg"
-            >
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
               <motion.h3
                 layoutId={`title-${project.title}-${id}`}
-                className="text-2xl font-extrabold mb-2"
+                className="font-bold text-neutral-200"
               >
                 {project.title}
               </motion.h3>
-              <motion.p layoutId={`description-${project.description}-${id}`}>
-                {project.description}
-              </motion.p>
-            </motion.div>
-          </motion.div>
-          {project.favourite && (
-            <motion.div className="absolute left-full top-full transform -translate-x-3/4 -translate-y-3/4">
-              <FontAwesomeIcon
-                icon={faStar}
-                size="lg"
-                className="text-gold group-hover:animate-wiggle-pop"
-              />
-            </motion.div>
-          )}
-        </motion.div>
+              {project.favourite && (
+                <FontAwesomeIcon icon={faStar} className="text-gold text-xs" />
+              )}
+            </div>
+            <p className="text-neutral-400 text-sm leading-relaxed">
+              {project.description}
+            </p>
+          </div>
+        </div>
       </motion.div>
     </>
   );

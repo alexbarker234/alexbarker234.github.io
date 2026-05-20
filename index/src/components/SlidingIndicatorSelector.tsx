@@ -12,7 +12,7 @@ type SlidingIndicatorSelectorProps<T> = {
   options: Option<T>[];
   value: T;
   onChange: (value: T) => void;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "responsive";
   equalButtons?: boolean;
 };
 
@@ -56,7 +56,7 @@ export default function SlidingIndicatorSelector<T extends string | null>({
 
   const sizeClasses = {
     sm: {
-      container: "p-0.5",
+      container: "px-0.5 py-2",
       button: "p-1 text-xs",
       gap: "gap-0.5"
     },
@@ -69,6 +69,12 @@ export default function SlidingIndicatorSelector<T extends string | null>({
       container: "p-1.5",
       button: "p-2 text-base md:p-4",
       gap: "gap-1.5"
+    },
+    /** Small screens use `sm`; `md` and up match `lg`. */
+    responsive: {
+      container: "px-0.5 py-2 md:p-1.5",
+      button: "p-1 text-xs md:text-base md:p-4",
+      gap: "gap-0.5 md:gap-1.5"
     }
   };
 
@@ -77,13 +83,13 @@ export default function SlidingIndicatorSelector<T extends string | null>({
   return (
     <div
       ref={containerRef}
-      className={`relative flex ${currentSize.gap} rounded-xl bg-bg-dark/50 border border-blue/20
-        w-full ${currentSize.container} backdrop-blur-sm`}
+      className={`relative flex ${currentSize.gap} rounded-full bg-bg-dark/50 border
+        border-blue/20 w-full ${currentSize.container} backdrop-blur-sm`}
     >
       {/* Sliding indicator */}
       <div
-        className={`absolute top-1 h-[calc(100%-8px)] rounded-lg bg-blue
-          ${isInitialised ? "transition-all duration-300 ease-out" : ""}`}
+        className={`absolute top-1 h-[calc(100%-8px)] rounded-full bg-blue
+          ${isInitialised ? "transition-all duration-400 ease-bounce" : ""}`}
         style={{
           left: `${indicatorStyle.left}px`,
           width: `${indicatorStyle.width}px`

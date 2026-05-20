@@ -1,78 +1,92 @@
 import { cn } from "@/utils/cn";
 import {
-  faBars,
   faCertificate,
   faFile,
   faHammer,
   faUser
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import SlidingIndicatorSelector from "./SlidingIndicatorSelector";
 
 type Section = "about" | "skills" | "experience" | "projects";
 
+function getActiveSectionFromScroll(): Section {
+  const sections: Section[] = ["about", "skills", "experience", "projects"];
+  const sectionElements = sections.map((section) =>
+    document.getElementById(section)
+  );
+  const scrollPosition = window.scrollY + 200;
+
+  for (let i = sectionElements.length - 1; i >= 0; i--) {
+    const element = sectionElements[i];
+    if (element && element.offsetTop <= scrollPosition) {
+      return sections[i];
+    }
+  }
+  return "about";
+}
+
 export default function Nav() {
-  const [navEnabled, setNavEnabled] = useState(false);
-  const [isStuck, setIsStuck] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>("about");
   const navRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (navRef.current && !navRef.current.contains(event.target as Node)) {
-      setNavEnabled(false);
-    }
-  };
+  // scroll handler must not override `activeSection` until scroll reaches this section.
+  const pendingClickSectionRef = useRef<Section | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (navRef.current) {
-        const rect = navRef.current.getBoundingClientRect();
-        setIsStuck(rect.top <= 0);
-      }
-
-      // Determine active section based on scroll position
-      const sections: Section[] = ["about", "skills", "experience", "projects"];
-      const sectionElements = sections.map((section) =>
-        document.getElementById(section)
-      );
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sectionElements.length - 1; i >= 0; i--) {
-        const element = sectionElements[i];
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
+    // if the user scrolls (interrupting the click), cancel the pending click section
+    const cancelPendingClickSectionFromUserScroll = () => {
+      if (pendingClickSectionRef.current === null) return;
+      pendingClickSectionRef.current = null;
     };
 
+    const handleScroll = () => {
+      const pending = pendingClickSectionRef.current;
+      if (pending !== null) {
+        if (getActiveSectionFromScroll() === pending) {
+          pendingClickSectionRef.current = null;
+        } else {
+          return;
+        }
+      }
+
+      setActiveSection(getActiveSectionFromScroll());
+    };
+
+    const userScrollOpts = { passive: true };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener(
+      "wheel",
+      cancelPendingClickSectionFromUserScroll,
+      userScrollOpts
+    );
+    window.addEventListener(
+      "touchmove",
+      cancelPendingClickSectionFromUserScroll,
+      userScrollOpts
+    );
     handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(
+        "wheel",
+        cancelPendingClickSectionFromUserScroll
+      );
+      window.removeEventListener(
+        "touchmove",
+        cancelPendingClickSectionFromUserScroll
+      );
     };
   }, []);
 
-  useEffect(() => {
-    if (navEnabled) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [navEnabled]);
-
   const handleNavChange = (value: Section) => {
+    setActiveSection(value);
+    pendingClickSectionRef.current = value;
     const element = document.getElementById(value);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    setNavEnabled(false);
   };
 
   const navOptions = [
@@ -86,83 +100,25 @@ export default function Nav() {
     <>
       <nav
         className={cn(
-          "md:sticky md:top-0 md:z-10 md:py-3 md:text-xl relative",
-          "md:pointer-events-none md:text-center fixed top-4 right-4 z-99"
+          "pointer-events-none text-center text-xl z-10 max-w-2xl",
+          "fixed bottom-0 left-0 right-0 mx-auto w-full px-4 pb-4 pt-3",
+          "md:sticky md:top-0 md:bottom-auto md:py-3 md:pb-3 md:px-0"
         )}
         ref={navRef}
       >
         <div
           className={cn(
-            "absolute inset-0 transition-opacity duration-75 -z-10",
-            "bg-linear-to-b from-bg1 to-transparent",
-            {
-              "opacity-100": isStuck,
-              "opacity-0": !isStuck
-            }
-          )}
-        />
-        <button
-          className="text-2xl block md:hidden absolute top-0 right-0"
-          onClick={() => setNavEnabled(!navEnabled)}
-        >
-          <FontAwesomeIcon icon={faBars} />
-        </button>
-        <div
-          className={cn(
-            "md:flex md:justify-center md:p-0 md:opacity-100 md:pointer-events-auto",
-            "bg-bg-dark md:bg-transparent fixed md:static top-12 right-0",
-            "md:right-auto transition-opacity duration-200 md:flex-row md:space-x-4",
-            "rounded-lg md:rounded-none overflow-hidden",
-            {
-              "opacity-100 pointer-events-auto": navEnabled,
-              "opacity-0 pointer-events-none": !navEnabled
-            }
+            "flex justify-center p-0 opacity-100 pointer-events-auto overflow-hidden"
           )}
         >
-          {/* Desktop view with sliding indicator */}
-          <div className="hidden md:block">
-            <SlidingIndicatorSelector
-              options={navOptions}
-              value={activeSection}
-              size="lg"
-              onChange={handleNavChange}
-            />
-          </div>
-          {/* Mobile view */}
-          <div className="md:hidden">
-            <NavItem href="#about">
-              <FontAwesomeIcon icon={faUser} className="mr-2" /> About
-            </NavItem>
-            <NavItem href="#skills">
-              <FontAwesomeIcon icon={faCertificate} className="mr-2" /> Skills
-            </NavItem>
-            <NavItem href="#experience">
-              <FontAwesomeIcon icon={faFile} className="mr-2" /> Experience
-            </NavItem>
-            <NavItem href="#projects">
-              <FontAwesomeIcon icon={faHammer} className="mr-2" /> Projects
-            </NavItem>
-          </div>
+          <SlidingIndicatorSelector
+            options={navOptions}
+            value={activeSection}
+            size="responsive"
+            onChange={handleNavChange}
+          />
         </div>
       </nav>
     </>
   );
 }
-
-type NavItemProps = {
-  href: string;
-  children: React.ReactNode;
-};
-
-const NavItem = ({ href, children }: NavItemProps) => {
-  return (
-    <a
-      href={href}
-      className="flex items-center md:justify-center p-4 md:py-3 md:px-8 md:bg-bg1 md:border-2
-        md:border-white md:rounded-xl hover:bg-blue hover:border-blue transition-all
-        rounded-lg duration-200 mx-2 flex-1 max-w-48 font-semibold"
-    >
-      {children}
-    </a>
-  );
-};
