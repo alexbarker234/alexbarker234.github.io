@@ -126,6 +126,12 @@ html {
   @apply bg-bg1 scroll-pt-8 scroll-smooth md:scroll-pt-24;
 }
 
+@layer components {
+  .my-button {
+    @apply bg-bg-dark/50 cursor-pointer rounded-full border border-white/10 text-gray-200 transition hover:bg-zinc-900/50 hover:text-white;
+  }
+}
+
 .skills-glow {
   --skills-mx: -9999;
   --skills-my: -9999;

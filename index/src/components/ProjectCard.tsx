@@ -61,8 +61,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <motion.div
               layoutId={`card-${project.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white
-                dark:bg-neutral-900 sm:rounded-3xl overflow-x-hidden overflow-y-auto"
+              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col
+                backdrop-blur-md bg-bg-dark/50 border border-white/10 sm:rounded-3xl
+                overflow-x-hidden overflow-y-auto p-3"
             >
               <motion.div
                 layoutId={`image-${project.title}-${id}`}
@@ -83,13 +84,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   height={200}
                   src={project.imgSrc}
                   alt="?"
-                  className="w-full h-full sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top flex
-                    items-center justify-center"
+                  className="w-full h-full object-cover object-top flex items-center justify-center
+                    rounded-2xl"
                 />
               </motion.div>
 
-              <div>
-                <div className="flex justify-between items-start p-4">
+              <div className="px-2">
+                <div className="flex justify-between items-start py-4">
                   <div className="">
                     <motion.h3
                       layoutId={`title-${project.title}-${id}`}
@@ -129,7 +130,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   initial={{ opacity: 0, y: -40 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -40 }}
-                  className="p-4"
                 >
                   <div className="flex gap-2 w-full">
                     {project.appURL && (
@@ -146,16 +146,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                       <a
                         href={project.gitHubURL}
                         target="_blank"
-                        className="h-9 w-9 text-sm rounded-full bg-neutral-800 text-white hover:opacity-80 flex
-                          items-center justify-center transition"
+                        className="my-button flex items-center justify-center h-9 w-9"
                       >
-                        <FontAwesomeIcon icon={faGithub} size="sm" />
+                        <FontAwesomeIcon icon={faGithub} size="lg" />
                       </a>
                     )}
                   </div>
                   <button
-                    className="flex gap-2 items-center py-2 px-4 bg-neutral-800 rounded-full w-full mt-2
-                      hover:opacity-80 transition cursor-pointer justify-center"
+                    className="my-button flex gap-2 items-center py-2 px-4 w-full mt-2 justify-center"
                     onClick={() => setActive(false)}
                   >
                     <FontAwesomeIcon icon={faXmark} />
