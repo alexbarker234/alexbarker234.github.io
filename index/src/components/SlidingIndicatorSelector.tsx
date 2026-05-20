@@ -56,7 +56,7 @@ export default function SlidingIndicatorSelector<T extends string | null>({
 
   const sizeClasses = {
     sm: {
-      container: "p-0.5",
+      container: "px-0.5 py-1",
       button: "p-1 text-xs",
       gap: "gap-0.5"
     },

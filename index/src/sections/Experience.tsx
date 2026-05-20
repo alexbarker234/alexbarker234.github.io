@@ -223,7 +223,7 @@ const EXPERIENCES: ExperienceEntry[] = [
   },
   {
     id: "mod-team",
-    company: "Mod development (community)",
+    company: "Video Game Mod Development",
     role: "Team Lead & Developer",
     period: "2017 - 2022",
     icon: { kind: "fontawesome", icon: faGamepad },
