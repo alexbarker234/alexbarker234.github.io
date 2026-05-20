@@ -1,5 +1,6 @@
 import HeaderText from "@/components/HeaderText";
 import RevealingSection from "@/components/RevealingSection";
+import TopArtists from "@/components/TopArtists";
 
 export default function About() {
   return (
@@ -25,11 +26,11 @@ export default function About() {
           applications.
         </p>
         <p>
-          I am also <strong>really</strong> into music, check out what I've been
-          grooving to lately:
+          I am also <strong>really</strong> into music, check out who I've been
+          grooving to this past month:
         </p>
-        <div className="flex flex-col gap-2 text-center py-4">
-          <span className="text-lg text-white/60 italic">Coming soon...</span>
+        <div className="flex flex-col gap-2">
+          <TopArtists />
         </div>
       </div>
     </RevealingSection>
