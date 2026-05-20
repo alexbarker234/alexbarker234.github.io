@@ -26,6 +26,17 @@
   --animate-pop: pop 0.3s ease-in-out;
   --animate-wiggle-pop: wiggle 0.75s ease-in-out, pop 0.75s ease-in-out;
   --animate-meteor: meteor linear 0.5s;
+  --animate-orbit: orbit 4.75s linear infinite;
+
+  @keyframes orbit {
+    from {
+      transform: rotateZ(0deg);
+    }
+
+    to {
+      transform: rotateZ(360deg);
+    }
+  }
 
   @keyframes flicker {
     0% {
@@ -129,6 +140,76 @@ html {
 @layer components {
   .my-button {
     @apply bg-bg-dark/50 cursor-pointer rounded-full border border-white/10 text-gray-200 transition hover:bg-zinc-900/50 hover:text-white;
+  }
+
+  .profile-orbit-scene {
+    perspective: 520px;
+  }
+
+  .profile-orbit-stage {
+    transform-style: preserve-3d;
+  }
+
+  .profile-orbit-photo {
+    transform: translateZ(-8px);
+    transform-style: preserve-3d;
+  }
+
+  .profile-orbit-system {
+    transform: translateZ(10px) rotateX(62deg) rotateY(-14deg);
+    transform-style: preserve-3d;
+  }
+
+  .profile-orbit-ring {
+    border: 2px solid rgb(85 152 211 / 0.9);
+    box-shadow:
+      0 0 10px rgb(85 152 211 / 0.55),
+      0 0 22px rgb(85 152 211 / 0.2),
+      inset 0 0 14px rgb(209 218 255 / 0.14);
+  }
+
+  .profile-orbit-body {
+    rotate: -10deg;
+  }
+
+  .profile-orbit-trail {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 2.25rem;
+    height: 0.2rem;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background: linear-gradient(
+      to left,
+      var(--color-meteor-body),
+      var(--color-meteor-glow) 35%,
+      transparent
+    );
+    box-shadow: 0 0 8px 1px rgb(209 218 255 / 0.65);
+  }
+
+  .profile-orbit-trail-glow {
+    position: absolute;
+    top: 50%;
+    right: calc(50% + 0.15rem);
+    width: 1.75rem;
+    height: 0.55rem;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background: linear-gradient(to left, rgb(85 152 211 / 0.45), transparent);
+    filter: blur(3px);
+  }
+
+  .profile-orbit-satellite {
+    position: relative;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 999px;
+    background: var(--color-meteor-body);
+    box-shadow:
+      0 0 8px 3px var(--color-meteor-glow),
+      0 0 16px 2px rgb(85 152 211 / 0.55);
   }
 }
 
