@@ -8,6 +8,51 @@ import type { ReactNode } from "react";
 import { useId, useState } from "react";
 import RevealingSection from "../components/RevealingSection";
 
+/**
+ * Linear easing matching `--ease-bounce` in `src/index.css`:
+ */
+const EASE_BOUNCE_STOPS: readonly [number, number][] = [
+  [0, 0],
+  [0.186, 0.596],
+  [0.39, 0.933],
+  [0.492, 1.009],
+  [0.606, 1.042],
+  [1, 1]
+];
+
+function easeBounce(t: number): number {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  for (let i = 0; i < EASE_BOUNCE_STOPS.length - 1; i++) {
+    const [t0, y0] = EASE_BOUNCE_STOPS[i];
+    const [t1, y1] = EASE_BOUNCE_STOPS[i + 1];
+    if (t <= t1) {
+      const u = (t - t0) / (t1 - t0);
+      return y0 + (y1 - y0) * u;
+    }
+  }
+  return 1;
+}
+
+const experiencePanelVariants = {
+  collapsed: {
+    height: 0,
+    opacity: 0,
+    transition: {
+      height: { duration: 0.22, ease: [0.4, 0, 0.6, 1] as const },
+      opacity: { duration: 0.18, ease: "easeIn" as const }
+    }
+  },
+  expanded: {
+    height: "auto",
+    opacity: 1,
+    transition: {
+      height: { duration: 0.38, ease: easeBounce },
+      opacity: { duration: 0.3, ease: "easeIn" }
+    }
+  }
+} as const;
+
 type ExperienceIcon =
   | { kind: "image"; file: string; alt: string; bgClass?: string }
   | {
@@ -274,10 +319,10 @@ export default function ExperienceSection() {
                     id={panelId}
                     role="region"
                     aria-labelledby={triggerId}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                    variants={experiencePanelVariants}
+                    initial="collapsed"
+                    animate="expanded"
+                    exit="collapsed"
                     className="overflow-hidden"
                   >
                     <div
