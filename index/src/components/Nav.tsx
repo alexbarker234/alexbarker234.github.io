@@ -29,10 +29,16 @@ function getActiveSectionFromScroll(): Section {
 export default function Nav() {
   const [activeSection, setActiveSection] = useState<Section>("about");
   const navRef = useRef<HTMLDivElement>(null);
-  /** When set, scroll handler must not override `activeSection` until scroll reaches this section. */
+  // scroll handler must not override `activeSection` until scroll reaches this section.
   const pendingClickSectionRef = useRef<Section | null>(null);
 
   useEffect(() => {
+    // if the user scrolls (interrupting the click), cancel the pending click section
+    const cancelPendingClickSectionFromUserScroll = () => {
+      if (pendingClickSectionRef.current === null) return;
+      pendingClickSectionRef.current = null;
+    };
+
     const handleScroll = () => {
       const pending = pendingClickSectionRef.current;
       if (pending !== null) {
@@ -46,11 +52,31 @@ export default function Nav() {
       setActiveSection(getActiveSectionFromScroll());
     };
 
+    const userScrollOpts = { passive: true };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener(
+      "wheel",
+      cancelPendingClickSectionFromUserScroll,
+      userScrollOpts
+    );
+    window.addEventListener(
+      "touchmove",
+      cancelPendingClickSectionFromUserScroll,
+      userScrollOpts
+    );
     handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(
+        "wheel",
+        cancelPendingClickSectionFromUserScroll
+      );
+      window.removeEventListener(
+        "touchmove",
+        cancelPendingClickSectionFromUserScroll
+      );
     };
   }, []);
 
