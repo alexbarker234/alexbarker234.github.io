@@ -31,6 +31,7 @@ const Projects: React.FC = () => {
         isotope.current.arrange({ filter: "*" });
       } else {
         isotope.current.arrange({
+          itemSelector: ".project",
           filter: `.${selectedFilter}`
         });
       }
