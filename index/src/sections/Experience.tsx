@@ -1,155 +1,315 @@
 import HeaderText from "@/components/HeaderText";
-import { faCertificate } from "@fortawesome/free-solid-svg-icons";
+import { cn } from "@/utils/cn";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { faCertificate, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AnimatePresence, motion } from "motion/react";
+import type { ReactNode } from "react";
+import { useId, useState } from "react";
 import RevealingSection from "../components/RevealingSection";
 
-export default function ExperienceSection() {
-  return (
-    <RevealingSection
-      id="experience"
-      className="w-11/12 max-w-3xl mx-auto mb-4"
-    >
-      <HeaderText level="h1" className="text-4xl">
-        Experience
-      </HeaderText>
-      <div className="w-full group">
-        <Experience
-          title="Wesfarmers Chemicals Energies & Fertilisers - Application Developer"
-          time="May 2025 - Present  "
-        >
-          <SkillTags tags={["C#", "SQL", "React", "Angular", ".NET MAUI"]} />
-          <ul className="list-disc list-outside ml-5 space-y-2">
-            <li>Developing Angular and React applications using TypeScript</li>
-            <li>Building .NET REST APIs</li>
-            <li>
-              Migrating a Xamarin mobile application to .NET MAUI and developing
-              new features for the app
-            </li>
-            <li>Implementing Azure services for cloud-based solutions</li>
-          </ul>
-        </Experience>
-        <Experience
-          title="Wesfarmers Chemicals Energies & Fertilisers - Software Developer Cadet"
-          time="Nov 2022 - Dec 2024"
-        >
-          <SkillTags tags={["C#", "SQL", "PowerShell", "Jira", "Azure"]} />
-          <ul className="list-disc list-outside ml-5 space-y-2">
-            <li>Developing C# applications using ASP MVC & Razor Markup</li>
-            <li>Creating & administrating Jira cloud projects</li>
-            <li>Migrating our Jira server instance to Jira cloud</li>
-            <li>
-              Creating PowerShell integration scripts using multiple APIs, Azure
-              & Microsoft Graph
-            </li>
-            <li>
-              Developing Dynamics365 Model-Driven apps using PowerApps &
-              JavaScript
-            </li>
-          </ul>
-        </Experience>
-        <Experience
-          title="UWA Coders for Causes Project (Summer 2023/24)"
-          time="Nov 2023 - Feb 2024"
-        >
-          <SkillTags tags={["NextJS", "TypeScript"]} />
-          <ul className="list-disc list-outside ml-5 space-y-2">
-            <li>
-              Volunteer work in a large student-run team developing a{" "}
-              <a
-                href="https://github.com/codersforcauses/repair-labs"
-                className="text-blue hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Next JS web application
-              </a>{" "}
-              for a non-profit
-            </li>
-          </ul>
-        </Experience>
-        <Experience
-          title="University Computer Club - Committee Member"
-          time="Mar 2021 - Mar 2022"
-        >
-          <SkillTags tags={["Linux", "Networking", "Event Planning"]} />
-          <ul className="list-disc list-outside ml-5 space-y-2">
-            <li>Organising & running cross-club events</li>
-            <li>Working with various Linux and networking systems</li>
-          </ul>
-        </Experience>
-        <Experience
-          title="B.S. in Computer Science & Cybersecurity"
-          time="2021 - 2024"
-          icon={<FontAwesomeIcon icon={faCertificate} />}
-        >
-          <SkillTags tags={["Java", "Python", "C", "SQL"]} />
-          <div>
-            Bachelor of Science - Double major in Computer Science &
-            Cybersecurity at UWA
-          </div>
-        </Experience>
-        <Experience
-          title="Mod Development Team Lead & Developer"
-          time="2017 - 2022"
-        >
-          <SkillTags
-            tags={["C#", "Git", "Team Leadership", "Project Management"]}
-          />
-          <ul className="list-disc list-outside ml-5 space-y-2">
-            <li>
-              Led a team of volunteer developers creating a mod for a game
-            </li>
-            <li>
-              Coordinated feature development and bug fixes across multiple
-              releases
-            </li>
-            <li>Managed Git workflow for team contributions</li>
-            <li>
-              Engaged with community feedback to guide development priorities
-            </li>
-          </ul>
-        </Experience>
-      </div>
-    </RevealingSection>
-  );
-}
+type ExperienceIcon =
+  | { kind: "image"; file: string; alt: string; bgClass?: string }
+  | {
+      kind: "fontawesome";
+      icon: IconDefinition;
+      className?: string;
+      bgClass?: string;
+    };
+
+type ExperienceEntry = {
+  id: string;
+  company: string;
+  role: string;
+  period: string;
+  icon: ExperienceIcon;
+  details: ReactNode;
+};
 
 const SkillTags = ({ tags }: { tags: string[] }) => (
-  <div className="flex gap-2 text-sm font-semibold flex-wrap">
+  <div className="flex flex-wrap gap-2 text-sm font-semibold">
     {tags.map((tag, index) => (
-      <div key={index} className="bg-blue rounded-full px-2 w-fit text-nowrap">
+      <div
+        key={index}
+        className="w-fit rounded-full bg-blue px-2 py-0.5 text-nowrap text-text-color"
+      >
         {tag}
       </div>
     ))}
   </div>
 );
 
-interface ExperienceProps {
-  title: string;
-  time: string;
-  children: React.ReactNode;
+function ExperienceIconBadge({ icon }: { icon: ExperienceIcon }) {
+  const surface = icon.bgClass ?? "bg-bg1/80";
+
+  const frame = cn(
+    "size-10 shrink-0 overflow-hidden rounded-lg border border-white/10 md:size-11",
+    surface
+  );
+
+  if (icon.kind === "image") {
+    return (
+      <div className={frame}>
+        <img
+          src={`${import.meta.env.BASE_URL}experience-images/${icon.file}`}
+          alt={icon.alt}
+          className="size-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className={cn(frame, "flex items-center justify-center")}>
+      <FontAwesomeIcon
+        icon={icon.icon}
+        className={cn("text-lg text-blue-light", icon.className)}
+      />
+    </div>
+  );
 }
 
-const Experience = ({
-  title,
-  time,
-  children,
-  icon
-}: ExperienceProps & { icon?: React.ReactNode }) => (
-  <div
-    className="relative hover:bg-bg-light/50 p-4 rounded-lg transition-all hover:opacity-100!
-      group-hover:opacity-50"
-  >
-    <div className="font-black text-xl mb-1 -translate-y-1.5 flex items-center gap-2">
-      {icon && <>{icon}</>}
-      {title}
-    </div>
-    <div className="border-b-2 border-blue w-fit mb-4">{time}</div>
-    <div className="space-y-2">{children}</div>
-    {/* Stick thing */}
-    <div className="hidden md:block">
-      <span className="absolute left-0 top-0 h-full w-[2px] rounded-xs -translate-x-1/2 bg-blue"></span>
-      <span className="absolute w-4 h-4 rounded-full bg-blue left-0 top-0 -translate-x-1/2"></span>
-    </div>
-  </div>
-);
+const EXPERIENCES: ExperienceEntry[] = [
+  {
+    id: "wcef-dev",
+    company: "Wesfarmers Chemicals, Energy & Fertilisers",
+    role: "Application Developer",
+    period: "May 2025 - Present",
+    icon: { kind: "image", file: "wescef.png", alt: "" },
+    details: (
+      <>
+        <SkillTags tags={["C#", "SQL", "React", "Angular", ".NET MAUI"]} />
+        <ul className="ml-5 list-outside list-disc space-y-2">
+          <li>Developing Angular and React applications using TypeScript</li>
+          <li>Building .NET REST APIs</li>
+          <li>
+            Migrating a Xamarin mobile application to .NET MAUI and developing
+            new features for the app
+          </li>
+          <li>Implementing Azure services for cloud-based solutions</li>
+        </ul>
+      </>
+    )
+  },
+  {
+    id: "wcef-cadet",
+    company: "Wesfarmers Chemicals, Energy & Fertilisers",
+    role: "Software Developer Cadet",
+    period: "Nov 2022 - Dec 2024",
+    icon: { kind: "image", file: "wescef.png", alt: "" },
+    details: (
+      <>
+        <SkillTags tags={["C#", "SQL", "PowerShell", "Jira", "Azure"]} />
+        <ul className="ml-5 list-outside list-disc space-y-2">
+          <li>Developing C# applications using ASP MVC & Razor Markup</li>
+          <li>Creating & administrating Jira cloud projects</li>
+          <li>Migrating our Jira server instance to Jira cloud</li>
+          <li>
+            Creating PowerShell integration scripts using multiple APIs, Azure &
+            Microsoft Graph
+          </li>
+          <li>
+            Developing Dynamics365 Model-Driven apps using PowerApps &
+            JavaScript
+          </li>
+        </ul>
+      </>
+    )
+  },
+  {
+    id: "cfc",
+    company: "UWA Coders for Causes",
+    role: "Volunteer Developer",
+    period: "Nov 2023 - Feb 2024",
+    icon: { kind: "image", file: "cfc.png", alt: "" },
+    details: (
+      <>
+        <SkillTags tags={["NextJS", "TypeScript"]} />
+        <ul className="ml-5 list-outside list-disc space-y-2">
+          <li>
+            Volunteer work in a large student-run team developing a{" "}
+            <a
+              href="https://github.com/codersforcauses/repair-labs"
+              className="text-blue-light hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Next.js web application
+            </a>{" "}
+            for a non-profit
+          </li>
+        </ul>
+      </>
+    )
+  },
+  {
+    id: "ucc",
+    company: "University Computer Club",
+    role: "Committee Member",
+    period: "Mar 2021 - Mar 2022",
+    icon: { kind: "image", file: "ucc.png", alt: "" },
+    details: (
+      <>
+        <SkillTags tags={["Linux", "Networking", "Event Planning"]} />
+        <ul className="ml-5 list-outside list-disc space-y-2">
+          <li>Organising & running cross-club events</li>
+          <li>Working with various Linux and networking systems</li>
+        </ul>
+      </>
+    )
+  },
+  {
+    id: "degree",
+    company: "The University of Western Australia",
+    role: "B.S. Computer Science & Cybersecurity",
+    period: "2021 - 2024",
+    icon: { kind: "fontawesome", icon: faCertificate },
+    details: (
+      <>
+        <SkillTags tags={["Java", "Python", "C", "SQL"]} />
+        <p>
+          Bachelor of Science — double major in Computer Science & Cybersecurity
+          at UWA.
+        </p>
+      </>
+    )
+  },
+  {
+    id: "mod-team",
+    company: "Mod development (community)",
+    role: "Team Lead & Developer",
+    period: "2017 - 2022",
+    icon: { kind: "fontawesome", icon: faGamepad },
+    details: (
+      <>
+        <SkillTags
+          tags={["C#", "Git", "Team Leadership", "Project Management"]}
+        />
+        <ul className="ml-5 list-outside list-disc space-y-2">
+          <li>Led a team of volunteer developers creating a mod for a game</li>
+          <li>
+            Coordinated feature development and bug fixes across multiple
+            releases
+          </li>
+          <li>Managed Git workflow for team contributions</li>
+          <li>
+            Engaged with community feedback to guide development priorities
+          </li>
+        </ul>
+      </>
+    )
+  }
+];
+
+export default function ExperienceSection() {
+  const [openIds, setOpenIds] = useState(() => new Set<string>());
+  const baseId = useId();
+
+  const toggleOpen = (id: string) => {
+    setOpenIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  return (
+    <RevealingSection
+      id="experience"
+      className="mx-auto mb-4 w-11/12 max-w-2xl"
+    >
+      <HeaderText level="h1" className="text-4xl">
+        Experience
+      </HeaderText>
+      <div className="space-y-2" role="list">
+        {EXPERIENCES.map((entry) => {
+          const isOpen = openIds.has(entry.id);
+          const panelId = `${baseId}-${entry.id}-panel`;
+          const triggerId = `${baseId}-${entry.id}-trigger`;
+
+          return (
+            <div
+              key={entry.id}
+              className="overflow-hidden rounded-xl border border-white/10 bg-bg-dark/50
+                transition-colors hover:bg-bg-dark/70"
+              role="listitem"
+            >
+              <button
+                type="button"
+                id={triggerId}
+                className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-left
+                  md:gap-4 md:px-4 md:py-3.5 disabled:cursor-not-allowed"
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => toggleOpen(entry.id)}
+              >
+                <ExperienceIconBadge icon={entry.icon} />
+                <div className="min-w-0 flex-1">
+                  <div className="font-semibold text-text-color">
+                    {entry.company}
+                  </div>
+                  <div className="mt-0.5 text-sm text-grey-light">
+                    <span>{entry.role}</span>
+                    <span className="mx-1.5 text-grey-light/70" aria-hidden>
+                      •
+                    </span>
+                    <span>{entry.period}</span>
+                  </div>
+                </div>
+                <motion.span
+                  className="text-grey-light"
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  aria-hidden
+                >
+                  <ChevronIcon />
+                </motion.span>
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={triggerId}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div
+                      className="space-y-3 border-t border-white/10 px-3 pb-4 pt-2 text-sm text-grey-light
+                        md:px-4 md:pb-5"
+                    >
+                      {entry.details}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+      </div>
+    </RevealingSection>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg
+      className="size-4 shrink-0 md:size-5"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path
+        fillRule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
