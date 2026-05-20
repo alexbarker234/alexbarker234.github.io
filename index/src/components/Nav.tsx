@@ -12,11 +12,29 @@ import SlidingIndicatorSelector from "./SlidingIndicatorSelector";
 
 type Section = "about" | "skills" | "experience" | "projects";
 
+function getActiveSectionFromScroll(): Section {
+  const sections: Section[] = ["about", "skills", "experience", "projects"];
+  const sectionElements = sections.map((section) =>
+    document.getElementById(section)
+  );
+  const scrollPosition = window.scrollY + 200;
+
+  for (let i = sectionElements.length - 1; i >= 0; i--) {
+    const element = sectionElements[i];
+    if (element && element.offsetTop <= scrollPosition) {
+      return sections[i];
+    }
+  }
+  return "about";
+}
+
 export default function Nav() {
   const [navEnabled, setNavEnabled] = useState(false);
   const [isStuck, setIsStuck] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>("about");
   const navRef = useRef<HTMLDivElement>(null);
+  /** When set, scroll handler must not override `activeSection` until scroll reaches this section. */
+  const pendingClickSectionRef = useRef<Section | null>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -31,20 +49,16 @@ export default function Nav() {
         setIsStuck(rect.top <= 0);
       }
 
-      // Determine active section based on scroll position
-      const sections: Section[] = ["about", "skills", "experience", "projects"];
-      const sectionElements = sections.map((section) =>
-        document.getElementById(section)
-      );
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sectionElements.length - 1; i >= 0; i--) {
-        const element = sectionElements[i];
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
+      const pending = pendingClickSectionRef.current;
+      if (pending !== null) {
+        if (getActiveSectionFromScroll() === pending) {
+          pendingClickSectionRef.current = null;
+        } else {
+          return;
         }
       }
+
+      setActiveSection(getActiveSectionFromScroll());
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -68,6 +82,8 @@ export default function Nav() {
   }, [navEnabled]);
 
   const handleNavChange = (value: Section) => {
+    setActiveSection(value);
+    pendingClickSectionRef.current = value;
     const element = document.getElementById(value);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });

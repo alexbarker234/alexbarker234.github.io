@@ -17,39 +17,8 @@
   --color-meteor-body: #ecf0ff;
   --color-text-color: #f2f5f7;
 
-  /* https://easingwizard.com/ hot damn this creates a big ease function */
-  --ease-bounce: linear(
-    0,
-    0.209 3.8%,
-    0.395 7.7%,
-    0.559 11.7%,
-    0.703 15.9%,
-    0.765 18%,
-    0.823 20.2%,
-    0.875 22.4%,
-    0.924 24.7%,
-    0.966 27%,
-    1.002 29.3%,
-    1.034 31.7%,
-    1.062 34.2%,
-    1.081 36.2%,
-    1.096 38.3%,
-    1.109 40.4%,
-    1.119 42.6%,
-    1.126 44.9%,
-    1.13 47.2%,
-    1.132 49.6%,
-    1.131 52.1%,
-    1.124 56.3%,
-    1.11 61%,
-    1.093 65.6%,
-    1.043 77.9%,
-    1.019 85.1%,
-    1.01 88.8%,
-    1.004 92.4%,
-    1.001 96%,
-    1
-  );
+  /* https://easingwizard.com/ oh yeahhh */
+  --ease-bounce: linear(0, 0.596 18.6%, 0.933 39%, 1.009 49.2%, 1.042 60.6%, 1);
 
   --animate-flicker: flicker 1s infinite;
   --animate-fade-in: fade-in 0.5s ease-in-out forwards;
