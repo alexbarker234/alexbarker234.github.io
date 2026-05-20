@@ -12,7 +12,7 @@ type SlidingIndicatorSelectorProps<T> = {
   options: Option<T>[];
   value: T;
   onChange: (value: T) => void;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "responsive";
   equalButtons?: boolean;
 };
 
@@ -56,7 +56,7 @@ export default function SlidingIndicatorSelector<T extends string | null>({
 
   const sizeClasses = {
     sm: {
-      container: "px-0.5 py-1",
+      container: "px-0.5 py-2",
       button: "p-1 text-xs",
       gap: "gap-0.5"
     },
@@ -69,6 +69,12 @@ export default function SlidingIndicatorSelector<T extends string | null>({
       container: "p-1.5",
       button: "p-2 text-base md:p-4",
       gap: "gap-1.5"
+    },
+    /** Small screens use `sm`; `md` and up match `lg`. */
+    responsive: {
+      container: "px-0.5 py-2 md:p-1.5",
+      button: "p-1 text-xs md:text-base md:p-4",
+      gap: "gap-0.5 md:gap-1.5"
     }
   };
 

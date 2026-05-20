@@ -60,7 +60,7 @@ const Projects: React.FC = () => {
           options={filters}
           value={selectedFilter}
           onChange={handleFilterClick}
-          size="lg"
+          size="responsive"
           equalButtons={true}
         />
       </div>

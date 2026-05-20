@@ -90,11 +90,10 @@ export default function Nav() {
             "flex justify-center p-0 opacity-100 pointer-events-auto overflow-hidden"
           )}
         >
-          {/* Desktop view with sliding indicator */}
           <SlidingIndicatorSelector
             options={navOptions}
             value={activeSection}
-            size="lg"
+            size="responsive"
             onChange={handleNavChange}
           />
         </div>
