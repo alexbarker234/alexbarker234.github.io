@@ -77,12 +77,12 @@ export default function SlidingIndicatorSelector<T extends string | null>({
   return (
     <div
       ref={containerRef}
-      className={`relative flex ${currentSize.gap} rounded-xl bg-bg-dark/50 border border-blue/20
-        w-full ${currentSize.container} backdrop-blur-sm`}
+      className={`relative flex ${currentSize.gap} rounded-full bg-bg-dark/50 border
+        border-blue/20 w-full ${currentSize.container} backdrop-blur-sm`}
     >
       {/* Sliding indicator */}
       <div
-        className={`absolute top-1 h-[calc(100%-8px)] rounded-lg bg-blue
+        className={`absolute top-1 h-[calc(100%-8px)] rounded-full bg-blue
           ${isInitialised ? "transition-all duration-300 ease-out" : ""}`}
         style={{
           left: `${indicatorStyle.left}px`,
