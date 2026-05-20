@@ -264,9 +264,9 @@ export default function ExperienceSection() {
   return (
     <RevealingSection
       id="experience"
-      className="mx-auto mb-4 w-11/12 max-w-2xl"
+      className="mx-auto my-4 w-11/12 max-w-2xl"
     >
-      <HeaderText level="h1" className="text-4xl">
+      <HeaderText level="h1" className="text-4xl my-6">
         Experience
       </HeaderText>
       <div className="space-y-2" role="list">
