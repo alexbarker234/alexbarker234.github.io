@@ -53,7 +53,7 @@ const Projects: React.FC = () => {
 
   return (
     <RevealingSection id="projects" className="overflow-x-hidden">
-      <HeaderText level="h1" className="text-4xl font-bold text-center my-6">
+      <HeaderText level="h1" className="text-4xl text-center my-6">
         My Projects
       </HeaderText>
       <div className="w-[95%] max-w-[900px] mx-auto my-6 flex justify-center">
