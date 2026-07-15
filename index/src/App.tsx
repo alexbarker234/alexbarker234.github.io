@@ -1,4 +1,4 @@
-import MouseGlow from "./components/MouseGlow";
+import AuroraTrail from "./components/AuroraTrail";
 import Nav from "./components/Nav";
 import TopButton from "./components/TopButton";
 import About from "./sections/About";
@@ -13,7 +13,7 @@ const App = () => {
       className="animate-fade-in opacity-0 font-sans text-white scroll-smooth scroll-pt-8 bg-bg1
         md:scroll-pt-24"
     >
-      <MouseGlow />
+      <AuroraTrail />
       <Header />
       <Nav />
       <About />
