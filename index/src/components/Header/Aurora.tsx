@@ -5,48 +5,55 @@ const noiseStrength = 60;
 const xOff = 0.002;
 const yOff = 0.003;
 const zOff = 0.001;
+/** Degrees of hue shift per frame (~15s full cycle at 60fps) */
+const hueSpeed = 0.4;
+/** Hue span across the band — keep narrow so one ribbon doesn't mix opposites */
+const hueAcrossWidth = 70;
 
 type AuroraConfig = {
   id: string;
-  baseY: number; // Topmost position in canvas (0-1, from top)
+  baseY: number;
   height: number;
-  hueStart: number;
-  hueEnd: number;
+  /** Small offsets keep stacked bands in a related colour family */
+  phase: number;
+  /** Scroll direction: 1 left→right, -1 right→left */
+  direction: number;
   saturation: number;
   lightness: number;
+  peakAlpha: number;
 };
 
 const baseY = 0.2;
 const auroraConfigs: AuroraConfig[] = [
-  // Pink Aurora
   {
-    id: "pink",
+    id: "a",
     baseY: baseY,
     height: 130,
-    hueStart: 290, // Purple
-    hueEnd: 320, // Pink
-    saturation: 100,
-    lightness: 70
+    phase: 0,
+    direction: 1,
+    saturation: 95,
+    lightness: 58,
+    peakAlpha: 0.55
   },
-  // Green Aurora
   {
-    id: "green",
+    id: "b",
     baseY: baseY + 0.1,
     height: 110,
-    hueStart: 120, // Green
-    hueEnd: 150, // Greenish yellow
-    saturation: 100,
-    lightness: 70
+    phase: 40,
+    direction: -1,
+    saturation: 90,
+    lightness: 55,
+    peakAlpha: 0.45
   },
-  // Blue Aurora
   {
-    id: "blue",
+    id: "c",
     baseY: baseY + 0.05,
     height: 130,
-    hueStart: 220, // Blue
-    hueEnd: 190, // Blueish green
-    saturation: 100,
-    lightness: 65
+    phase: 75,
+    direction: 1,
+    saturation: 92,
+    lightness: 56,
+    peakAlpha: 0.4
   }
 ];
 
@@ -68,9 +75,6 @@ export default function AuroraBorealis({
   const animationRef = useRef<number | null>(null);
   const noise3DRef = useRef<ReturnType<typeof createNoise3D> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const gradientCacheRef = useRef<{
-    [key: string]: CanvasGradient | null;
-  }>({});
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -84,45 +88,29 @@ export default function AuroraBorealis({
 
     const CANVAS_HEIGHT = 500;
 
-    const createGradient = (
+    const createHorizontalGradient = (
       ctx: CanvasRenderingContext2D,
-      auroraConfig: AuroraConfig
+      auroraConfig: AuroraConfig,
+      width: number,
+      tick: number
     ): CanvasGradient => {
-      const baseY = auroraConfig.baseY * CANVAS_HEIGHT;
-      const bandHeight = auroraConfig.height;
-      const gradient = ctx.createLinearGradient(
-        0,
-        baseY,
-        0,
-        baseY + bandHeight
-      );
+      const gradient = ctx.createLinearGradient(0, 0, width, 0);
+      const baseHue =
+        (tick * hueSpeed * auroraConfig.direction + auroraConfig.phase + 360) %
+        360;
+      const steps = 10;
 
-      if (auroraConfig.hueStart !== undefined) {
-        const steps = 5;
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          const hue =
-            auroraConfig.hueStart +
-            (auroraConfig.hueEnd - auroraConfig.hueStart) * t;
-          const alpha = 0.2 + 0.85 * (1 - t);
-          gradient.addColorStop(
-            t,
-            `hsla(${hue},${auroraConfig.saturation}%,${auroraConfig.lightness}%,${Math.min(alpha, 1.0)})`
-          );
-        }
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const hue = (baseHue + t * hueAcrossWidth + 360) % 360;
+        gradient.addColorStop(
+          t,
+          `hsla(${hue},${auroraConfig.saturation}%,${auroraConfig.lightness}%,${auroraConfig.peakAlpha})`
+        );
       }
 
       return gradient;
     };
-
-    // Initialise gradients once
-    if (!gradientCacheRef.current.pink || !gradientCacheRef.current.blue) {
-      for (const auroraConfig of auroraConfigs) {
-        gradientCacheRef.current[
-          auroraConfig.id as keyof typeof gradientCacheRef.current
-        ] = createGradient(ctx, auroraConfig);
-      }
-    }
 
     const resize = () => {
       const container = containerRef.current;
@@ -134,61 +122,51 @@ export default function AuroraBorealis({
       canvas.height = CANVAS_HEIGHT;
     };
 
-    const drawAuroraBand = (
-      auroraConfig: AuroraConfig,
-      gradient: CanvasGradient,
-      offset: number
-    ) => {
+    const drawAuroraBand = (auroraConfig: AuroraConfig, offset: number) => {
       if (!canvas || !ctxRef.current || !noise3DRef.current) return;
 
       const ctx = ctxRef.current;
       const width = canvas.width;
       const height = canvas.height;
-      const baseY = auroraConfig.baseY * height;
+      const bandBaseY = auroraConfig.baseY * height;
       const bandHeight = auroraConfig.height;
       const tick = tickRef.current;
 
       ctx.save();
+      ctx.globalCompositeOperation = "screen";
       ctx.beginPath();
 
-      // Create wavy path using noise
       const points: { x: number; y: number }[] = [];
       const segmentWidth = 2;
       const numSegments = Math.ceil(width / segmentWidth);
 
-      // Top edge (wavy)
       for (let i = 0; i <= numSegments; i++) {
         const x = (i / numSegments) * width;
         const noise =
-          noise3DRef.current(x * xOff, (baseY + offset) * yOff, tick * zOff) *
+          noise3DRef.current(x * xOff, (bandBaseY + offset) * yOff, tick * zOff) *
           noiseStrength;
-        const y = baseY + noise;
-        points.push({ x, y });
+        points.push({ x, y: bandBaseY + noise });
       }
 
-      // Bottom edge (wavy, but less variation)
       for (let i = numSegments; i >= 0; i--) {
         const x = (i / numSegments) * width;
         const noise =
           noise3DRef.current(
             x * xOff,
-            (baseY + bandHeight + offset) * yOff,
+            (bandBaseY + bandHeight + offset) * yOff,
             tick * zOff
           ) *
           (noiseStrength * 0.5);
-        const y = baseY + bandHeight + noise;
-        points.push({ x, y });
+        points.push({ x, y: bandBaseY + bandHeight + noise });
       }
 
-      // Draw the path
       ctx.moveTo(points[0].x, points[0].y);
       for (let i = 1; i < points.length; i++) {
         ctx.lineTo(points[i].x, points[i].y);
       }
       ctx.closePath();
 
-      // Fill with gradient
-      ctx.fillStyle = gradient;
+      ctx.fillStyle = createHorizontalGradient(ctx, auroraConfig, width, tick);
       ctx.fill();
 
       ctx.restore();
@@ -202,16 +180,8 @@ export default function AuroraBorealis({
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw auroras
       for (let index = 0; index < auroraConfigs.length; index++) {
-        const auroraConfig = auroraConfigs[index];
-        drawAuroraBand(
-          auroraConfig,
-          gradientCacheRef.current[
-            auroraConfig.id as keyof typeof gradientCacheRef.current
-          ]!,
-          index * 100
-        );
+        drawAuroraBand(auroraConfigs[index], index * 100);
       }
 
       animationRef.current = requestAnimationFrame(draw);
@@ -222,7 +192,6 @@ export default function AuroraBorealis({
 
     const resizeObserver = new ResizeObserver(() => {
       resize();
-      console.log("Aurora resized");
     });
 
     if (containerRef.current) {
@@ -240,7 +209,7 @@ export default function AuroraBorealis({
     <div className="absolute w-full h-full" ref={containerRef}>
       <canvas
         ref={canvasRef}
-        className="absolute w-full h-full blur-[18px] brightness-110"
+        className="absolute w-full h-full blur-[28px] brightness-115"
       />
     </div>
   );
