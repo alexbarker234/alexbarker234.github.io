@@ -1,7 +1,11 @@
 import HeaderText from "@/components/HeaderText";
 import { cn } from "@/utils/cn";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { faCertificate, faGamepad } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCertificate,
+  faGamepad,
+  faPlay
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "motion/react";
 import type { ReactNode } from "react";
@@ -117,6 +121,35 @@ function ExperienceIconBadge({ icon }: { icon: ExperienceIcon }) {
 }
 
 const EXPERIENCES: ExperienceEntry[] = [
+  {
+    id: "viridian",
+    company: "Viridian Digital",
+    role: "Developer",
+    period: "Present",
+    icon: {
+      kind: "fontawesome",
+      icon: faPlay,
+      className: "-rotate-90 text-[#238073]"
+    },
+    details: (
+      <>
+        <SkillTags tags={["React", "Next.js", "C#", ".NET"]} />
+        <ul className="ml-5 list-outside list-disc space-y-2">
+          <li>
+            Building digital products and services at a Perth software agency —{" "}
+            <a
+              href="https://viridian.digital"
+              className="text-blue-light hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              viridian.digital
+            </a>
+          </li>
+        </ul>
+      </>
+    )
+  },
   {
     id: "wcef-dev",
     company: "Wesfarmers Chemicals, Energy & Fertilisers",
