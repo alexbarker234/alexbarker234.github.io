@@ -170,17 +170,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <motion.div
         layoutId={`card-${project.title}-${id}`}
         onClick={() => setActive(true)}
-        className={[
-          // Isotope classes
-          `project ${project.tags.join("\x20")}`,
-          // Base styles
-          `flex flex-col flex-1 w-full max-w-full text-left relative select-none
-          aspect-[6/5] rounded-3xl duration-0 mb-2 cursor-pointer`,
-          // Medium screens (500px+)
-          "min-[500px]:w-[calc(50%-1.2rem)] min-[500px]:m-2",
-          // Large screens (900px+)
-          "min-[900px]:w-[calc(33.3%-1.2em)]"
-        ].join("\u0020")}
+        className="flex h-full w-full cursor-pointer flex-col text-left select-none"
       >
         <div
           className="flex flex-col gap-4 w-full h-full p-4 bg-bg-dark/50 border border-white/10
